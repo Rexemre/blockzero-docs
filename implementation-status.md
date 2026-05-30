@@ -38,19 +38,21 @@ Source: `blockzero-core` (fork of Bitcoin Core v31.0).
 - Verified on regtest: 26 blocks mined and accepted across an epoch boundary
   (mining and validation agree on the rotated key).
 
-### Regtest end-to-end (verified)
-- Own Block Zero regtest genesis, mined under RandomX.
-- Node starts on the new genesis, enforces RandomX PoW.
-- Mining via `-generate` produces valid blocks under RandomX.
-- Wallet yields `bzrt...` addresses.
+### Genesis blocks (all networks, RandomX)
+- Distinct Block Zero genesis blocks mined under RandomX for mainnet, testnet and
+  regtest (reproducible via the multi-threaded `bz-genesis-miner`).
+- RandomX-appropriate difficulty floor: `powLimit` set to nBits `0x1f00ffff` for
+  mainnet/testnet (regtest `0x207fffff`).
+- Bitcoin-specific `nMinimumChainWork` and `defaultAssumeValid` zeroed for a fresh chain.
+- Verified: mainnet and testnet nodes both boot on their new genesis; regtest mines
+  end-to-end under RandomX.
+
+### End-to-end (verified)
+- Regtest: node starts on the Block Zero genesis, enforces RandomX PoW, mines via
+  `-generate`, wallet yields `bzrt...` addresses, seed rotation works across an epoch.
+- Testnet/Mainnet: nodes boot on their genesis (chain reports test/main, height 0).
 
 ## Not done yet (known gaps)
-
-### Mainnet / testnet genesis and powLimit
-- Current state: only regtest genesis is mined under RandomX. Mainnet/testnet
-  still carry the upstream genesis asserts and have not been re-mined.
-- Required: choose RandomX-appropriate `powLimit` per network, then mine and set
-  mainnet/testnet genesis (feasible difficulty, since RandomX verification is slow).
 
 ### Difficulty calibration
 - Difficulty adjustment is still upstream behavior. It needs calibration on a
@@ -61,9 +63,10 @@ Source: `blockzero-core` (fork of Bitcoin Core v31.0).
 
 ## Suggested next steps (in order)
 
-1. Decide mainnet/testnet `powLimit`; mine and set those genesis blocks.
-2. Calibrate difficulty and stand up a public testnet with seed nodes + explorer.
+1. Calibrate difficulty adjustment for low-hashrate stability on a public testnet.
+2. Stand up public testnet infrastructure: seed nodes, explorer, monitoring.
 3. Add unit/functional test coverage for the RandomX PoW and seed rotation.
+4. Build a CPU miner / mining guide so the community can mine the testnet.
 
 ## Build and test (WSL Ubuntu)
 
