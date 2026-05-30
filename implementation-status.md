@@ -27,6 +27,17 @@ Source: `blockzero-core` (fork of Bitcoin Core v31.0).
 - P2P ports: 8210 / 18210 / 18212. RPC ports: 8211 / 18211 / 18213.
 - Bech32 HRP: `bz` / `tbz` / `bzrt`. Base58 prefixes set; Bitcoin seeds cleared.
 
+### Seed key rotation (height-based, ASIC resistance)
+- The RandomX seed key rotates by height (Monero scheme): epoch length + lag,
+  key = a past block hash, not miner-selectable. Below the first epoch the
+  deterministic bootstrap key is used.
+- Per-network epoch params: mainnet/testnet 2048/64, regtest 16/2 (fast testing).
+- Authoritative PoW check is height-aware in `ContextualCheckBlockHeader`;
+  context-free checks validate only the nBits target range. `TestBlockValidity`
+  skips the PoW check for unmined templates via an `fCheckPOW` flag.
+- Verified on regtest: 26 blocks mined and accepted across an epoch boundary
+  (mining and validation agree on the rotated key).
+
 ### Regtest end-to-end (verified)
 - Own Block Zero regtest genesis, mined under RandomX.
 - Node starts on the new genesis, enforces RandomX PoW.
@@ -34,19 +45,6 @@ Source: `blockzero-core` (fork of Bitcoin Core v31.0).
 - Wallet yields `bzrt...` addresses.
 
 ## Not done yet (known gaps)
-
-### Seed key rotation (important for full ASIC resistance)
-- Current state: a fixed bootstrap RandomX key is used for all heights.
-- Required: rotate the key by height using the Monero scheme
-  (`seedHeight = (height - 64 - 1) AND NOT (2048 - 1)`, key = block hash at
-  seedHeight; genesis key for the early chain).
-- Why it matters: a permanently fixed key weakens the long-term ASIC-resistance
-  guarantee. Rotation binds the key to chain history and is not miner-selectable.
-- Implementation note: the PoW validity check must become height-aware. In Bitcoin
-  Core the header PoW is checked context-free in `CheckBlockHeader`. For rotation,
-  the RandomX PoW check needs the seed block hash for the block's height, so it
-  must be evaluated where chain context (pindexPrev/height) is available
-  (e.g. contextual header checks), with the genesis key used below the first epoch.
 
 ### Mainnet / testnet genesis and powLimit
 - Current state: only regtest genesis is mined under RandomX. Mainnet/testnet
@@ -63,10 +61,9 @@ Source: `blockzero-core` (fork of Bitcoin Core v31.0).
 
 ## Suggested next steps (in order)
 
-1. Implement height-based seed key rotation (consensus-critical; test on regtest
-   by mining past one epoch boundary).
-2. Decide mainnet/testnet `powLimit`; mine and set those genesis blocks.
-3. Calibrate difficulty and stand up a public testnet with seed nodes + explorer.
+1. Decide mainnet/testnet `powLimit`; mine and set those genesis blocks.
+2. Calibrate difficulty and stand up a public testnet with seed nodes + explorer.
+3. Add unit/functional test coverage for the RandomX PoW and seed rotation.
 
 ## Build and test (WSL Ubuntu)
 
