@@ -13,6 +13,10 @@ Block Zero is not Bitcoin. It is an independent, Bitcoin-inspired fair-launch ne
 - Node and mining guides
 - Launch and operations docs
 
+## Implementation Status
+
+- [Implementation Status](implementation-status.md) - honest, current state of the build
+
 ## Initial Core Documents
 
 - [Fork Change Map](fork-change-map.md)
