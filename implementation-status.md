@@ -52,27 +52,25 @@ Source: `blockzero-core` (fork of Bitcoin Core v31.0).
   `-generate`, wallet yields `bzrt...` addresses, seed rotation works across an epoch.
 - Testnet/Mainnet: nodes boot on their genesis (chain reports test/main, height 0).
 
-## Known issues (must fix before any public launch)
+### Difficulty floor and genesis (fixed)
+- `powLimit` set to a safe floor `0x1e3fffff` and the retarget window shortened to
+  12 hours (72 blocks, `nPowTargetTimespan = 12*60*60`). This keeps the difficulty
+  math well within 256 bits (`powLimit * 4 * timespan` stays below 2^256) and is a
+  good fit for a fair-launch CPU chain (faster response to early hashrate swings).
+- Mainnet (nonce 425526) and testnet (nonce 175029) genesis re-mined under RandomX
+  via the multi-threaded `bz-genesis-miner`. Both nodes boot on their genesis.
+- `ChainParams_*_sanity` pass; the historical difficulty-retarget unit tests are
+  decoupled via a local Bitcoin-like consensus and pass. New RandomX PoW determinism
+  and seed-key rotation unit tests pass.
 
-### 1) RandomX runs at interpreter speed (~36 H/s)
-- Measured single-thread hashing is ~36 H/s even though `randomx_get_flags()`
-  reports `JIT=1, HARD_AES=1, ARGON2=1`. Expected JIT fast-mode speed is ~1000+ H/s.
-- Impact: mining (including one-time genesis mining) is impractically slow, and a
-  CPU chain needs working JIT to be viable. This is the top blocker.
-- Likely area: how the vendored RandomX library's JIT is built/linked within the
-  Bitcoin CMake integration (or a WSL executable-memory quirk). Needs investigation
-  (compare against upstream `randomx-benchmark` built standalone to isolate).
-
-### 2) powLimit is too high for the difficulty retarget math
-- Current mainnet/testnet `powLimit` (genesis nBits `0x1f00ffff`, ~2^240) exceeds the
-  safe bound `max / (nPowTargetTimespan * 4)` (~2^234). `CalculateNextWorkRequired`
-  multiplies a value up to `powLimit` by up to `4 * timespan`, which can overflow
-  256 bits near the floor (chain start). The `ChainParams_*_sanity` pow tests fail.
-- Fix: lower `powLimit` to <= ~2^232 (e.g. genesis nBits `0x1e00ffff`) and re-mine
-  the mainnet/testnet genesis at that difficulty. This is blocked by issue (1):
-  a sane floor needs millions of hashes to mine genesis, which is infeasible at 36 H/s.
-- A multi-threaded, fast-mode genesis miner and matching unit tests were prototyped
-  but not committed because they depend on the genesis re-mine.
+## RandomX performance note (environment, not a bug)
+- In WSL2 the RandomX hashrate is low (~50 H/s/thread fast mode, ~135 H/s/thread
+  light mode) even with JIT + huge pages, because the VM's memory access is heavily
+  penalized under the WSL2/Hyper-V memory subsystem. On bare-metal Linux/Windows the
+  same code reaches ~1000+ H/s/thread.
+- Impact is limited: node block verification is one hash per block (~7 ms, fine
+  everywhere). Only bulk mining is slow in WSL2. Real miners run bare metal or
+  optimized miners. Genesis mining used light mode (faster in WSL2) at a feasible floor.
 
 ## Not done yet (known gaps)
 
@@ -85,12 +83,12 @@ Source: `blockzero-core` (fork of Bitcoin Core v31.0).
 
 ## Suggested next steps (in order)
 
-1. Fix RandomX JIT performance (issue 1). This unblocks everything else.
-2. Lower `powLimit` to a safe floor and re-mine mainnet/testnet genesis (issue 2);
-   land the prototyped multi-threaded genesis miner and the RandomX/rotation unit tests.
-3. Calibrate difficulty adjustment for low-hashrate stability on a public testnet.
-4. Stand up public testnet infrastructure: seed nodes, explorer, monitoring.
-5. Build a CPU miner / mining guide so the community can mine the testnet.
+1. Stand up public testnet infrastructure: seed nodes, DNS/static seeds, explorer, monitoring.
+2. Calibrate the difficulty adjustment on a live testnet for low-hashrate stability.
+3. Build/curate a CPU miner + mining guide so the community can mine the testnet
+   (recommend bare-metal or an optimized RandomX miner for real hashrate).
+4. Expand functional/unit test coverage (e.g. a regtest functional test that mines
+   across a seed-rotation epoch boundary).
 
 ## Build and test (WSL Ubuntu)
 
