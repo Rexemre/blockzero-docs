@@ -67,13 +67,13 @@ and that no encoding collisions occur. Adjust version bytes if needed.
 - Testnet: may use a more forgiving retarget to avoid stalls during low hashrate
 - Regtest: deterministic, controlled mining for automation
 
-## 6. Mining Algorithm Decision (MVP)
+## 6. Mining Algorithm Decision
 
-- MVP baseline: keep upstream proof-of-work to stay close to Bitcoin Core and reduce risk.
-- Fair-access tuning is handled via launch communication and difficulty behavior, not
-  by introducing unaudited cryptography.
-- A CPU/GPU-friendly algorithm remains a documented future option pending a dedicated
-  security and maintainability review.
+- Decision: use RandomX (CPU-optimized, ASIC-resistant) instead of SHA-256.
+- Rationale: this is the only way to make "fair mining on normal PCs" technically real.
+- We use the audited reference library (tevador/RandomX, BSD-3-Clause); no custom crypto.
+- See [randomx-integration.md](randomx-integration.md) for the full design.
+- `powLimit` will be set to a RandomX-appropriate ceiling and calibrated on testnet.
 
 ## 7. Seeds and Bootstrapping
 
