@@ -79,3 +79,8 @@ Option B is deferred until after post-launch stability review.
 2. Initial testnet mining ease and anti-stall behavior
 3. Bech32 HRP and Base58 prefix set
 4. Exact non-conflicting magic-bytes and port assignments
+
+## Concrete Values
+
+See [chainparams-v0-proposal.md](chainparams-v0-proposal.md) for concrete proposed
+magic bytes, ports, address prefixes and emission constants.
