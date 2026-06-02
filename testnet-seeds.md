@@ -70,6 +70,18 @@ If the VPS seed (`217.160.46.61`) is unreachable, run a **WSL bridge node** sync
 
 ## Verify connectivity
 
+**From your PC** — TCP to the seed must succeed (not just SSH):
+
+```powershell
+# blockzero-ops/scripts/testnet/check-seed.ps1
+Test-NetConnection 217.160.46.61 -Port 18210
+```
+
+If that times out but SSH works, the VPS node may be fine — open **TCP 18210** in the
+**IONOS cloud firewall** (see `blockzero-ops/runbooks/testnet-seed-node.md`).
+
+**From your node:**
+
 ```bash
 bitcoin-cli -testnet -datadir=~/.bzero -rpcport=18211 getconnectioncount
 bitcoin-cli -testnet -datadir=~/.bzero -rpcport=18211 getblockhash 0
