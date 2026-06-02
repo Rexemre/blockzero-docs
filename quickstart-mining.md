@@ -41,30 +41,29 @@ $env:Path += ";$env:LOCALAPPDATA\BlockZero\bin"
 
 ### 2. Sync to the public testnet (required — do not skip)
 
-**Mining without peers creates a solo fork.** You must connect to the network first.
+**Mining without peers creates a solo fork.** Connect to the network first.
 
-**Step A — start the WSL bridge** (VPS seed may be unreachable from some networks; WSL relay works via port 18210):
-
-```powershell
-wsl -e bash -lc "/home/marlon/blockzero-core/build/bin/bitcoind -testnet -datadir=/home/marlon/.bzero -daemon"
-```
-
-**Step B — reset any solo chain and sync** (only needed if you already mined alone):
-
-```powershell
-cd c:\Users\Marlon\blockzero\blockzero-ops\scripts\testnet
-.\resync-testnet.ps1
-```
-
-**Step C — verify** (must show `Peers: 1` or more):
+The scripts already point at the always-on **VPS seed** `217.160.46.61:18210`, so
+just check status — the node connects and syncs automatically:
 
 ```powershell
 .\mine-testnet.ps1 -Status
 ```
 
-Expected public **block 1** hash:
+This must show `Peers: 1` or more and the correct public **block 1** hash:
 
 `7a28c3b91ddd8404a13a2557eb0e1f8bee664ffc7e7a0a90fb4473f762e6ec79`
+
+If you previously mined alone (0 peers), reset the solo chain first:
+
+```powershell
+.\mine-testnet.ps1 -Stop
+.\resync-testnet.ps1
+.\mine-testnet.ps1 -Status
+```
+
+> The script is resilient to node restarts: it waits out RandomX startup/warmup
+> and reloads the `mining` wallet automatically.
 
 ### 3. Mine
 
@@ -85,6 +84,40 @@ Stop the node:
 ```
 
 **Do not mine in WSL2** — RandomX is ~10× slower there. Use the native Windows binaries.
+
+---
+
+## GUI wallet (`bitcoin-qt`)
+
+From release **v0.1.0-testnet.6** onward, the download also ships
+`bitcoin-qt` — the full graphical node + wallet (same code as Bitcoin Core's
+GUI). Use it if you'd rather see your balance and addresses in a window than on
+the command line.
+
+### Start the GUI
+
+```powershell
+& "$env:LOCALAPPDATA\BlockZero\bin\bitcoin-qt.exe" -testnet -datadir="$env:LOCALAPPDATA\BlockZero"
+```
+
+(Linux/macOS: run `bitcoin-qt` from the release's `bin/`, or open
+`bitcoin-qt.app` on macOS.)
+
+The GUI shows your **TBLOZ** balance, a **Receive** tab for addresses, peers and
+sync status — no commands needed for everyday wallet use.
+
+### Mine from the GUI
+
+Bitcoin Core's GUI has no "mine" button, but it has a built-in console:
+
+1. Menu **Window → Console** (or **Help → Debug window → Console**).
+2. Get an address: `getnewaddress`
+3. Mine blocks to it: `generatetoaddress 1 <your-tbz1-address>`
+   (repeat, or pass a higher count). RandomX runs on your CPU.
+
+The balance updates live in the **Overview** tab. For hands-off continuous
+mining, keep using `mine-testnet.ps1` (it loops `generatetoaddress` for you);
+the GUI can run alongside it to watch the wallet.
 
 ---
 
@@ -192,12 +225,20 @@ If you mined with **0 peers**, you were on a private fork. Fix:
 
 ---
 
+## Block explorer
+
+Browse blocks, transactions and the chain tip in your browser:
+**https://explorer.bloz.org** (self-hosted [btc-rpc-explorer](https://github.com/janoside/btc-rpc-explorer)
+on the seed node).
+
+---
+
 ## Roadmap (easier onboarding)
 
 | Phase | What |
 |-------|------|
-| **Now** | One-click scripts + GitHub Release binaries |
+| **Done** | One-click scripts, Release binaries, **GUI wallet (`bitcoin-qt`)**, web explorer |
 | **Next** | Signed Windows installer, `blockzero-miner` with hashrate display |
-| **Later** | GUI wallet (`bitcoin-qt`), optional mining pool |
+| **Later** | Optional mining pool, coin-branded explorer |
 
 See also: [mining-guide.md](mining-guide.md), [testnet-seeds.md](testnet-seeds.md)
