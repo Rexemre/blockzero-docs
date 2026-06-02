@@ -7,8 +7,8 @@ These values intentionally avoid known Bitcoin/Litecoin/Dogecoin network identif
 
 ## 1. Emission and Supply
 
-- Ticker (mainnet): `BLOZ`
-- Base unit: `1 BLOZ = 100,000,000` smallest units (8 decimals; internal name: szat)
+- Ticker: `BLOZ` (mainnet), `TBLOZ` (testnet/regtest)
+- Base unit: `1 BLOZ = 100,000,000 sat` (mainnet); testnet uses `tsat` analogously
 - Initial block subsidy: `50 BLOZ`
 - Halving interval: `210,000 blocks`
 - Target block time: `10 minutes`

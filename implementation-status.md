@@ -28,7 +28,7 @@ Source: `blockzero-core` (fork of Bitcoin Core v31.0).
 - Network magic: mainnet `b10c00a0`, testnet `b10c7445`, regtest `b10c5247`.
 - P2P ports: 8210 / 18210 / 18212. RPC ports: 8211 / 18211 / 18213.
 - Bech32 HRP: `bz` / `tbz` / `bzrt`. Base58 prefixes set; Bitcoin seeds cleared.
-- Mainnet ticker: `BLOZ` (100,000,000 szat per BLOZ).
+- Mainnet ticker: `BLOZ` (100,000,000 sat per BLOZ). Testnet/regtest: `TBLOZ` / `tsat`.
 
 ### Seed key rotation (height-based, ASIC resistance)
 - The RandomX seed key rotates by height (Monero scheme): epoch length + lag,
