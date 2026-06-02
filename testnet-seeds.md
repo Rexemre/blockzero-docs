@@ -1,10 +1,10 @@
-# Block Zero Testnet – Seed Nodes
+# Block Zero Testnet – Seed Node
 
-The Block Zero testnet is live. Add one or both seed nodes to your `bitcoin.conf` under `[test]`:
+The Block Zero testnet seed node runs on the developer machine (always-on when online).
+Add it to your `bitcoin.conf` under `[test]`:
 
 ```ini
 [test]
-addnode=217.160.46.61:18210
 addnode=212.51.149.153:18210
 ```
 
@@ -20,7 +20,6 @@ bind=0.0.0.0:18210
 rpcbind=127.0.0.1
 rpcallowip=127.0.0.1
 rpcport=18211
-addnode=217.160.46.61:18210
 addnode=212.51.149.153:18210
 ```
 
@@ -32,12 +31,13 @@ Then start your node:
 ./build/bin/bitcoin-cli -testnet -datadir=~/.bzero -rpcport=18211 getblockchaininfo
 ```
 
-## Seed nodes
+## Seed node
 
-| Node | IP | Port | Role |
+| Node | IP | Port | Notes |
 |---|---|---|---|
-| VPS seed (primary) | 217.160.46.61 | 18210 | Always-on, systemd service |
-| Local seed | 212.51.149.153 | 18210 | Developer node (when online) |
+| Primary seed | 212.51.149.153 | 18210 | Developer machine; online when testnet is active |
+
+The seed node intentionally runs locally (not on the production VPS) to avoid competing with hosted websites for RAM and CPU.
 
 ## Network parameters
 
@@ -56,10 +56,11 @@ Then start your node:
 ## Verify connectivity
 
 ```bash
-# Should return >= 1 after a few seconds
 bitcoin-cli -testnet -datadir=~/.bzero -rpcport=18211 getconnectioncount
-
-# Check genesis matches
 bitcoin-cli -testnet -datadir=~/.bzero -rpcport=18211 getblockhash 0
 # Expected: f58130b19cdf3d03b22c5a67a6509b00750b2d8975ee9d889d5b613aaae5296e
 ```
+
+## Running your own seed node
+
+If you want to help the network, run a node with `listen=1` and forward TCP **18210** on your router to your machine. Then share your public IP so others can add `addnode=YOUR_IP:18210`.
