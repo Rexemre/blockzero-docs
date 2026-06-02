@@ -7,12 +7,13 @@ These values intentionally avoid known Bitcoin/Litecoin/Dogecoin network identif
 
 ## 1. Emission and Supply
 
-- Base unit: `1 BZERO = 100,000,000` smallest units (8 decimals)
-- Initial block subsidy: `50 BZERO`
+- Ticker (mainnet): `BLOZ`
+- Base unit: `1 BLOZ = 100,000,000` smallest units (8 decimals; internal name: szat)
+- Initial block subsidy: `50 BLOZ`
 - Halving interval: `210,000 blocks`
 - Target block time: `10 minutes`
 - Resulting halving cadence: approximately every 4 years
-- Max supply: `21,000,000 BZERO`
+- Max supply: `21,000,000 BLOZ`
 - Genesis allocation: `0`
 - Premine / founder reward: `0`
 

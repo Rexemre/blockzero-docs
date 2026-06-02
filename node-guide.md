@@ -3,7 +3,7 @@
 How to build and run a Block Zero node from source. Block Zero is an independent,
 Bitcoin-inspired, RandomX (CPU) proof-of-work network. It is not Bitcoin.
 
-> Block Zero is an experimental open-source project. BZERO has no guaranteed value,
+> Block Zero is an experimental open-source project. BLOZ has no guaranteed value,
 > no promised liquidity and no expected return.
 
 ## Requirements

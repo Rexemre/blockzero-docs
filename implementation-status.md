@@ -21,11 +21,14 @@ Source: `blockzero-core` (fork of Bitcoin Core v31.0).
   overload. Block identity hash stays double-SHA256; only PoW validity uses RandomX.
 - Enforcement switched to RandomX in validation, block storage and mining.
 - Reproducible genesis miner tool: `bz-genesis-miner`.
+- RPC mining (`generatetoaddress` / `generateblock`) uses multi-threaded RandomX
+  grinding in `GenerateBlock` (same light-mode path as the genesis miner).
 
 ### Chain identity (separated from Bitcoin)
 - Network magic: mainnet `b10c00a0`, testnet `b10c7445`, regtest `b10c5247`.
 - P2P ports: 8210 / 18210 / 18212. RPC ports: 8211 / 18211 / 18213.
 - Bech32 HRP: `bz` / `tbz` / `bzrt`. Base58 prefixes set; Bitcoin seeds cleared.
+- Mainnet ticker: `BLOZ` (100,000,000 szat per BLOZ).
 
 ### Seed key rotation (height-based, ASIC resistance)
 - The RandomX seed key rotates by height (Monero scheme): epoch length + lag,
@@ -51,6 +54,9 @@ Source: `blockzero-core` (fork of Bitcoin Core v31.0).
 - Regtest: node starts on the Block Zero genesis, enforces RandomX PoW, mines via
   `-generate`, wallet yields `bzrt...` addresses, seed rotation works across an epoch.
 - Testnet/Mainnet: nodes boot on their genesis (chain reports test/main, height 0).
+- **Testnet block 1 mined** (2026-06-02): hash
+  `7a28c3b91ddd8404a13a2557eb0e1f8bee664ffc7e7a0a90fb4473f762e6ec79`, nonce 40599.
+  VPS seed (`217.160.46.61`) synced to height 1.
 
 ### Difficulty floor and genesis (fixed)
 - `powLimit` set to a safe floor `0x1e3fffff` and the retarget window shortened to
@@ -79,7 +85,9 @@ Source: `blockzero-core` (fork of Bitcoin Core v31.0).
   public testnet for low-hashrate stability (avoid stalls and swings).
 
 ### Seeds and public infrastructure
-- No DNS/static seeds yet. Seed nodes, explorer and monitoring are not deployed.
+- Testnet seed node live on VPS `217.160.46.61:18210` (systemd, always-on).
+- Local mining/dev node at `212.51.149.153:18210` (see `testnet-seeds.md`).
+- DNS seeds, explorer and monitoring not deployed yet.
 
 ## Suggested next steps (in order)
 

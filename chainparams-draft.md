@@ -12,8 +12,8 @@ This is the current MVP proposal before code-level implementation.
 
 ## Token and Emission
 
-- Symbol: `BZERO`
-- Max supply target: `21,000,000 BZERO`
+- Symbol: `BLOZ`
+- Max supply target: `21,000,000 BLOZ`
 - Genesis allocation: `0`
 - Block 1 onward: normal mining reward only
 

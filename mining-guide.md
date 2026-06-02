@@ -5,7 +5,7 @@ The goal is simple: let normal computers take part, the way the earliest Bitcoin
 miners could. There are no guarantees of value or profit - mining here is for
 participation, learning and securing the network.
 
-> Block Zero is not Bitcoin. BZERO has no guaranteed value, no promised liquidity
+> Block Zero is not Bitcoin. BLOZ has no guaranteed value, no promised liquidity
 > and no expected return. Do not mine expecting financial gain.
 
 ## What you need

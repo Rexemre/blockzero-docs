@@ -11,9 +11,9 @@ participate from the start.
 No. Block Zero is **not** Bitcoin and is not a replacement for it. It is an
 independent, experimental network inspired by the early Bitcoin era.
 
-## Is BZERO an investment? Will it be worth money?
+## Is BLOZ an investment? Will it be worth money?
 
-No promises of any kind. BZERO has no guaranteed value, no promised liquidity and
+No promises of any kind. BLOZ has no guaranteed value, no promised liquidity and
 no expected return. Participation is voluntary and intended for technical,
 educational and community purposes.
 
