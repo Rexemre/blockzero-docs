@@ -1,10 +1,10 @@
 # Quick Start: Testnet Mining
 
-Mine **TBLOZ** on the Block Zero testnet in a few commands. No ICO, no premine.
+**BLOCK ZERO** — CPU-mineable. Fair launch. Proof-of-work. No presale. No insiders.
 
-> TBLOZ has no guaranteed value. This is for participation and testing.
+Mine **TBLOZ** on the live testnet in a few commands. Your CPU. Your blocks.
 
-**Primary seed:** `217.160.46.61:18210` (always online)
+**Primary seed:** `217.160.46.61:18210`
 
 ---
 

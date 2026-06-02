@@ -2,13 +2,9 @@
 
 > **New users:** start with [quickstart-mining.md](quickstart-mining.md) — one-click scripts for Windows, Linux and macOS.
 
-Block Zero uses **RandomX**, a proof-of-work designed for general-purpose CPUs.
-The goal is simple: let normal computers take part, the way the earliest Bitcoin
-miners could. There are no guarantees of value or profit - mining here is for
-participation, learning and securing the network.
+Block Zero runs **RandomX** proof-of-work — designed so normal CPUs can mine, the way the earliest Bitcoin miners did. No ASIC advantage. No GPU arms race. Just hash power from hardware you already own.
 
-> Block Zero is not Bitcoin. BLOZ has no guaranteed value, no promised liquidity
-> and no expected return. Do not mine expecting financial gain.
+Fair launch: no presale, no premine, no insiders. Coins exist because miners find blocks.
 
 ## What you need
 

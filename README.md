@@ -1,42 +1,52 @@
-# Block Zero Docs
+# BLOCK ZERO · Docs
 
-This repository contains technical and user documentation for Block Zero.
+**Modern BTC code. A second chance at Genesis.**
 
-Block Zero is not Bitcoin. It is an independent, Bitcoin-inspired fair-launch network.
+Documentation for Block Zero — a CPU-mineable, fair-launch proof-of-work chain. No presale. No insiders.
 
-## Scope
+---
 
-- Fork analysis
-- Chain parameters
-- Genesis documentation
-- Build and run guides
-- Node and mining guides
-- Launch and operations docs
+## Start here
 
-## Start Here (Users)
+| I want to… | Read this |
+|------------|-----------|
+| **Mine on testnet now** | [Quick Start: Testnet Mining](quickstart-mining.md) |
+| **Run a node** | [Node Guide](node-guide.md) |
+| **Understand mining** | [Mining Guide](mining-guide.md) |
+| **See what's built** | [Implementation Status](implementation-status.md) |
+| **Common questions** | [FAQ](faq.md) |
 
-- [Node Guide](node-guide.md) - build and run a Block Zero node
-- [Mining Guide](mining-guide.md) - mine with a normal CPU
-- [FAQ](faq.md)
+### One-click mining scripts
 
-## Implementation Status
+Windows, Linux, macOS: [blockzero-ops/scripts/testnet](https://github.com/Rexemre/blockzero-ops/tree/main/scripts/testnet)
 
-- [Implementation Status](implementation-status.md) - honest, current state of the build
+Prebuilt binaries: [blockzero-core Releases](https://github.com/Rexemre/blockzero-core/releases)
 
-## Initial Core Documents
+---
 
-- [Fork Change Map](fork-change-map.md)
-- [Chain Parameters Draft](chainparams-draft.md)
-- [Chain Parameters v0 (Concrete Proposal)](chainparams-v0-proposal.md)
-- [RandomX Integration Design](randomx-integration.md)
+## Specifications
+
 - [Genesis Specification](genesis-spec.md)
-- [Build Guide](build-guide.md)
+- [RandomX Integration](randomx-integration.md)
+- [Chain Parameters v0](chainparams-v0-proposal.md)
+- [Fork Change Map](fork-change-map.md)
 - [Launch Checklist](launch-checklist.md)
 
-## Principles
+---
 
-- No ICO
-- No premine
-- No VC allocation
-- Open source
-- Transparent launch documentation
+## The idea
+
+Bitcoin proved that sound money can emerge from proof-of-work and open participation. Block Zero asks: *what if we could run that experiment again — with modern code, CPU-friendly mining, and zero insider advantage?*
+
+RandomX keeps mining on ordinary hardware. A reproducible genesis keeps the launch honest. Everything is open source.
+
+---
+
+## Repositories
+
+| Repo | Link |
+|------|------|
+| Core node | [blockzero-core](https://github.com/Rexemre/blockzero-core) |
+| Docs (here) | [blockzero-docs](https://github.com/Rexemre/blockzero-docs) |
+| Ops & scripts | [blockzero-ops](https://github.com/Rexemre/blockzero-ops) |
+| Wallet | [blockzero-wallet](https://github.com/Rexemre/blockzero-wallet) |

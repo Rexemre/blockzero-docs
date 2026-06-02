@@ -2,9 +2,9 @@
 
 ## What is Block Zero?
 
-An independent, open-source, Bitcoin-inspired network with a fair launch: no ICO,
-no premine, no VC allocation. It uses RandomX proof-of-work so normal CPUs can
-participate from the start.
+**Modern BTC code. A second chance at Genesis.**
+
+Block Zero is an independent proof-of-work chain — built on Bitcoin Core v31, mined with RandomX on ordinary CPUs, launched with no presale, no premine, and no insider allocation. Fair from block one.
 
 ## Is this Bitcoin / a new Bitcoin / Bitcoin 2.0?
 
