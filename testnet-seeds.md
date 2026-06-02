@@ -62,6 +62,12 @@ Mining runs on the local machine only — the VPS seed accepts connections and r
 | powLimit | `0x1e3fffff` |
 | Retarget interval | 12 hours (72 blocks) |
 
+## Windows + WSL on the same PC
+
+If the VPS seed (`217.160.46.61`) is unreachable, run a **WSL bridge node** synced to the testnet, then point native Windows at `127.0.0.1:18210` (requires the [WSL port-proxy](https://github.com/Rexemre/blockzero-ops/blob/main/scripts/wsl-portproxy.ps1) on port 18210).
+
+**Never mine on Windows with 0 peers** — that creates a solo fork. Use `resync-testnet.ps1` after solo mining.
+
 ## Verify connectivity
 
 ```bash
