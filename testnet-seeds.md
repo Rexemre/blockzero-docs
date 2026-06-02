@@ -1,10 +1,17 @@
-# Block Zero Testnet – Seed Node
+# Block Zero Testnet – Seed Nodes
 
-The Block Zero testnet seed node runs on the developer machine (always-on when online).
-Add it to your `bitcoin.conf` under `[test]`:
+The testnet has two nodes: a **primary seed on the VPS** (always online) and a **local developer node** (mining, when online).
+
+Add the primary seed to your `bitcoin.conf` under `[test]`:
 
 ```ini
 [test]
+addnode=217.160.46.61:18210
+```
+
+Optionally add the local node as a fallback:
+
+```ini
 addnode=212.51.149.153:18210
 ```
 
@@ -20,6 +27,7 @@ bind=0.0.0.0:18210
 rpcbind=127.0.0.1
 rpcallowip=127.0.0.1
 rpcport=18211
+addnode=217.160.46.61:18210
 addnode=212.51.149.153:18210
 ```
 
@@ -31,13 +39,14 @@ Then start your node:
 ./build/bin/bitcoin-cli -testnet -datadir=~/.bzero -rpcport=18211 getblockchaininfo
 ```
 
-## Seed node
+## Seed nodes
 
-| Node | IP | Port | Notes |
+| Node | IP | Port | Role |
 |---|---|---|---|
-| Primary seed | 212.51.149.153 | 18210 | Developer machine; online when testnet is active |
+| **Primary seed (VPS)** | 217.160.46.61 | 18210 | Always-on seed; low resource use (~50 MB RAM) |
+| Local node | 212.51.149.153 | 18210 | Developer node + mining (when online) |
 
-The seed node intentionally runs locally (not on the production VPS) to avoid competing with hosted websites for RAM and CPU.
+Mining runs on the local machine only — the VPS seed accepts connections and relays the chain but does not mine.
 
 ## Network parameters
 
@@ -63,4 +72,4 @@ bitcoin-cli -testnet -datadir=~/.bzero -rpcport=18211 getblockhash 0
 
 ## Running your own seed node
 
-If you want to help the network, run a node with `listen=1` and forward TCP **18210** on your router to your machine. Then share your public IP so others can add `addnode=YOUR_IP:18210`.
+Run a node with `listen=1` and forward TCP **18210** on your router. Share your public IP so others can add `addnode=YOUR_IP:18210`.
