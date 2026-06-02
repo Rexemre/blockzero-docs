@@ -1,5 +1,7 @@
 # Block Zero Mining Guide
 
+> **New users:** start with [quickstart-mining.md](quickstart-mining.md) — one-click scripts for Windows, Linux and macOS.
+
 Block Zero uses **RandomX**, a proof-of-work designed for general-purpose CPUs.
 The goal is simple: let normal computers take part, the way the earliest Bitcoin
 miners could. There are no guarantees of value or profit - mining here is for
@@ -43,16 +45,18 @@ ADDR=$(./build/bin/bitcoin-cli -regtest getnewaddress)
 
 ## Mining on testnet
 
-The node has built-in CPU mining via the `generatetoaddress` / `-generate` RPC:
+Use the [quickstart-mining.md](quickstart-mining.md) scripts, or manually:
 
 ```bash
-./build/bin/bitcoind -testnet -daemon
-./build/bin/bitcoin-cli -testnet createwallet test
-./build/bin/bitcoin-cli -testnet -generate 1
+./build/bin/bitcoind -testnet -datadir=~/.blockzero -daemon
+./build/bin/bitcoin-cli -testnet -datadir=~/.blockzero -rpcport=18211 createwallet mining
+ADDR=$(./build/bin/bitcoin-cli -testnet -datadir=~/.blockzero -rpcport=18211 -rpcwallet=mining getnewaddress)
+./build/bin/bitcoin-cli -testnet -datadir=~/.blockzero -rpcport=18211 -rpcwallet=mining \
+  generatetoaddress 1 "$ADDR" 500000000
 ```
 
-The built-in miner is single-threaded and uses RandomX light mode. It is fine for
-testing, but for real hashrate use an optimized, multi-threaded setup (below).
+The built-in miner uses multi-threaded RandomX (since v0.1). Run on **bare-metal**
+Windows, Linux or macOS — not WSL2 (much slower).
 
 ## Performance and huge pages
 
