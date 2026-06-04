@@ -79,6 +79,17 @@ If you previously mined alone (0 peers), reset the solo chain first:
 .\mine-testnet.ps1
 ```
 
+Limit CPU usage (optional, requires **v1.0.0-rc3+** binaries):
+
+```powershell
+.\mine-testnet.ps1 -Threads 8    # ~8 cores, less heat/noise
+.\mine-testnet.ps1 -Threads 24   # use more cores on high-end CPUs
+# omit -Threads for default: min(logical cores, 16)
+```
+
+Each RandomX thread uses ~256 MiB RAM. Task Manager **Performance → CPU** shows
+mining load; the Processes tab can show 0% for `bitcoind` while mining (Windows quirk).
+
 Check status:
 
 ```powershell
@@ -195,7 +206,10 @@ BZERO_BINDIR=~/blockzero-core/build/bin ./mine-testnet.sh
 1. Create a data directory and `bitcoin.conf` with the public testnet seed
 2. Start `bitcoind -testnet`
 3. Create a wallet named `mining`
-4. Loop `generatetoaddress` (multi-threaded RandomX in current builds)
+4. Loop `generatetoaddress` with 500M max tries per call (multi-threaded RandomX)
+
+Default thread count: **min(logical CPU cores, 16)**. Override with `-Threads N`
+(Windows) or `BZERO_THREADS=N` (Linux/macOS) when using v1.0.0-rc3 or newer.
 
 Your mining address looks like: `tbz1...`  
 Rewards show as **TBLOZ** (immature until ~100 blocks).

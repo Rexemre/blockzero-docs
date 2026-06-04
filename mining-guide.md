@@ -51,6 +51,22 @@ ADDR=$(./build/bin/bitcoin-cli -testnet -datadir=~/.blockzero -rpcport=18211 -rp
   generatetoaddress 1 "$ADDR" 500000000
 ```
 
+Optional fourth argument: **thread count** (`numthreads`). `0` or omitted = auto
+(`min(logical cores, 16)`). Each thread uses ~256 MiB RAM (RandomX light mode).
+
+```bash
+# Use 8 CPU threads instead of the default auto cap
+./build/bin/bitcoin-cli -testnet -datadir=~/.blockzero -rpcport=18211 -rpcwallet=mining \
+  generatetoaddress 1 "$ADDR" 500000000 8
+```
+
+Script wrappers (since blockzero-ops `a074dff`, blockzero-core **v1.0.0-rc3+**):
+
+| Platform | Limit threads | Use all cores (explicit) |
+|----------|---------------|--------------------------|
+| Windows  | `.\mine-testnet.ps1 -Threads 8` | `.\mine-testnet.ps1 -Threads 24` |
+| Linux/macOS | `BZERO_THREADS=8 ./mine-testnet.sh` | `BZERO_THREADS=24 ./mine-testnet.sh` |
+
 The built-in miner uses multi-threaded RandomX (since v0.1). Run on **bare-metal**
 Windows, Linux or macOS — not WSL2 (much slower).
 
