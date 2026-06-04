@@ -151,6 +151,12 @@ export PATH="$HOME/.local/share/blockzero/bin:$PATH"
 ./mine-testnet.sh
 ```
 
+Optional thread limit (requires **v1.0.0-rc3+** binaries):
+
+```bash
+BZERO_THREADS=8 ./mine-testnet.sh
+```
+
 Status / stop:
 
 ```bash
@@ -172,6 +178,8 @@ chmod +x install-unix.sh mine-testnet.sh
 export PATH="$HOME/.local/share/blockzero/bin:$PATH"
 ./mine-testnet.sh
 ```
+
+Optional: `BZERO_THREADS=8 ./mine-testnet.sh` (rc3+).
 
 On Apple Silicon, use the `macos-arm64` release. On Intel Macs, use `macos-x64`.
 
@@ -248,8 +256,12 @@ If you mined with **0 peers**, you were on a private fork. Fix:
 ## Block explorer
 
 Browse blocks, transactions and the chain tip in your browser:
-**https://explorer.bloz.org** (self-hosted [btc-rpc-explorer](https://github.com/janoside/btc-rpc-explorer)
-on the seed node).
+
+- **Testnet:** https://texplorer.bloz.org
+- **Mainnet:** https://explorer.bloz.org (live after launch)
+
+Both are self-hosted [btc-rpc-explorer](https://github.com/janoside/btc-rpc-explorer)
+on the seed node.
 
 ---
 

@@ -113,7 +113,7 @@ systemctl is-active blockzero-mainnet
 - [ ] Release binaries built and published for the launch tag
 - [ ] On 2026-06-06: `systemctl enable --now blockzero-mainnet`, verify genesis
 - [ ] IONOS cloud firewall allows TCP 8210
-- [ ] Explorer pointed at mainnet (or a second mainnet explorer instance)
+- [ ] Explorer pointed at mainnet (`explorer.bloz.org`; testnet at `texplorer.bloz.org`)
 - [ ] Docs/website show "not Bitcoin", no investment/ICO language
 - [ ] Disclaimer: no premine, no presale, no founder allocation
 
