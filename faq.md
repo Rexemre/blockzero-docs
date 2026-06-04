@@ -51,7 +51,7 @@ Genesis parameters and reproduction steps: [blockzero-core/artifacts/genesis](ht
 
 ## What are the genesis block hashes?
 
-- Testnet v2: *pending mine* — see `testnet-v2.json` after `mine-testnet-genesis.ps1`
+- Testnet v2: `36267240061ea9084bead4bf3d263f0c8ae54056ea02508cfad5b8de3803bff8`
 - Testnet v1 (deprecated): `f58130b19cdf3d03b22c5a67a6509b00750b2d8975ee9d889d5b613aaae5296e`
 - Mainnet: `99b4f6f2a0821c6bdb7794403700424cc8f8c34d15cf79846fa4826134a59eba` (unchanged until launch)
 

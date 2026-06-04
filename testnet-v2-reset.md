@@ -18,9 +18,12 @@ The Times 04/Jun/2026 Block Zero - a second chance at Genesis, fair launch, no p
 |-------|-------|
 | `nTime` | `1780531200` (2026-06-04 00:00:00 UTC) |
 | `nBits` | `0x1e3fffff` |
+| nonce | `232039` |
+| **v2 genesis hash** | `36267240061ea9084bead4bf3d263f0c8ae54056ea02508cfad5b8de3803bff8` |
+| merkle root | `af560edb6023bc5ecbe02eea9d5c623b7c14f44b17251e84c8b6fb5c9098a63a` |
 | v1 genesis (deprecated) | `f58130b19cdf3d03b22c5a67a6509b00750b2d8975ee9d889d5b613aaae5296e` |
 
-After mining, the v2 `hashGenesisBlock` is published in
+Full values are published in
 [testnet-v2.json](https://github.com/Rexemre/blockzero-core/blob/main/artifacts/genesis/testnet-v2.json).
 
 ---

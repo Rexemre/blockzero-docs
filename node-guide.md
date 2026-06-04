@@ -67,7 +67,8 @@ Testnet addresses use the `tbz1...` prefix.
 The Times 04/Jun/2026 Block Zero - a second chance at Genesis, fair launch, no premine
 ```
 
-Genesis hash: published in [testnet-v2.json](https://github.com/Rexemre/blockzero-core/blob/main/artifacts/genesis/testnet-v2.json) after mining.
+Genesis hash: `36267240061ea9084bead4bf3d263f0c8ae54056ea02508cfad5b8de3803bff8`
+(see [testnet-v2.json](https://github.com/Rexemre/blockzero-core/blob/main/artifacts/genesis/testnet-v2.json)).
 
 Testnet v1 (deprecated): `f58130b19cdf3d03b22c5a67a6509b00750b2d8975ee9d889d5b613aaae5296e`
 
