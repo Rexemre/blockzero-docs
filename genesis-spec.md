@@ -8,20 +8,21 @@ This document defines how Block Zero genesis is selected and reproduced.
 - Reproducible generation process
 - No hidden allocation or hidden parameters
 
-## Testnet v2 genesis message (2026-06-04)
+## Testnet genesis message (2026-06-04)
 
 Satoshi-style headline, date matches `nTime`:
 
 ```text
-The Times 04/Jun/2026 Block Zero - a second chance at Genesis, fair launch, no premine
+The Times 04/Jun/2026 Block Zero - a second chance at Genesis
 ```
 
 | Field | Value |
 |-------|-------|
 | `nTime` | `1780531200` (2026-06-04T00:00:00Z) |
 | `nBits` | `0x1e3fffff` |
+| genesis hash | `7462293eec16a92c54a74362af6825688135e2955250024dcc3668ff4f55cfce` |
 
-Reproduce with `blockzero-core/scripts/genesis/mine-testnet-genesis.ps1` (native Windows).
+Reproduce with `blockzero-core/scripts/genesis/mine-testnet-genesis.ps1`.
 
 Mainnet genesis message remains unchanged until launch countdown.
 

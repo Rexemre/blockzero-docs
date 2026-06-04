@@ -61,16 +61,14 @@ Regtest addresses use the `bzrt1...` prefix.
 
 Testnet addresses use the `tbz1...` prefix.
 
-**Testnet v2** (2026-06-04 reset) — see [testnet-v2-reset.md](testnet-v2-reset.md):
+Testnet genesis message (2026-06-04) — see [testnet-reset.md](testnet-reset.md):
 
 ```text
-The Times 04/Jun/2026 Block Zero - a second chance at Genesis, fair launch, no premine
+The Times 04/Jun/2026 Block Zero - a second chance at Genesis
 ```
 
-Genesis hash: `36267240061ea9084bead4bf3d263f0c8ae54056ea02508cfad5b8de3803bff8`
-(see [testnet-v2.json](https://github.com/Rexemre/blockzero-core/blob/main/artifacts/genesis/testnet-v2.json)).
-
-Testnet v1 (deprecated): `f58130b19cdf3d03b22c5a67a6509b00750b2d8975ee9d889d5b613aaae5296e`
+Genesis hash: `7462293eec16a92c54a74362af6825688135e2955250024dcc3668ff4f55cfce`
+(see [testnet.json](https://github.com/Rexemre/blockzero-core/blob/main/artifacts/genesis/testnet.json)).
 
 ### Mainnet
 

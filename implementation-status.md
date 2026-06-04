@@ -54,18 +54,15 @@ Source: `blockzero-core` (fork of Bitcoin Core v31.0).
 - Regtest: node starts on the Block Zero genesis, enforces RandomX PoW, mines via
   `-generate`, wallet yields `bzrt...` addresses, seed rotation works across an epoch.
 - Testnet/Mainnet: nodes boot on their genesis (chain reports test/main, height 0).
-- **Testnet block 1 mined** (2026-06-02): hash
-  `7a28c3b91ddd8404a13a2557eb0e1f8bee664ffc7e7a0a90fb4473f762e6ec79`, nonce 40599.
-  VPS seed (`217.160.46.61`) synced to height 1.
+- VPS seed (`217.160.46.61`) runs the public testnet and relays the chain.
 
-### Testnet v2 genesis reset (2026-06-04, mined)
-- v1 testnet had `nTime` 2025-05-30 while the coinbase text said 2026 — **bug**.
-- v2 message (Satoshi-style): `The Times 04/Jun/2026 Block Zero - a second chance at Genesis, fair launch, no premine`
-- `nTime = 1780531200` (2026-06-04 UTC), nonce `232039`. Mainnet genesis **unchanged**.
-- **v2 genesis hash:** `36267240061ea9084bead4bf3d263f0c8ae54056ea02508cfad5b8de3803bff8`
-- Verified: node boots on v2 genesis (`UpdateTip new best=...3803bff8 height=0 date=2026-06-04`).
+### Testnet genesis (2026-06-04)
+- Satoshi-style message: `The Times 04/Jun/2026 Block Zero - a second chance at Genesis`
+- `nTime = 1780531200` (2026-06-04 UTC), nonce `244191`. Mainnet genesis **separate/unchanged**.
+- **Genesis hash:** `7462293eec16a92c54a74362af6825688135e2955250024dcc3668ff4f55cfce`
+- Verified: node boots on this genesis (`UpdateTip new best=...4f55cfce height=0 date=2026-06-04`).
 - Tooling: `scripts/genesis/mine-testnet-genesis.ps1` + `apply-testnet-genesis.ps1`.
-- See `blockzero-docs/testnet-v2-reset.md` for VPS + miner reset steps.
+- See `blockzero-docs/testnet-reset.md` for VPS + miner reset steps.
 
 ### Difficulty floor and genesis (v1 testnet, superseded)
 - `powLimit` set to a safe floor `0x1e3fffff` and the retarget window shortened to

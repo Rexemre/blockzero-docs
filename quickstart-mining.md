@@ -50,11 +50,12 @@ just check status — the node connects and syncs automatically:
 .\mine-testnet.ps1 -Status
 ```
 
-This must show `Peers: 1` or more and the correct **genesis hash** (testnet v2).
+This must show `Peers: 1` or more and the correct **genesis hash**.
 
-After the [testnet v2 reset](https://github.com/Rexemre/blockzero-docs/blob/main/testnet-v2-reset.md), the genesis hash is published in
-[testnet-v2.json](https://github.com/Rexemre/blockzero-core/blob/main/artifacts/genesis/testnet-v2.json).
-Block 1 is **not** fixed — it is mined fresh after genesis.
+The testnet genesis hash is published in
+[testnet.json](https://github.com/Rexemre/blockzero-core/blob/main/artifacts/genesis/testnet.json)
+(`7462293eec16a92c54a74362af6825688135e2955250024dcc3668ff4f55cfce`).
+Block 1 is **not** fixed - it is mined fresh after genesis.
 
 ```powershell
 .\mine-testnet.ps1 -Status
@@ -207,9 +208,7 @@ Rewards show as **TBLOZ** (immature until ~100 blocks).
 # PowerShell — datadir is BlockZero, not BlockZero\testnet3
 & "$env:LOCALAPPDATA\BlockZero\bin\bitcoin-cli.exe" -testnet -datadir="$env:LOCALAPPDATA\BlockZero" getconnectioncount
 & "$env:LOCALAPPDATA\BlockZero\bin\bitcoin-cli.exe" -testnet -datadir="$env:LOCALAPPDATA\BlockZero" getblockhash 0
-# f58130b19cdf3d03b22c5a67a6509b00750b2d8975ee9d889d5b613aaae5296e
-& "$env:LOCALAPPDATA\BlockZero\bin\bitcoin-cli.exe" -testnet -datadir="$env:LOCALAPPDATA\BlockZero" getblockhash 1
-# 7a28c3b91ddd8404a13a2557eb0e1f8bee664ffc7e7a0a90fb4473f762e6ec79
+# 7462293eec16a92c54a74362af6825688135e2955250024dcc3668ff4f55cfce
 ```
 
 ```bash
