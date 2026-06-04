@@ -27,6 +27,7 @@ Prebuilt binaries: [blockzero-core Releases](https://github.com/Rexemre/blockzer
 ## Specifications
 
 - [Genesis Specification](genesis-spec.md)
+- [Mainnet Launch (2026-06-06)](mainnet-launch.md)
 - [Testnet Reset](testnet-reset.md)
 - [RandomX Integration](randomx-integration.md)
 - [Chain Parameters v0](chainparams-v0-proposal.md)

@@ -72,10 +72,11 @@ Genesis hash: `7462293eec16a92c54a74362af6825688135e2955250024dcc3668ff4f55cfce`
 
 ### Mainnet
 
-Mainnet addresses use the `bz1...` prefix. The mainnet genesis block hash is:
+Mainnet addresses use the `bz1...` prefix. Mainnet launches **2026-06-06 06:06:06 UTC**
+(see [mainnet-launch.md](mainnet-launch.md)). The mainnet genesis block hash is:
 
 ```
-99b4f6f2a0821c6bdb7794403700424cc8f8c34d15cf79846fa4826134a59eba
+44c1a8c852b3eda21966e1ddb6b0807e22488dffe8a270bf24bf1fa2d66c13bd
 ```
 
 ## Network parameters (quick reference)
