@@ -50,9 +50,16 @@ just check status — the node connects and syncs automatically:
 .\mine-testnet.ps1 -Status
 ```
 
-This must show `Peers: 1` or more and the correct public **block 1** hash:
+This must show `Peers: 1` or more and the correct **genesis hash** (testnet v2).
 
-`7a28c3b91ddd8404a13a2557eb0e1f8bee664ffc7e7a0a90fb4473f762e6ec79`
+After the [testnet v2 reset](https://github.com/Rexemre/blockzero-docs/blob/main/testnet-v2-reset.md), the genesis hash is published in
+[testnet-v2.json](https://github.com/Rexemre/blockzero-core/blob/main/artifacts/genesis/testnet-v2.json).
+Block 1 is **not** fixed — it is mined fresh after genesis.
+
+```powershell
+.\mine-testnet.ps1 -Status
+# getblockhash 0 must match OfficialGenesis in chain-identity.ps1
+```
 
 If you previously mined alone (0 peers), reset the solo chain first:
 

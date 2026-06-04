@@ -58,7 +58,14 @@ Source: `blockzero-core` (fork of Bitcoin Core v31.0).
   `7a28c3b91ddd8404a13a2557eb0e1f8bee664ffc7e7a0a90fb4473f762e6ec79`, nonce 40599.
   VPS seed (`217.160.46.61`) synced to height 1.
 
-### Difficulty floor and genesis (fixed)
+### Testnet v2 genesis reset (2026-06-04, in progress)
+- v1 testnet had `nTime` 2025-05-30 while the coinbase text said 2026 — **bug**.
+- v2 message (Satoshi-style): `The Times 04/Jun/2026 Block Zero - a second chance at Genesis, fair launch, no premine`
+- `nTime = 1780531200` (2026-06-04 UTC). Mainnet genesis **unchanged**.
+- Tooling: `scripts/genesis/mine-testnet-genesis.ps1` + `apply-testnet-genesis.ps1` (native Windows).
+- See `blockzero-docs/testnet-v2-reset.md` for VPS + miner reset steps.
+
+### Difficulty floor and genesis (v1 testnet, superseded)
 - `powLimit` set to a safe floor `0x1e3fffff` and the retarget window shortened to
   12 hours (72 blocks, `nPowTargetTimespan = 12*60*60`). This keeps the difficulty
   math well within 256 bits (`powLimit * 4 * timespan` stays below 2^256) and is a

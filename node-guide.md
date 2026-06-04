@@ -59,11 +59,17 @@ Regtest addresses use the `bzrt1...` prefix.
 ./build/bin/bitcoin-cli -testnet getblockchaininfo
 ```
 
-Testnet addresses use the `tbz1...` prefix. The testnet genesis block hash is:
+Testnet addresses use the `tbz1...` prefix.
 
+**Testnet v2** (2026-06-04 reset) — see [testnet-v2-reset.md](testnet-v2-reset.md):
+
+```text
+The Times 04/Jun/2026 Block Zero - a second chance at Genesis, fair launch, no premine
 ```
-f58130b19cdf3d03b22c5a67a6509b00750b2d8975ee9d889d5b613aaae5296e
-```
+
+Genesis hash: published in [testnet-v2.json](https://github.com/Rexemre/blockzero-core/blob/main/artifacts/genesis/testnet-v2.json) after mining.
+
+Testnet v1 (deprecated): `f58130b19cdf3d03b22c5a67a6509b00750b2d8975ee9d889d5b613aaae5296e`
 
 ### Mainnet
 

@@ -8,9 +8,24 @@ This document defines how Block Zero genesis is selected and reproduced.
 - Reproducible generation process
 - No hidden allocation or hidden parameters
 
-## Draft Genesis Message Template
+## Testnet v2 genesis message (2026-06-04)
 
-Use a message format like:
+Satoshi-style headline, date matches `nTime`:
+
+```text
+The Times 04/Jun/2026 Block Zero - a second chance at Genesis, fair launch, no premine
+```
+
+| Field | Value |
+|-------|-------|
+| `nTime` | `1780531200` (2026-06-04T00:00:00Z) |
+| `nBits` | `0x1e3fffff` |
+
+Reproduce with `blockzero-core/scripts/genesis/mine-testnet-genesis.ps1` (native Windows).
+
+Mainnet genesis message remains unchanged until launch countdown.
+
+## Draft Genesis Message Template (mainnet, future)
 
 `Block Zero Genesis - Fair Launch, No ICO, No Premine - YYYY-MM-DD - <public headline/reference>`
 

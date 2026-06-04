@@ -57,7 +57,9 @@ Mining runs on the local machine only — the VPS seed accepts connections and r
 | RPC port | 18211 |
 | Bech32 HRP | `tbz` |
 | PoW | RandomX (CPU-friendly) |
-| Genesis hash | `f58130b19cdf3d03b22c5a67a6509b00750b2d8975ee9d889d5b613aaae5296e` |
+| Genesis hash | v2 pending — see [testnet-v2-reset.md](testnet-v2-reset.md) |
+| Genesis message | `The Times 04/Jun/2026 Block Zero - a second chance at Genesis, fair launch, no premine` |
+| v1 genesis (deprecated) | `f58130b19cdf3d03b22c5a67a6509b00750b2d8975ee9d889d5b613aaae5296e` |
 | Genesis nBits | `0x1e3fffff` |
 | powLimit | `0x1e3fffff` |
 | Retarget interval | 12 hours (72 blocks) |
