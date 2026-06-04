@@ -74,25 +74,30 @@ collides with a testnet node or wallet.
 
 ---
 
-## Launch-day runbook (VPS seed)
+## Important: the node cannot run before launch
 
-The mainnet seed can be **staged before launch** - it boots on the genesis and
-simply sits at height 0 until 06:06:06 UTC, when block 1 becomes mineable.
+Bitcoin Core refuses to load a chain whose tip is **more than 2 hours in the
+future** ("block which appears to be from the future"). Because the genesis is
+timestamped 2026-06-06 06:06:06 UTC, the seed node **cannot be started before
+roughly 2 hours prior to launch** - it will exit on startup until then.
+
+This is part of the fair-launch gate: nobody can even run the chain early.
+
+### Pre-staged (done now, before launch)
+- VPS binary built with the mainnet genesis (`bitcoind --version` ok)
+- `/opt/bzero-mainnet/bitcoin.conf` + datadir created
+- `blockzero-mainnet.service` installed but **disabled** (so it does not crash-loop)
+- ufw allows TCP 8210 (IONOS cloud firewall must also allow 8210)
+
+### Launch day (2026-06-06, at or shortly before 06:06:06 UTC)
 
 ```bash
 ssh root@217.160.46.61
-# Open the mainnet P2P port (ufw + IONOS cloud firewall must both allow 8210)
-ufw allow 8210/tcp comment 'Block Zero mainnet P2P'
-
-# Install the service
-cp /opt/blockzero-ops/systemd/blockzero-mainnet.service /etc/systemd/system/
-mkdir -p /opt/bzero-mainnet
-systemctl daemon-reload
 systemctl enable --now blockzero-mainnet
-
-# Verify genesis
+sleep 20
+systemctl is-active blockzero-mainnet
 /opt/blockzero-core/build/bin/bitcoin-cli -datadir=/opt/bzero-mainnet getblockhash 0
-# must equal the mainnet genesis hash
+# must equal 44c1a8c852b3eda21966e1ddb6b0807e22488dffe8a270bf24bf1fa2d66c13bd
 ```
 
 > Open **TCP 8210** in the IONOS cloud firewall policy for server MarlonMorales,
@@ -102,10 +107,12 @@ systemctl enable --now blockzero-mainnet
 
 ## Go / No-Go (must all be green)
 
-- [x] Mainnet genesis mined, published in `mainnet.json`, node boots on it
+- [x] Mainnet genesis mined, published in `mainnet.json`, node boots on it (verified)
 - [x] chainparams frozen (message, nTime, nonce, hashes)
-- [ ] Release binaries built for the launch tag
-- [ ] VPS mainnet seed staged on the genesis, P2P 8210 reachable
+- [x] VPS binary built, service + conf + firewall staged (service disabled until launch)
+- [ ] Release binaries built and published for the launch tag
+- [ ] On 2026-06-06: `systemctl enable --now blockzero-mainnet`, verify genesis
+- [ ] IONOS cloud firewall allows TCP 8210
 - [ ] Explorer pointed at mainnet (or a second mainnet explorer instance)
 - [ ] Docs/website show "not Bitcoin", no investment/ICO language
 - [ ] Disclaimer: no premine, no presale, no founder allocation
