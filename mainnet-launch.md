@@ -93,12 +93,18 @@ This is part of the fair-launch gate: nobody can even run the chain early.
 
 ```bash
 ssh root@217.160.46.61
+cp /opt/blockzero-ops/systemd/bzero-mainnet-seed.bitcoin.conf.example \
+   /opt/bzero-mainnet/bitcoin.conf
 systemctl enable --now blockzero-mainnet
 sleep 20
 systemctl is-active blockzero-mainnet
 /opt/blockzero-core/build/bin/bitcoin-cli -datadir=/opt/bzero-mainnet getblockhash 0
 # must equal 44c1a8c852b3eda21966e1ddb6b0807e22488dffe8a270bf24bf1fa2d66c13bd
+systemctl restart blockzero-mainnet-explorer
+curl -s https://explorer.bloz.org/api/blocks/tip/height
 ```
+
+See also: [mainnet-seed-node.md](https://github.com/Rexemre/blockzero-ops/blob/main/runbooks/mainnet-seed-node.md).
 
 > Open **TCP 8210** in the IONOS cloud firewall policy for server MarlonMorales,
 > the same way port 18210 was opened for testnet.
@@ -109,12 +115,12 @@ systemctl is-active blockzero-mainnet
 
 - [x] Mainnet genesis mined, published in `mainnet.json`, node boots on it (verified)
 - [x] chainparams frozen (message, nTime, nonce, hashes)
-- [x] VPS binary built, service + conf + firewall staged (service disabled until launch)
-- [ ] Release binaries built and published for the launch tag
-- [ ] On 2026-06-06: `systemctl enable --now blockzero-mainnet`, verify genesis
-- [ ] IONOS cloud firewall allows TCP 8210
-- [ ] Explorer pointed at mainnet (`explorer.bloz.org`; testnet at `texplorer.bloz.org`)
-- [ ] Docs/website show "not Bitcoin", no investment/ICO language
-- [ ] Disclaimer: no premine, no presale, no founder allocation
+- [x] VPS binary built, service + conf + firewall staged
+- [x] Release binaries built and published for the launch tag (**v1.0.0-rc3**)
+- [x] On 2026-06-06: `systemctl enable --now blockzero-mainnet`, verify genesis
+- [x] IONOS cloud firewall allows TCP 8210 (verified externally)
+- [x] Explorer pointed at mainnet (`explorer.bloz.org`; testnet at `texplorer.bloz.org`)
+- [x] Docs/website show "not Bitcoin", no investment/ICO language
+- [x] Disclaimer: no premine, no presale, no founder allocation
 
 If any item is red, delay and publish the blocker transparently.
