@@ -39,33 +39,39 @@ ADDR=$(./build/bin/bitcoin-cli -regtest getnewaddress)
 ./build/bin/bitcoin-cli -regtest getbalance
 ```
 
-## Mining on testnet
+## Mining on mainnet
 
 Use the [quickstart-mining.md](quickstart-mining.md) scripts, or manually:
 
 ```bash
-./build/bin/bitcoind -testnet -datadir=~/.blockzero -daemon
-./build/bin/bitcoin-cli -testnet -datadir=~/.blockzero -rpcport=18211 createwallet mining
-ADDR=$(./build/bin/bitcoin-cli -testnet -datadir=~/.blockzero -rpcport=18211 -rpcwallet=mining getnewaddress)
-./build/bin/bitcoin-cli -testnet -datadir=~/.blockzero -rpcport=18211 -rpcwallet=mining \
+./build/bin/bitcoind -datadir=~/.blockzero-mainnet -daemon
+./build/bin/bitcoin-cli -datadir=~/.blockzero-mainnet -rpcport=8211 createwallet mining
+ADDR=$(./build/bin/bitcoin-cli -datadir=~/.blockzero-mainnet -rpcport=8211 -rpcwallet=mining getnewaddress)
+./build/bin/bitcoin-cli -datadir=~/.blockzero-mainnet -rpcport=8211 -rpcwallet=mining \
   generatetoaddress 1 "$ADDR" 500000000
 ```
+
+**Public seed:** `217.160.46.61:8210` · **Explorer:** https://explorer.bloz.org
 
 Optional fourth argument: **thread count** (`numthreads`). `0` or omitted = auto
 (`min(logical cores, 16)`). Each thread uses ~256 MiB RAM (RandomX light mode).
 
 ```bash
 # Use 8 CPU threads instead of the default auto cap
-./build/bin/bitcoin-cli -testnet -datadir=~/.blockzero -rpcport=18211 -rpcwallet=mining \
+./build/bin/bitcoin-cli -datadir=~/.blockzero-mainnet -rpcport=8211 -rpcwallet=mining \
   generatetoaddress 1 "$ADDR" 500000000 8
 ```
 
-Script wrappers (since blockzero-ops `a074dff`, blockzero-core **v1.0.0-rc3+**):
+Script wrappers (blockzero-core **v1.0.0-rc3+**):
 
 | Platform | Limit threads | Use all cores (explicit) |
 |----------|---------------|--------------------------|
-| Windows  | `.\mine-testnet.ps1 -Threads 8` | `.\mine-testnet.ps1 -Threads 24` |
-| Linux/macOS | `BZERO_THREADS=8 ./mine-testnet.sh` | `BZERO_THREADS=24 ./mine-testnet.sh` |
+| Windows  | `.\mine-mainnet.ps1 -Threads 8` | `.\mine-mainnet.ps1 -Threads 24` |
+| Linux/macOS | build from source + RPC as above | same |
+
+## Mining on testnet (optional)
+
+The testnet (TBLOZ) remains available for development. See [quickstart-mining.md#testnet-optional](quickstart-mining.md#testnet-optional) or use `mine-testnet.ps1` / `mine-testnet.sh`.
 
 The built-in miner uses multi-threaded RandomX (since v0.1). Run on **bare-metal**
 Windows, Linux or macOS — not WSL2 (much slower).

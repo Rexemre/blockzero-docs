@@ -52,32 +52,37 @@ Binaries are produced in `build/bin/` (`bitcoind`, `bitcoin-cli`, `bitcoin-walle
 
 Regtest addresses use the `bzrt1...` prefix.
 
-### Testnet
+### Mainnet (live)
+
+Mainnet addresses use the `bz1...` prefix. Launched **2026-06-06 06:06:06 UTC**
+(see [mainnet-launch.md](mainnet-launch.md)).
+
+```bash
+./build/bin/bitcoind -datadir=~/.blockzero-mainnet -daemon
+./build/bin/bitcoin-cli -datadir=~/.blockzero-mainnet -rpcport=8211 getblockchaininfo
+```
+
+**Public seed:** `217.160.46.61:8210` · **Explorer:** https://explorer.bloz.org
+
+Mainnet genesis message:
+
+```text
+The Times 06/Jun/2026 Block Zero - a second chance at Genesis
+```
+
+Genesis hash: `44c1a8c852b3eda21966e1ddb6b0807e22488dffe8a270bf24bf1fa2d66c13bd`
+(see [mainnet.json](https://github.com/Rexemre/blockzero-core/blob/main/artifacts/genesis/mainnet.json)).
+
+### Testnet (optional, dev)
 
 ```bash
 ./build/bin/bitcoind -testnet -daemon
 ./build/bin/bitcoin-cli -testnet getblockchaininfo
 ```
 
-Testnet addresses use the `tbz1...` prefix.
+Testnet addresses use the `tbz1...` prefix. **Seed:** `217.160.46.61:18210` · **Explorer:** https://texplorer.bloz.org
 
-Testnet genesis message (2026-06-04) — see [testnet-reset.md](testnet-reset.md):
-
-```text
-The Times 04/Jun/2026 Block Zero - a second chance at Genesis
-```
-
-Genesis hash: `7462293eec16a92c54a74362af6825688135e2955250024dcc3668ff4f55cfce`
-(see [testnet.json](https://github.com/Rexemre/blockzero-core/blob/main/artifacts/genesis/testnet.json)).
-
-### Mainnet
-
-Mainnet addresses use the `bz1...` prefix. Mainnet launches **2026-06-06 06:06:06 UTC**
-(see [mainnet-launch.md](mainnet-launch.md)). The mainnet genesis block hash is:
-
-```
-44c1a8c852b3eda21966e1ddb6b0807e22488dffe8a270bf24bf1fa2d66c13bd
-```
+See [testnet-reset.md](testnet-reset.md) for genesis details.
 
 ## Network parameters (quick reference)
 
@@ -91,10 +96,15 @@ Mainnet addresses use the `bz1...` prefix. Mainnet launches **2026-06-06 06:06:0
 
 ## Connecting to peers
 
-There are no DNS seeds yet. Until seed nodes are published, connect manually:
+Public seeds are live. The scripts in `blockzero-ops` configure them automatically.
+To connect manually:
 
 ```bash
-./build/bin/bitcoin-cli -testnet addnode "<host>:18210" add
+# Mainnet
+./build/bin/bitcoin-cli -datadir=~/.blockzero-mainnet -rpcport=8211 addnode "217.160.46.61:8210" add
+
+# Testnet
+./build/bin/bitcoin-cli -testnet addnode "217.160.46.61:18210" add
 ```
 
 ## Notes
