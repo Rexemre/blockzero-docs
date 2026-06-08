@@ -10,7 +10,7 @@ Documentation for Block Zero — a CPU-mineable, fair-launch proof-of-work chain
 
 | I want to… | Read this |
 |------------|-----------|
-| **Mine on testnet now** | [Quick Start: Testnet Mining](quickstart-mining.md) |
+| **Mine on mainnet now** | [Quick Start: Mainnet Mining](quickstart-mining.md) |
 | **Run a node** | [Node Guide](node-guide.md) |
 | **Understand mining** | [Mining Guide](mining-guide.md) |
 | **See what's built** | [Implementation Status](implementation-status.md) |
@@ -18,7 +18,8 @@ Documentation for Block Zero — a CPU-mineable, fair-launch proof-of-work chain
 
 ### One-click mining scripts
 
-Windows, Linux, macOS: [blockzero-ops/scripts/testnet](https://github.com/Rexemre/blockzero-ops/tree/main/scripts/testnet)
+Mainnet (BLOZ): [blockzero-ops/scripts/mainnet](https://github.com/Rexemre/blockzero-ops/tree/main/scripts/mainnet)  
+Testnet (TBLOZ, dev): [blockzero-ops/scripts/testnet](https://github.com/Rexemre/blockzero-ops/tree/main/scripts/testnet)
 
 Prebuilt binaries: [blockzero-core Releases](https://github.com/Rexemre/blockzero-core/releases)
 

@@ -54,7 +54,7 @@ Source: `blockzero-core` (fork of Bitcoin Core v31.0).
 - Regtest: node starts on the Block Zero genesis, enforces RandomX PoW, mines via
   `-generate`, wallet yields `bzrt...` addresses, seed rotation works across an epoch.
 - Testnet/Mainnet: nodes boot on their genesis (chain reports test/main, height 0).
-- VPS seed (`217.160.46.61`) runs the public testnet and relays the chain.
+- VPS seed (`217.160.46.61`) runs **mainnet** (port 8210) and **testnet** (port 18210).
 
 ### Testnet genesis (2026-06-04)
 - Satoshi-style message: `The Times 04/Jun/2026 Block Zero - a second chance at Genesis`
@@ -84,25 +84,30 @@ Source: `blockzero-core` (fork of Bitcoin Core v31.0).
   everywhere). Only bulk mining is slow in WSL2. Real miners run bare metal or
   optimized miners. Genesis mining used light mode (faster in WSL2) at a feasible floor.
 
+### Mainnet launch (2026-06-06)
+- Launched at **2026-06-06 06:06:06 UTC** (`nTime 1780725966`).
+- **Genesis hash:** `44c1a8c852b3eda21966e1ddb6b0807e22488dffe8a270bf24bf1fa2d66c13bd`
+- Public mainnet seed live on VPS `217.160.46.61:8210` (systemd, always-on).
+- Mainnet block explorer at [explorer.bloz.org](https://explorer.bloz.org).
+- One-click mainnet mining scripts in `blockzero-ops/scripts/mainnet/`.
+
+### Public infrastructure (live)
+- Mainnet seed + explorer (BLOZ).
+- Testnet seed + explorer (TBLOZ) at `217.160.46.61:18210` / [texplorer.bloz.org](https://texplorer.bloz.org).
+- Release binaries published on GitHub Releases.
+- Mining guides and runbooks updated for mainnet.
+
 ## Not done yet (known gaps)
 
 ### Difficulty calibration
-- Difficulty adjustment is still upstream behavior. It needs calibration on a
-  public testnet for low-hashrate stability (avoid stalls and swings).
+- Difficulty adjustment is still upstream behavior. Ongoing observation on the
+  live mainnet for low-hashrate stability (avoid stalls and swings).
 
-### Seeds and public infrastructure
-- Testnet seed node live on VPS `217.160.46.61:18210` (systemd, always-on).
-- Local mining/dev node at `212.51.149.153:18210` (see `testnet-seeds.md`).
-- DNS seeds, explorer and monitoring not deployed yet.
-
-## Suggested next steps (in order)
-
-1. Stand up public testnet infrastructure: seed nodes, DNS/static seeds, explorer, monitoring.
-2. Calibrate the difficulty adjustment on a live testnet for low-hashrate stability.
-3. Build/curate a CPU miner + mining guide so the community can mine the testnet
-   (recommend bare-metal or an optimized RandomX miner for real hashrate).
-4. Expand functional/unit test coverage (e.g. a regtest functional test that mines
-   across a seed-rotation epoch boundary).
+### Future work
+- DNS seeds and monitoring dashboards.
+- Signed Windows installer, dedicated `blockzero-miner` with hashrate display.
+- Expand functional/unit test coverage (e.g. a regtest functional test that mines
+  across a seed-rotation epoch boundary).
 
 ## Build and test (WSL Ubuntu)
 

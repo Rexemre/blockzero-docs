@@ -1,10 +1,10 @@
-# Quick Start: Testnet Mining
+# Quick Start: Mainnet Mining
 
 **BLOCK ZERO** — CPU-mineable. Fair launch. Proof-of-work. No presale. No insiders.
 
-Mine **TBLOZ** on the live testnet in a few commands. Your CPU. Your blocks.
+Mine **BLOZ** on the live mainnet in a few commands. Your CPU. Your blocks.
 
-**Primary seed:** `217.160.46.61:18210`
+**Primary seed:** `217.160.46.61:8210` · **Explorer:** https://explorer.bloz.org
 
 ---
 
@@ -13,15 +13,15 @@ Mine **TBLOZ** on the live testnet in a few commands. Your CPU. Your blocks.
 | Platform | Difficulty | Best for mining? |
 |----------|------------|------------------|
 | **Windows (native `.exe`)** | Easy with installer | Yes — full RandomX speed |
-| **Linux** | Easy | Yes |
-| **macOS** | Easy | Yes |
+| **Linux** | Moderate | Yes |
+| **macOS** | Moderate | Yes |
 | **WSL2 on Windows** | Hard, slow | **No** — use native Windows instead |
 
 ---
 
 ## Windows (recommended)
 
-### 1. Install
+### 1. Install binaries
 
 Open **PowerShell** (not WSL):
 
@@ -31,7 +31,7 @@ cd blockzero-ops\scripts\testnet
 .\install-windows.ps1
 ```
 
-This downloads the latest release from [blockzero-core Releases](https://github.com/Rexemre/blockzero-core/releases) or shows build instructions if no release exists yet.
+This downloads the latest release from [blockzero-core Releases](https://github.com/Rexemre/blockzero-core/releases).
 
 Add binaries to PATH:
 
@@ -39,67 +39,50 @@ Add binaries to PATH:
 $env:Path += ";$env:LOCALAPPDATA\BlockZero\bin"
 ```
 
-### 2. Sync to the public testnet (required — do not skip)
+### 2. Sync to the public mainnet (required — do not skip)
 
 **Mining without peers creates a solo fork.** Connect to the network first.
 
-The scripts already point at the always-on **VPS seed** `217.160.46.61:18210`, so
-just check status — the node connects and syncs automatically:
-
 ```powershell
-.\mine-testnet.ps1 -Status
+cd ..\mainnet
+.\mine-mainnet.ps1 -Status
 ```
 
 This must show `Peers: 1` or more and the correct **genesis hash**.
 
-The testnet genesis hash is published in
-[testnet.json](https://github.com/Rexemre/blockzero-core/blob/main/artifacts/genesis/testnet.json)
-(`7462293eec16a92c54a74362af6825688135e2955250024dcc3668ff4f55cfce`).
-Block 1 is **not** fixed - it is mined fresh after genesis.
-
-```powershell
-.\mine-testnet.ps1 -Status
-# getblockhash 0 must match OfficialGenesis in chain-identity.ps1
-```
+The mainnet genesis hash is published in
+[mainnet.json](https://github.com/Rexemre/blockzero-core/blob/main/artifacts/genesis/mainnet.json)
+(`44c1a8c852b3eda21966e1ddb6b0807e22488dffe8a270bf24bf1fa2d66c13bd`).
 
 If you previously mined alone (0 peers), reset the solo chain first:
 
 ```powershell
-.\mine-testnet.ps1 -Stop
-.\resync-testnet.ps1
-.\mine-testnet.ps1 -Status
+.\mine-mainnet.ps1 -Stop
+.\resync-mainnet.ps1
+.\mine-mainnet.ps1 -Status
 ```
 
-> The script is resilient to node restarts: it waits out RandomX startup/warmup
-> and reloads the `mining` wallet automatically.
+> Mainnet uses a separate datadir (`%LOCALAPPDATA%\BlockZeroMainnet`) so it never
+> collides with a testnet node.
 
 ### 3. Mine
 
 ```powershell
-.\mine-testnet.ps1
+.\mine-mainnet.ps1
 ```
 
 Limit CPU usage (optional, requires **v1.0.0-rc3+** binaries):
 
 ```powershell
-.\mine-testnet.ps1 -Threads 8    # ~8 cores, less heat/noise
-.\mine-testnet.ps1 -Threads 24   # use more cores on high-end CPUs
-# omit -Threads for default: min(logical cores, 16)
+.\mine-mainnet.ps1 -Threads 8    # ~8 cores, less heat/noise
+.\mine-mainnet.ps1 -Threads 24   # use more cores on high-end CPUs
 ```
 
-Each RandomX thread uses ~256 MiB RAM. Task Manager **Performance → CPU** shows
-mining load; the Processes tab can show 0% for `bitcoind` while mining (Windows quirk).
-
-Check status:
+Check status / stop:
 
 ```powershell
-.\mine-testnet.ps1 -Status
-```
-
-Stop the node:
-
-```powershell
-.\mine-testnet.ps1 -Stop
+.\mine-mainnet.ps1 -Status
+.\mine-mainnet.ps1 -Stop
 ```
 
 **Do not mine in WSL2** — RandomX is ~10× slower there. Use the native Windows binaries.
@@ -109,85 +92,45 @@ Stop the node:
 ## GUI wallet (`bitcoin-qt`)
 
 From release **v0.1.0-testnet.6** onward, the download also ships
-`bitcoin-qt` — the full graphical node + wallet (same code as Bitcoin Core's
-GUI). Use it if you'd rather see your balance and addresses in a window than on
-the command line.
+`bitcoin-qt` — the full graphical node + wallet.
 
-### Start the GUI
+### Start the GUI (mainnet)
 
 ```powershell
-& "$env:LOCALAPPDATA\BlockZero\bin\bitcoin-qt.exe" -testnet -datadir="$env:LOCALAPPDATA\BlockZero"
+& "$env:LOCALAPPDATA\BlockZero\bin\bitcoin-qt.exe" -datadir="$env:LOCALAPPDATA\BlockZeroMainnet"
 ```
 
-(Linux/macOS: run `bitcoin-qt` from the release's `bin/`, or open
-`bitcoin-qt.app` on macOS.)
-
-The GUI shows your **TBLOZ** balance, a **Receive** tab for addresses, peers and
-sync status — no commands needed for everyday wallet use.
+The GUI shows your **BLOZ** balance, a **Receive** tab for addresses (`bz1...`), peers and
+sync status.
 
 ### Mine from the GUI
 
-Bitcoin Core's GUI has no "mine" button, but it has a built-in console:
-
-1. Menu **Window → Console** (or **Help → Debug window → Console**).
+1. Menu **Window → Console**.
 2. Get an address: `getnewaddress`
-3. Mine blocks to it: `generatetoaddress 1 <your-tbz1-address>`
-   (repeat, or pass a higher count). RandomX runs on your CPU.
+3. Mine blocks to it: `generatetoaddress 1 <your-bz1-address>`
 
-The balance updates live in the **Overview** tab. For hands-off continuous
-mining, keep using `mine-testnet.ps1` (it loops `generatetoaddress` for you);
-the GUI can run alongside it to watch the wallet.
+For hands-off continuous mining, keep using `mine-mainnet.ps1`.
 
 ---
 
-## Linux
+## Linux / macOS
+
+Build or download binaries from [blockzero-core Releases](https://github.com/Rexemre/blockzero-core/releases), then:
 
 ```bash
 git clone https://github.com/Rexemre/blockzero-ops.git
-cd blockzero-ops/scripts/testnet
-chmod +x install-unix.sh mine-testnet.sh
-./install-unix.sh
-export PATH="$HOME/.local/share/blockzero/bin:$PATH"
-./mine-testnet.sh
+cd blockzero-ops/scripts/mainnet
+# copy bitcoin.conf.example to ~/.blockzero-mainnet/bitcoin.conf
+bitcoind -datadir=~/.blockzero-mainnet -daemon
+bitcoin-cli -datadir=~/.blockzero-mainnet -rpcport=8211 createwallet mining
+bitcoin-cli -datadir=~/.blockzero-mainnet -rpcport=8211 -rpcwallet=mining generatetoaddress 1 $(bitcoin-cli -datadir=~/.blockzero-mainnet -rpcport=8211 -rpcwallet=mining getnewaddress)
 ```
 
-Optional thread limit (requires **v1.0.0-rc3+** binaries):
-
-```bash
-BZERO_THREADS=8 ./mine-testnet.sh
-```
-
-Status / stop:
-
-```bash
-./mine-testnet.sh status
-./mine-testnet.sh stop
-```
-
----
-
-## macOS
-
-Same as Linux:
-
-```bash
-git clone https://github.com/Rexemre/blockzero-ops.git
-cd blockzero-ops/scripts/testnet
-chmod +x install-unix.sh mine-testnet.sh
-./install-unix.sh
-export PATH="$HOME/.local/share/blockzero/bin:$PATH"
-./mine-testnet.sh
-```
-
-Optional: `BZERO_THREADS=8 ./mine-testnet.sh` (rc3+).
-
-On Apple Silicon, use the `macos-arm64` release. On Intel Macs, use `macos-x64`.
+See [mining-guide.md](mining-guide.md) for full details.
 
 ---
 
 ## Build from source (all platforms)
-
-If no GitHub Release exists yet, build once:
 
 | Platform | Guide |
 |----------|-------|
@@ -198,70 +141,58 @@ If no GitHub Release exists yet, build once:
 Then point the scripts at your `build/bin`:
 
 ```powershell
-# Windows
-.\mine-testnet.ps1 -BinDir "C:\path\to\blockzero-core\build\bin"
-```
-
-```bash
-# Linux / macOS
-BZERO_BINDIR=~/blockzero-core/build/bin ./mine-testnet.sh
+.\mine-mainnet.ps1 -BinDir "C:\path\to\blockzero-core\build\bin"
 ```
 
 ---
 
 ## What the scripts do
 
-1. Create a data directory and `bitcoin.conf` with the public testnet seed
-2. Start `bitcoind -testnet`
+1. Create a mainnet data directory and `bitcoin.conf` with the public seed
+2. Start `bitcoind` (no `-testnet` flag)
 3. Create a wallet named `mining`
 4. Loop `generatetoaddress` with 500M max tries per call (multi-threaded RandomX)
 
-Default thread count: **min(logical CPU cores, 16)**. Override with `-Threads N`
-(Windows) or `BZERO_THREADS=N` (Linux/macOS) when using v1.0.0-rc3 or newer.
-
-Your mining address looks like: `tbz1...`  
-Rewards show as **TBLOZ** (immature until ~100 blocks).
+Your mining address looks like: `bz1...`  
+Rewards show as **BLOZ** (immature until ~100 blocks).
 
 ---
 
-## Verify sync (public testnet)
+## Verify sync (public mainnet)
 
 ```powershell
-# PowerShell — datadir is BlockZero, not BlockZero\testnet3
-& "$env:LOCALAPPDATA\BlockZero\bin\bitcoin-cli.exe" -testnet -datadir="$env:LOCALAPPDATA\BlockZero" getconnectioncount
-& "$env:LOCALAPPDATA\BlockZero\bin\bitcoin-cli.exe" -testnet -datadir="$env:LOCALAPPDATA\BlockZero" getblockhash 0
-# 7462293eec16a92c54a74362af6825688135e2955250024dcc3668ff4f55cfce
+& "$env:LOCALAPPDATA\BlockZero\bin\bitcoin-cli.exe" -datadir="$env:LOCALAPPDATA\BlockZeroMainnet" getconnectioncount
+& "$env:LOCALAPPDATA\BlockZero\bin\bitcoin-cli.exe" -datadir="$env:LOCALAPPDATA\BlockZeroMainnet" getblockhash 0
+# 44c1a8c852b3eda21966e1ddb6b0807e22488dffe8a270bf24bf1fa2d66c13bd
 ```
 
-```bash
-# Linux / macOS
-bitcoin-cli -testnet -datadir="$HOME/.blockzero" -rpcport=18211 getconnectioncount
-bitcoin-cli -testnet -datadir="$HOME/.blockzero" -rpcport=18211 getblockhash 1
-```
-
-If `getconnectioncount` is **0**, do **not** mine — run `resync-testnet.ps1` (Windows) and ensure a seed is reachable. See [testnet-seeds.md](testnet-seeds.md).
-
-## Solo fork?
-
-If you mined with **0 peers**, you were on a private fork. Fix:
-
-```powershell
-.\mine-testnet.ps1 -Stop
-.\resync-testnet.ps1
-.\mine-testnet.ps1 -Status
-```
+If `getconnectioncount` is **0**, do **not** mine — run `resync-mainnet.ps1` and ensure the seed is reachable.
 
 ---
 
 ## Block explorer
 
-Browse blocks, transactions and the chain tip in your browser:
-
+- **Mainnet:** https://explorer.bloz.org
 - **Testnet:** https://texplorer.bloz.org
-- **Mainnet:** https://explorer.bloz.org (live after launch)
 
-Both are self-hosted [btc-rpc-explorer](https://github.com/janoside/btc-rpc-explorer)
-on the seed node.
+Both are self-hosted [btc-rpc-explorer](https://github.com/janoside/btc-rpc-explorer) on the seed node.
+
+---
+
+## Testnet (optional)
+
+The testnet (TBLOZ) remains live for development and testing. It uses separate ports, addresses (`tbz1...`), and scripts:
+
+```powershell
+cd blockzero-ops\scripts\testnet
+.\install-windows.ps1
+.\mine-testnet.ps1 -Status
+.\mine-testnet.ps1
+```
+
+**Testnet seed:** `217.160.46.61:18210` · **Explorer:** https://texplorer.bloz.org
+
+See [testnet-seeds.md](testnet-seeds.md) and [testnet-reset.md](testnet-reset.md).
 
 ---
 
@@ -269,8 +200,8 @@ on the seed node.
 
 | Phase | What |
 |-------|------|
-| **Done** | One-click scripts, Release binaries, **GUI wallet (`bitcoin-qt`)**, web explorer |
+| **Done** | Mainnet live, one-click scripts, Release binaries, GUI wallet (`bitcoin-qt`), web explorer |
 | **Next** | Signed Windows installer, `blockzero-miner` with hashrate display |
 | **Later** | Optional mining pool, coin-branded explorer |
 
-See also: [mining-guide.md](mining-guide.md), [testnet-seeds.md](testnet-seeds.md)
+See also: [mining-guide.md](mining-guide.md), [mainnet-launch.md](mainnet-launch.md)

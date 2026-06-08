@@ -59,7 +59,7 @@ Genesis parameters and reproduction steps: [blockzero-core/artifacts/genesis](ht
 - Target block spacing: 10 minutes.
 - Difficulty retargets roughly every 12 hours (72 blocks) for faster response to
   early hashrate changes.
-- These parameters are still subject to testnet calibration before any mainnet launch.
+- Mainnet launched 2026-06-06 06:06:06 UTC; parameters are being observed on the live network.
 
 ## How do I run a node or mine?
 

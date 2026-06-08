@@ -1,6 +1,6 @@
 # Block Zero Mainnet Launch - 2026-06-06 06:06:06 UTC
 
-Mainnet launches at the genesis moment **2026-06-06 06:06:06 UTC** (`nTime 1780725966`).
+**Mainnet is live.** Launched at the genesis moment **2026-06-06 06:06:06 UTC** (`nTime 1780725966`).
 
 > **Fair-launch gate:** the genesis timestamp is the launch moment. A block's
 > timestamp must be greater than the genesis time, so **block 1 cannot be mined
@@ -61,12 +61,12 @@ Verify the node boots on it:
 
 ---
 
-## Mine on mainnet (after launch)
+## Mine on mainnet
 
 ```powershell
 cd blockzero-ops\scripts\mainnet
 .\mine-mainnet.ps1 -Status   # sync to the seed first; Peers >= 1
-.\mine-mainnet.ps1           # mine (works only once the launch moment has passed)
+.\mine-mainnet.ps1           # mine
 ```
 
 Mainnet uses a separate datadir (`%LOCALAPPDATA%\BlockZeroMainnet`) so it never
@@ -74,40 +74,19 @@ collides with a testnet node or wallet.
 
 ---
 
-## Important: the node cannot run before launch
+## Fair-launch gate (historical)
 
-Bitcoin Core refuses to load a chain whose tip is **more than 2 hours in the
-future** ("block which appears to be from the future"). Because the genesis is
-timestamped 2026-06-06 06:06:06 UTC, the seed node **cannot be started before
-roughly 2 hours prior to launch** - it will exit on startup until then.
+Before launch, Bitcoin Core refused to load a chain whose tip was **more than 2 hours in the
+future**. Because the genesis is timestamped 2026-06-06 06:06:06 UTC, the seed node could not
+be started until roughly 2 hours prior to launch — ensuring nobody could get a head start.
 
-This is part of the fair-launch gate: nobody can even run the chain early.
+### Launch completed (2026-06-06)
 
-### Pre-staged (done now, before launch)
-- VPS binary built with the mainnet genesis (`bitcoind --version` ok)
-- `/opt/bzero-mainnet/bitcoin.conf` + datadir created
-- `blockzero-mainnet.service` installed but **disabled** (so it does not crash-loop)
-- ufw allows TCP 8210 (IONOS cloud firewall must also allow 8210)
-
-### Launch day (2026-06-06, at or shortly before 06:06:06 UTC)
-
-```bash
-ssh root@217.160.46.61
-cp /opt/blockzero-ops/systemd/bzero-mainnet-seed.bitcoin.conf.example \
-   /opt/bzero-mainnet/bitcoin.conf
-systemctl enable --now blockzero-mainnet
-sleep 20
-systemctl is-active blockzero-mainnet
-/opt/blockzero-core/build/bin/bitcoin-cli -datadir=/opt/bzero-mainnet getblockhash 0
-# must equal 44c1a8c852b3eda21966e1ddb6b0807e22488dffe8a270bf24bf1fa2d66c13bd
-systemctl restart blockzero-mainnet-explorer
-curl -s https://explorer.bloz.org/api/blocks/tip/height
-```
+- VPS mainnet seed running (`blockzero-mainnet.service`, port 8210)
+- Mainnet explorer live at [explorer.bloz.org](https://explorer.bloz.org)
+- IONOS cloud firewall allows TCP 8210
 
 See also: [mainnet-seed-node.md](https://github.com/Rexemre/blockzero-ops/blob/main/runbooks/mainnet-seed-node.md).
-
-> Open **TCP 8210** in the IONOS cloud firewall policy for server MarlonMorales,
-> the same way port 18210 was opened for testnet.
 
 ---
 
