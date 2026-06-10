@@ -10,13 +10,13 @@ Unwrap burns wBLOZ and returns native BLOZ.
 
 ## Live contracts (BSC mainnet)
 
-| Contract | Address |
-|----------|---------|
-| wBLOZ | `0x395B11E87ac0630aF9DC32520f411dB17C13F24C` |
-| BlozBridge (unwrap) | `0xA7f3bEe62b20F041358062d890eF60b4E12464b7` |
-| BlozWrapClaim (mint) | `0x03cE8aA17Fa59E62Fd7E5af327f8b4AE47091727` |
+| Contract | Address | BscScan |
+|----------|---------|---------|
+| wBLOZ | `0x395B11E87ac0630aF9DC32520f411dB17C13F24C` | [verified](https://bscscan.com/address/0x395B11E87ac0630aF9DC32520f411dB17C13F24C#code) |
+| BlozBridge (unwrap) | `0xA7f3bEe62b20F041358062d890eF60b4E12464b7` | [verified](https://bscscan.com/address/0xA7f3bEe62b20F041358062d890eF60b4E12464b7#code) |
+| BlozWrapClaim (mint) | `0x03cE8aA17Fa59E62Fd7E5af327f8b4AE47091727` | [verified](https://bscscan.com/address/0x03cE8aA17Fa59E62Fd7E5af327f8b4AE47091727#code) |
 
-Verify source on [BscScan](https://bscscan.com) after running `npm run verify:bsc` (requires `BSCSCAN_API_KEY`).
+All three contracts are source-verified on BscScan. Re-verify after redeploy: `npm run verify:bsc` or `npm run verify:bridge` for BlozBridge.
 
 ---
 
@@ -47,7 +47,7 @@ Rule: `bridge wallet BLOZ balance ≥ wBLOZ.totalSupply()`.
 
 The operator EOA does **not** hold `MINTER_ROLE` directly — only the claim contract can mint.
 
-**No third-party audit yet.** Contracts are open source; verify on BscScan before trusting large amounts.
+**No third-party audit yet.** Contracts are open source and verified on BscScan — review source before trusting large amounts.
 
 ---
 
