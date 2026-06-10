@@ -15,6 +15,7 @@ Documentation for Block Zero — a CPU-mineable, fair-launch proof-of-work chain
 | **Understand mining** | [Mining Guide](mining-guide.md) |
 | **See what's built** | [Implementation Status](implementation-status.md) |
 | **Common questions** | [FAQ](faq.md) |
+| **Wrap BLOZ → wBLOZ (BSC)** | [Bridge Guide](bridge-guide.md) |
 
 ### One-click mining scripts
 
@@ -53,3 +54,4 @@ RandomX keeps mining on ordinary hardware. A reproducible genesis keeps the laun
 | Docs (here) | [blockzero-docs](https://github.com/Rexemre/blockzero-docs) |
 | Ops & scripts | [blockzero-ops](https://github.com/Rexemre/blockzero-ops) |
 | Wallet | [blockzero-wallet](https://github.com/Rexemre/blockzero-wallet) |
+| Bridge (wBLOZ) | [blockzero-bridge](https://github.com/Rexemre/blockzero-bridge) |
