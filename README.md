@@ -6,6 +6,22 @@ Documentation for Block Zero — a CPU-mineable, fair-launch proof-of-work chain
 
 ---
 
+## Official links
+
+| | |
+|---|---|
+| **Website** | https://bloz.org |
+| **Pool** | https://pool.bloz.org *(test release)* |
+| **Explorer** | https://explorer.bloz.org · testnet: https://texplorer.bloz.org |
+| **Bridge** | https://bridge.bloz.org |
+| **Discord** | https://discord.gg/FbJzrwAU2W |
+| **X (Twitter)** | https://x.com/BlockZeroBLOZ |
+| **Full list** | [official-links.md](official-links.md) |
+
+**Mainnet seed:** `217.160.46.61:8210`
+
+---
+
 ## Start here
 
 | I want to… | Read this |
