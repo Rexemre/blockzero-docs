@@ -163,7 +163,15 @@ bitcoin-cli -datadir=~/.blockzero-mainnet createwallet mining
 bitcoin-cli -datadir=~/.blockzero-mainnet -rpcwallet=mining getnewaddress
 ```
 
-Pool mining on Windows is the supported one-command path today. Linux pool miners can point any compatible stratum client at `wss://pool.bloz.org/stratum` with worker `bz1ADDRESS.rigname`.
+**Pool mining (Linux x64 / macOS Apple Silicon):**
+
+```bash
+cd blockzero-ops/scripts/mainnet
+chmod +x mine-pool.sh
+./mine-pool.sh bz1YOURADDRESS     # or just ./mine-pool.sh with a local wallet
+```
+
+Downloads the prebuilt miner automatically. Options: `THREADS=8 ./mine-pool.sh`, `WORKER=rig2 ./mine-pool.sh`.
 
 See [mining-guide.md](mining-guide.md) for full details.
 
