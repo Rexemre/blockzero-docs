@@ -22,12 +22,12 @@ All three contracts are source-verified on BscScan. Re-verify after redeploy: `n
 
 ## Trust model (read this first)
 
-This is a **custodial 1:1 bridge**:
+This is a **custodial bridge** with a **3.9% service fee** per wrap and unwrap:
 
-- Every **wBLOZ** in circulation should be backed by **native BLOZ** in the bridge wallet.
-- **Wrap:** you send BLOZ to a unique deposit address → after 6 confirmations you **claim** wBLOZ on BSC (you pay BNB gas). Minting is gated by the `BlozWrapClaim` contract and a relayer signature — not a manual hot-wallet mint button.
-- **Unwrap:** you burn wBLOZ on `BlozBridge` → the relayer sends native BLOZ from the reserve wallet (minus a small Block Zero network fee).
-- **Auto-refund:** if a deposit cannot be wrapped or is not claimed in time, BLOZ is **returned to the original sending `bz1…` address** (minus the same network fee).
+- Every **wBLOZ** in circulation should be backed by **native BLOZ** in the bridge wallet. The fee stays in the reserve, so wBLOZ remains over-backed.
+- **Wrap:** you send BLOZ to a unique deposit address → after 6 confirmations you **claim** wBLOZ on BSC (you pay BNB gas). You receive **96.1%** of your deposit as wBLOZ (3.9% bridge fee). Minting is gated by the `BlozWrapClaim` contract and a relayer signature — not a manual hot-wallet mint button.
+- **Unwrap:** you burn wBLOZ on `BlozBridge` → the relayer sends native BLOZ from the reserve wallet. You receive **96.1%** of the burned amount (3.9% bridge fee), minus a small Block Zero network fee.
+- **Auto-refund:** if a deposit cannot be wrapped or is not claimed in time, BLOZ is **returned to the original sending `bz1…` address** — refunds carry **no bridge fee**, only the network fee.
 
 ### Verify reserves yourself
 
@@ -59,6 +59,8 @@ The operator EOA does **not** hold `MINTER_ROLE` directly — only the claim con
 4. Wait for **6 confirmations**
 5. Click **Claim wBLOZ** (BNB gas) and import wBLOZ in MetaMask (8 decimals)
 
+**You receive:** deposit × **96.1%** as wBLOZ (3.9% bridge fee).
+
 **Deposit address expires** after 48 hours if no valid deposit arrives.
 
 **Claim window:** 7 days after the deposit confirms. If you do not claim wBLOZ in time, BLOZ is auto-refunded to the address that sent the deposit.
@@ -72,9 +74,9 @@ The operator EOA does **not** hold `MINTER_ROLE` directly — only the claim con
 3. Approve + `unwrap()` on BlozBridge (BNB gas)
 4. Native BLOZ arrives after relayer processing (usually minutes)
 
-**Payout** = burned wBLOZ − **0.00001 BLOZ** network fee (covers the native chain tx).
+**Payout** = burned wBLOZ × **96.1%** (3.9% bridge fee) − **0.00001 BLOZ** network fee (covers the native chain tx).
 
-**Bridge fee on BSC:** 0% — you only pay BNB gas.
+You also pay BNB gas for approve + unwrap on BSC.
 
 ---
 
@@ -88,7 +90,7 @@ The operator EOA does **not** hold `MINTER_ROLE` directly — only the claim con
 | Deposit to unknown/expired wrap | Refund to sender |
 | Claimable but not claimed within 7 days | Refund to sender |
 
-Refund amount = deposit − **0.00001 BLOZ** network fee (same as unwrap).
+Refund amount = deposit − **0.00001 BLOZ** network fee. Refunds carry **no 3.9% bridge fee**.
 
 Refunds require resolving the sender from the deposit transaction. If that fails temporarily, the relayer retries automatically.
 
@@ -98,9 +100,9 @@ Refunds require resolving the sender from the deposit transaction. If that fails
 
 | Action | Fee |
 |--------|-----|
-| Wrap (claim wBLOZ) | BNB gas only |
-| Unwrap | BNB gas + 0.00001 BLOZ network fee on payout |
-| Auto-refund | 0.00001 BLOZ network fee deducted |
+| Wrap (claim wBLOZ) | **3.9% bridge fee** + BNB gas |
+| Unwrap | **3.9% bridge fee** + 0.00001 BLOZ network fee + BNB gas |
+| Auto-refund | 0.00001 BLOZ network fee only (no bridge fee) |
 
 ---
 
