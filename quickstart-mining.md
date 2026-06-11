@@ -2,9 +2,20 @@
 
 **BLOCK ZERO** — CPU-mineable. Fair launch. Proof-of-work. No presale. No insiders.
 
-Mine **BLOZ** on the live mainnet in a few commands. Your CPU. Your blocks.
+Mine **BLOZ** on the live mainnet in a few commands.
 
-**Primary seed:** `217.160.46.61:8210` · **Explorer:** https://explorer.bloz.org
+**Pool (recommended):** https://pool.bloz.org · **Explorer:** https://explorer.bloz.org · **Seed:** `217.160.46.61:8210`
+
+---
+
+## Two steps — install vs wallet
+
+| Step | Script | What it does |
+|------|--------|--------------|
+| **1. Install** | `install-windows.ps1` | Downloads `bitcoind` / `bitcoin-cli` only. **No wallet, no node, no mining.** |
+| **2. Mine** | `mine-mainnet.ps1` | Starts node, creates wallet `mining`, generates `bz1` address, then mines (solo or pool). |
+
+Pool and solo use the **same wallet** (`%LOCALAPPDATA%\BlockZeroMainnet`). You never install a seed node — the public seed is already in `bitcoin.conf`.
 
 ---
 
@@ -12,49 +23,67 @@ Mine **BLOZ** on the live mainnet in a few commands. Your CPU. Your blocks.
 
 | Platform | Difficulty | Best for mining? |
 |----------|------------|------------------|
-| **Windows (native `.exe`)** | Easy with installer | Yes — full RandomX speed |
+| **Windows (native `.exe`)** | Easy with scripts | Yes — full RandomX speed |
 | **Linux** | Moderate | Yes |
 | **macOS** | Moderate | Yes |
 | **WSL2 on Windows** | Hard, slow | **No** — use native Windows instead |
 
 ---
 
-## Windows (recommended)
-
-### 1. Install binaries
+## Windows — pool mining (recommended)
 
 Open **PowerShell** (not WSL):
 
 ```powershell
 git clone https://github.com/Rexemre/blockzero-ops.git
-cd blockzero-ops\scripts\testnet
+cd blockzero-ops\scripts\mainnet
 .\install-windows.ps1
+.\mine-mainnet.ps1 -Pool
 ```
 
-This downloads the latest release from [blockzero-core Releases](https://github.com/Rexemre/blockzero-core/releases).
-
-Add binaries to PATH:
+**First run:** installs binaries (if needed), starts `bitcoind` briefly, creates wallet + `bz1` payout address, downloads pool miner, connects to `pool.bloz.org`.  
+**Later runs:** reuses your existing address automatically.
 
 ```powershell
-$env:Path += ";$env:LOCALAPPDATA\BlockZero\bin"
+.\mine-mainnet.ps1 -Pool -Threads 4   # limit CPU threads
+.\mine-pool.bat                       # same as -Pool (double-click)
+.\mine-pool-mainnet.ps1 -Status       # pool height, fee, stratum
+.\mine-mainnet.ps1 -Status            # wallet balance, node peers
 ```
 
-### 2. Sync to the public mainnet (required — do not skip)
+| Setting | Value |
+|---------|-------|
+| Dashboard | https://pool.bloz.org |
+| Stratum | `wss://pool.bloz.org/stratum` |
+| Worker | `bz1YOURADDRESS.pc` |
+| Password | `x` |
+| Payout | PPLNS, 2% fee, min 0.5 BLOZ |
 
-**Mining without peers creates a solo fork.** Connect to the network first.
+**Node sync is not required for pool mining.** You only need the local node once to create the wallet address. Payouts go to your BlockZero wallet.
+
+More detail: [blockzero-ops pool quickstart](https://github.com/Rexemre/blockzero-ops/blob/main/runbooks/pool-mining-quickstart.md)
+
+---
+
+## Windows — solo mining
+
+Same install, then sync before you mine:
 
 ```powershell
-cd ..\mainnet
-.\mine-mainnet.ps1 -Status
+git clone https://github.com/Rexemre/blockzero-ops.git
+cd blockzero-ops\scripts\mainnet
+.\install-windows.ps1
+.\mine-mainnet.ps1 -Status    # wait until Peers >= 1
+.\mine-mainnet.ps1            # solo mine
 ```
 
-This must show `Peers: 1` or more and the correct **genesis hash**.
+**Mining without peers creates a solo fork.** `-Status` must show `Peers: 1` or more and the correct genesis hash before you run solo mining.
 
-The mainnet genesis hash is published in
-[mainnet.json](https://github.com/Rexemre/blockzero-core/blob/main/artifacts/genesis/mainnet.json)
-(`44c1a8c852b3eda21966e1ddb6b0807e22488dffe8a270bf24bf1fa2d66c13bd`).
+Genesis hash ([mainnet.json](https://github.com/Rexemre/blockzero-core/blob/main/artifacts/genesis/mainnet.json)):
 
-If you previously mined alone (0 peers), reset the solo chain first:
+`44c1a8c852b3eda21966e1ddb6b0807e22488dffe8a270bf24bf1fa2d66c13bd`
+
+If you previously mined alone with 0 peers, reset first:
 
 ```powershell
 .\mine-mainnet.ps1 -Stop
@@ -62,69 +91,79 @@ If you previously mined alone (0 peers), reset the solo chain first:
 .\mine-mainnet.ps1 -Status
 ```
 
-> Mainnet uses a separate datadir (`%LOCALAPPDATA%\BlockZeroMainnet`) so it never
-> collides with a testnet node.
-
-### 3. Mine
+Limit CPU (optional, **v1.0.0-rc3+** binaries):
 
 ```powershell
-.\mine-mainnet.ps1
-```
-
-Limit CPU usage (optional, requires **v1.0.0-rc3+** binaries):
-
-```powershell
-.\mine-mainnet.ps1 -Threads 8    # ~8 cores, less heat/noise
-.\mine-mainnet.ps1 -Threads 24   # use more cores on high-end CPUs
-```
-
-Check status / stop:
-
-```powershell
-.\mine-mainnet.ps1 -Status
+.\mine-mainnet.ps1 -Threads 8
 .\mine-mainnet.ps1 -Stop
 ```
 
-**Do not mine in WSL2** — RandomX is ~10× slower there. Use the native Windows binaries.
+> Mainnet data lives in `%LOCALAPPDATA%\BlockZeroMainnet` — separate from testnet.
+
+**Do not mine in WSL2** — RandomX is ~10× slower there.
+
+---
+
+## Pool vs solo
+
+| | Pool (`-Pool`) | Solo |
+|--|----------------|------|
+| Command | `.\mine-mainnet.ps1 -Pool` | `.\mine-mainnet.ps1` |
+| Wallet | BlockZero (`mining`) | Same wallet |
+| Full node sync | Not needed to mine | **Required** (Peers ≥ 1) |
+| Mining | Pool stratum | Local `generatetoaddress` |
+| Payout | PPLNS via pool | Direct to your wallet |
+
+---
+
+## Wallet, node, seed — common questions
+
+**Do I need to run a full node for pool mining?**  
+No. The script starts `bitcoind` locally once to create your wallet and `bz1` address. You do not need to stay synced to mine on the pool.
+
+**Do I need to install a seed node?**  
+No. Users never run seed infrastructure. Your `bitcoin.conf` already contains `addnode=217.160.46.61:8210`.
+
+**Where is my wallet?**  
+`%LOCALAPPDATA%\BlockZeroMainnet\wallets\mining` — created by `mine-mainnet.ps1`, not by `install-windows.ps1`.
+
+**Where is my payout address?**  
+`%LOCALAPPDATA%\BlockZeroMainnet\mining-address.txt` (a `bz1...` address).
+
+**Can I use the same wallet for pool and solo?**  
+Yes. Same BlockZero wallet and address for both modes.
 
 ---
 
 ## GUI wallet (`bitcoin-qt`)
 
-From release **v0.1.0-testnet.6** onward, the download also ships
-`bitcoin-qt` — the full graphical node + wallet.
-
-### Start the GUI (mainnet)
+Release builds also ship `bitcoin-qt` — graphical node + wallet.
 
 ```powershell
 & "$env:LOCALAPPDATA\BlockZero\bin\bitcoin-qt.exe" -datadir="$env:LOCALAPPDATA\BlockZeroMainnet"
 ```
 
-The GUI shows your **BLOZ** balance, a **Receive** tab for addresses (`bz1...`), peers and
-sync status.
+Shows **BLOZ** balance, **Receive** tab (`bz1...`), peers and sync.
 
-### Mine from the GUI
-
-1. Menu **Window → Console**.
-2. Get an address: `getnewaddress`
-3. Mine blocks to it: `generatetoaddress 1 <your-bz1-address>`
-
-For hands-off continuous mining, keep using `mine-mainnet.ps1`.
+To mine from the GUI: **Window → Console** → `getnewaddress` → `generatetoaddress 1 <bz1-address>`.  
+For hands-off mining, use `mine-mainnet.ps1` or `-Pool`.
 
 ---
 
 ## Linux / macOS
 
-Build or download binaries from [blockzero-core Releases](https://github.com/Rexemre/blockzero-core/releases), then:
+Build or download from [blockzero-core Releases](https://github.com/Rexemre/blockzero-core/releases), then:
 
 ```bash
 git clone https://github.com/Rexemre/blockzero-ops.git
 cd blockzero-ops/scripts/mainnet
 # copy bitcoin.conf.example to ~/.blockzero-mainnet/bitcoin.conf
 bitcoind -datadir=~/.blockzero-mainnet -daemon
-bitcoin-cli -datadir=~/.blockzero-mainnet -rpcport=8211 createwallet mining
-bitcoin-cli -datadir=~/.blockzero-mainnet -rpcport=8211 -rpcwallet=mining generatetoaddress 1 $(bitcoin-cli -datadir=~/.blockzero-mainnet -rpcport=8211 -rpcwallet=mining getnewaddress)
+bitcoin-cli -datadir=~/.blockzero-mainnet createwallet mining
+bitcoin-cli -datadir=~/.blockzero-mainnet -rpcwallet=mining getnewaddress
 ```
+
+Pool mining on Windows is the supported one-command path today. Linux pool miners can point any compatible stratum client at `wss://pool.bloz.org/stratum` with worker `bz1ADDRESS.rigname`.
 
 See [mining-guide.md](mining-guide.md) for full details.
 
@@ -138,35 +177,40 @@ See [mining-guide.md](mining-guide.md) for full details.
 | macOS | `doc/build-osx.md` in blockzero-core |
 | Windows | `doc/build-windows-msvc.md` in blockzero-core (native, not WSL) |
 
-Then point the scripts at your `build/bin`:
-
 ```powershell
 .\mine-mainnet.ps1 -BinDir "C:\path\to\blockzero-core\build\bin"
 ```
 
 ---
 
-## What the scripts do
+## What each script does
 
-1. Create a mainnet data directory and `bitcoin.conf` with the public seed
-2. Start `bitcoind` (no `-testnet` flag)
-3. Create a wallet named `mining`
-4. Loop `generatetoaddress` with 500M max tries per call (multi-threaded RandomX)
+**`install-windows.ps1`**
 
-Your mining address looks like: `bz1...`  
-Rewards show as **BLOZ** (immature until ~100 blocks).
+1. Downloads `bitcoind.exe`, `bitcoin-cli.exe` (and `bitcoin-qt.exe`) to `%LOCALAPPDATA%\BlockZero\bin`
+2. Does **not** create a wallet, `bitcoin.conf`, or start mining
+
+**`mine-mainnet.ps1`** (pool or solo)
+
+1. Creates `%LOCALAPPDATA%\BlockZeroMainnet` and `bitcoin.conf` with the public seed
+2. Starts `bitcoind` (mainnet, no `-testnet`)
+3. Creates wallet `mining` and a `bz1...` mining address (`mining-address.txt`)
+4. **Pool:** downloads pool miner, connects to `pool.bloz.org`
+5. **Solo:** loops `generatetoaddress` (500M max tries per call, multi-threaded RandomX)
+
+Rewards show as **BLOZ** (immature until ~100 blocks for solo coinbase).
 
 ---
 
-## Verify sync (public mainnet)
+## Verify sync (solo — public mainnet)
 
 ```powershell
-& "$env:LOCALAPPDATA\BlockZero\bin\bitcoin-cli.exe" -datadir="$env:LOCALAPPDATA\BlockZeroMainnet" getconnectioncount
-& "$env:LOCALAPPDATA\BlockZero\bin\bitcoin-cli.exe" -datadir="$env:LOCALAPPDATA\BlockZeroMainnet" getblockhash 0
+& "$env:LOCALAPPDATA\BlockZero\bin\bitcoin-cli.exe" -datadir="$env:LOCALAPPDATA\BlockZeroMainnet" -rpcport=8332 getconnectioncount
+& "$env:LOCALAPPDATA\BlockZero\bin\bitcoin-cli.exe" -datadir="$env:LOCALAPPDATA\BlockZeroMainnet" -rpcport=8332 getblockhash 0
 # 44c1a8c852b3eda21966e1ddb6b0807e22488dffe8a270bf24bf1fa2d66c13bd
 ```
 
-If `getconnectioncount` is **0**, do **not** mine — run `resync-mainnet.ps1` and ensure the seed is reachable.
+If `getconnectioncount` is **0**, do **not** solo mine — run `resync-mainnet.ps1` and ensure the seed is reachable.
 
 ---
 
@@ -175,17 +219,15 @@ If `getconnectioncount` is **0**, do **not** mine — run `resync-mainnet.ps1` a
 - **Mainnet:** https://explorer.bloz.org
 - **Testnet:** https://texplorer.bloz.org
 
-Both are self-hosted [btc-rpc-explorer](https://github.com/janoside/btc-rpc-explorer) on the seed node.
-
 ---
 
 ## Testnet (optional)
 
-The testnet (TBLOZ) remains live for development and testing. It uses separate ports, addresses (`tbz1...`), and scripts:
+TBLOZ uses separate ports, addresses (`tbz1...`), and scripts:
 
 ```powershell
 cd blockzero-ops\scripts\testnet
-.\install-windows.ps1
+.\install-windows.ps1          # forwards to mainnet installer (same binaries)
 .\mine-testnet.ps1 -Status
 .\mine-testnet.ps1
 ```
@@ -200,8 +242,8 @@ See [testnet-seeds.md](testnet-seeds.md) and [testnet-reset.md](testnet-reset.md
 
 | Phase | What |
 |-------|------|
-| **Done** | Mainnet live, one-click scripts, Release binaries, GUI wallet (`bitcoin-qt`), web explorer |
-| **Next** | Signed Windows installer, `blockzero-miner` with hashrate display |
-| **Later** | Optional mining pool, coin-branded explorer |
+| **Done** | Mainnet live, pool at pool.bloz.org, one-click scripts, release binaries, GUI wallet, web explorer |
+| **Next** | Signed Windows installer, Linux pool quickstart, hashrate display in miner |
+| **Later** | Coin-branded explorer, mobile wallet |
 
 See also: [mining-guide.md](mining-guide.md), [mainnet-launch.md](mainnet-launch.md)

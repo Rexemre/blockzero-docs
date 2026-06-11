@@ -63,7 +63,17 @@ Genesis parameters and reproduction steps: [blockzero-core/artifacts/genesis](ht
 
 ## How do I run a node or mine?
 
-See the Node Guide and Mining Guide in this repository.
+See [quickstart-mining.md](quickstart-mining.md) (pool or solo), [node-guide.md](node-guide.md), and [mining-guide.md](mining-guide.md).
+
+**Pool (recommended):** `install-windows.ps1` then `mine-mainnet.ps1 -Pool` — no full sync needed to mine.
+
+**Solo:** same wallet setup, but sync first (`Peers >= 1`) before mining.
+
+## Do I need a node, wallet, or seed to pool mine?
+
+- **Wallet:** yes — created automatically by `mine-mainnet.ps1` (not by `install-windows.ps1`).
+- **Local node:** started briefly for wallet creation; you do not need to stay fully synced to pool mine.
+- **Seed node:** no — users never install seeds; `addnode=217.160.46.61:8210` is already in the default config.
 
 ## Where is the code?
 

@@ -41,7 +41,23 @@ ADDR=$(./build/bin/bitcoin-cli -regtest getnewaddress)
 
 ## Mining on mainnet
 
-Use the [quickstart-mining.md](quickstart-mining.md) scripts, or manually:
+**Recommended:** [quickstart-mining.md](quickstart-mining.md) — pool mining with `mine-mainnet.ps1 -Pool` (wallet + pool in one command on Windows).
+
+`install-windows.ps1` downloads binaries only; the wallet is created on the first `mine-mainnet.ps1` run (pool or solo).
+
+### Pool mining (Windows)
+
+```powershell
+cd blockzero-ops\scripts\mainnet
+.\install-windows.ps1
+.\mine-mainnet.ps1 -Pool
+```
+
+Dashboard: https://pool.bloz.org · Stratum: `wss://pool.bloz.org/stratum` · Worker: `bz1ADDRESS.rigname`
+
+### Solo mining (manual RPC)
+
+Use the quickstart scripts, or manually:
 
 ```bash
 ./build/bin/bitcoind -datadir=~/.blockzero-mainnet -daemon
