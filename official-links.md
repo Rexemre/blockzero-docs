@@ -32,7 +32,7 @@ Use these URLs only. **Third-party pools, explorers, and download sites are not 
 | Channel | URL |
 |---------|-----|
 | **Discord** | https://discord.gg/FbJzrwAU2W |
-| **X (Twitter)** | https://x.com/BlockZeroBLOZ |
+| **X (Twitter)** | https://x.com/Block_Zero_2009 |
 
 ## GitHub
 
