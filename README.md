@@ -1,12 +1,12 @@
 # BLOCK ZERO · Docs
 
-### Missed 2009? **Start at Block Zero.**
+### **Mine with your CPU** — not a warehouse. **Start at Block Zero.**
 
-Documentation for Block Zero — a CPU-mineable, fair-launch proof-of-work chain. No presale. No insiders.
+Docs for Block Zero — **RandomX** CPU mining (no ASIC/GPU advantage), fair launch, mainnet guides. No presale. No insiders.
 
 **👉 New here? [Join Discord →](https://discord.gg/FbJzrwAU2W)** · **🌐 [bloz.org](https://bloz.org)** · **⛏ [pool.bloz.org](https://pool.bloz.org)**
 
-**Mainnet live** since 2026-06-06 · height **1715+** · seed `217.160.46.61:8210`
+**Mainnet live** since 2026-06-06 · height **1726+** · seed `217.160.46.61:8210`
 
 ---
 
@@ -15,7 +15,7 @@ Documentation for Block Zero — a CPU-mineable, fair-launch proof-of-work chain
 | | **Block Zero** | Typical altcoin |
 |---|---|---|
 | **Launch** | Fair — mine from genesis | Presale, team allocation, VC |
-| **Mining** | Your **CPU** (RandomX) | ASIC farms or GPU pools |
+| **Mining** | Your **CPU only** — RandomX blocks ASICs & GPUs | ASIC farms or GPU pools |
 | **Codebase** | Modern **Bitcoin Core v31** | Fork-and-forget spaghetti |
 | **Insiders** | **None** | Founders, advisors, VCs |
 
@@ -77,7 +77,7 @@ RandomX keeps mining on ordinary hardware. A reproducible genesis keeps the laun
 |---|---|
 | **Website** | https://bloz.org |
 | **Pool** | https://pool.bloz.org |
-| **Explorer** | https://explorer.bloz.org · testnet: https://texplorer.bloz.org |
+| **Explorer** | https://explorer.bloz.org |
 | **Bridge** | https://bridge.bloz.org |
 | **Discord** | https://discord.gg/FbJzrwAU2W |
 | **X (Twitter)** | https://x.com/Block_Zero_2009 |
