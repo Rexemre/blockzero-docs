@@ -13,7 +13,7 @@ Use these URLs only. **Third-party pools, explorers, and download sites are not 
 | Service | URL | Notes |
 |---------|-----|-------|
 | **Website** | https://bloz.org | Project homepage |
-| **Mining pool** | https://pool.bloz.org | Official pool *(test release)* |
+| **Mining pool** | https://pool.bloz.org | Official pool (PPLNS, RandomX CPU mining) |
 | **Block explorer (mainnet)** | https://explorer.bloz.org | BLOZ chain |
 | **Block explorer (testnet)** | https://texplorer.bloz.org | TBLOZ dev/test |
 | **Bridge (BLOZ ↔ wBLOZ)** | https://bridge.bloz.org | BSC wrap / unwrap |
@@ -74,7 +74,7 @@ Use of unofficial sites or services is entirely at your own risk. Block Zero ass
 1. **Only trust URLs on this page** and on [bloz.org](https://bloz.org).
 2. Official web services use the **`bloz.org`** domain only (e.g. `pool.bloz.org`, `explorer.bloz.org`, `bridge.bloz.org`).
 3. Download binaries only from [blockzero-core Releases](https://github.com/Rexemre/blockzero-core/releases) or the official [blockzero-ops](https://github.com/Rexemre/blockzero-ops) scripts.
-4. Prefer **solo mining** or the **official pool** (test release) via our GitHub scripts — not unknown third-party pools.
+4. Prefer **solo mining** or the **official pool** via our GitHub scripts — not unknown third-party pools.
 5. When in doubt, ask in the official [Discord](https://discord.gg/FbJzrwAU2W) before running software or entering a payout address.
 
 ---
