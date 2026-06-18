@@ -150,6 +150,26 @@ For hands-off mining, use `mine-mainnet.ps1` or `-Pool`.
 
 ---
 
+## macOS wallet — one command (Apple Silicon)
+
+The easiest way. This downloads the wallet, sets up the config, and makes the app
+runnable so macOS does **not** show *"Block Zero is damaged and can't be opened"*:
+
+```bash
+git clone https://github.com/Rexemre/blockzero-ops.git
+cd blockzero-ops/scripts/mainnet
+chmod +x install-macos.sh
+./install-macos.sh
+open "$HOME/Applications/Block Zero.app"
+```
+
+> **If you double-clicked the download instead and macOS says *"… is damaged and can't
+> be opened. You should move it to the Bin"*:** that is Gatekeeper, not a real
+> corruption. Re-run `./install-macos.sh --force` (it repairs the app), or clear it
+> manually: `xattr -dr com.apple.quarantine "/path/to/Block Zero.app"`.
+
+---
+
 ## Linux / macOS
 
 Build or download from [blockzero-core Releases](https://github.com/Rexemre/blockzero-core/releases), then:
