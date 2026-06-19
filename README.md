@@ -23,7 +23,7 @@ Docs for Block Zero — **RandomX** CPU mining (no ASIC/GPU advantage), fair lau
 
 ## Start in 3 steps
 
-1. **Wallet** — [Windows rc28](https://github.com/Rexemre/blockzero-core/releases/tag/v1.0.0-rc28) or [Quick Start: Mainnet Mining](quickstart-mining.md)
+1. **Wallet** — [latest release (Windows / macOS / Linux)](https://github.com/Rexemre/blockzero-core/releases/latest) or [Quick Start: Mainnet Mining](quickstart-mining.md)
 2. **Pool mine** — [blockzero-ops/scripts/mainnet](https://github.com/Rexemre/blockzero-ops/tree/main/scripts/mainnet) → `./mine-pool.sh bz1YOURADDRESS`
 3. **Questions?** — **[Discord](https://discord.gg/FbJzrwAU2W)** · [FAQ](faq.md)
 
@@ -45,7 +45,7 @@ Docs for Block Zero — **RandomX** CPU mining (no ASIC/GPU advantage), fair lau
 Mainnet (BLOZ): [blockzero-ops/scripts/mainnet](https://github.com/Rexemre/blockzero-ops/tree/main/scripts/mainnet)  
 Testnet (TBLOZ, dev): [blockzero-ops/scripts/testnet](https://github.com/Rexemre/blockzero-ops/tree/main/scripts/testnet)
 
-Prebuilt binaries: [blockzero-core Releases](https://github.com/Rexemre/blockzero-core/releases) · Pool miner: [pool-miner-v0.6.9](https://github.com/Rexemre/blockzero-ops/releases/tag/pool-miner-v0.6.9)
+Prebuilt binaries: [blockzero-core Releases](https://github.com/Rexemre/blockzero-core/releases/latest) · Pool miner: [latest pool-miner](https://github.com/Rexemre/blockzero-ops/releases/latest)
 
 ---
 

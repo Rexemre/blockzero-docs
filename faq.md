@@ -75,6 +75,38 @@ See [quickstart-mining.md](quickstart-mining.md) (pool or solo), [node-guide.md]
 - **Local node:** started briefly for wallet creation; you do not need to stay fully synced to pool mine.
 - **Seed node:** no — users never install seeds; `addnode=217.160.46.61:8210` is already in the default config.
 
+## Troubleshooting (install & first run)
+
+Always download the **[latest release](https://github.com/Rexemre/blockzero-core/releases/latest)** — older builds (rc28 and earlier) have launch bugs that are fixed in newer ones.
+
+**macOS: "Block Zero is damaged and can't be opened. You should move it to the Bin."**
+This is macOS Gatekeeper, not a real corruption (the app is ad-hoc signed, not notarized).
+Easiest fix — install via the script, which clears it automatically:
+```bash
+cd blockzero-ops/scripts/mainnet && ./install-macos.sh --force
+```
+Or clear it manually, then open with **Right-click → Open**:
+```bash
+xattr -dr com.apple.quarantine "$HOME/Applications/Block Zero.app"
+```
+
+**macOS: `filesystem error: in equivalent: Operation not supported`**
+A first-run bug in older builds. Fixed in the latest release — download it again.
+
+**macOS / Windows: `Prune mode is incompatible with -txindex`**
+You chose "limit block chain storage" (prune) on the welcome screen while the config had
+`txindex`. Fixed in the latest release. To unblock an existing install, remove the `txindex`
+line from `bitcoin.conf` (macOS: `~/Library/Application Support/BlockZeroMainnet/bitcoin.conf`).
+
+**Windows: `Qt6Gui.dll not found`**
+Run `Block Zero.exe` from **inside** its `bin\` folder (don't move the .exe away from its DLLs),
+or re-download the latest `windows-x64.zip` (the latest build bundles the complete Qt runtime).
+
+**Mining hashrate is very low (especially on EPYC / Threadripper / big servers)**
+RandomX needs **huge pages**. Run `sudo ./mine-pool.sh ...` once so it can reserve them, and
+check the miner shows `RandomX dataset using HUGE PAGES - full speed`. See the performance tip
+in [quickstart-mining.md](quickstart-mining.md).
+
 ## Where is the code?
 
 Everything is open source under `Rexemre/blockzero-core` (a fork of Bitcoin Core),

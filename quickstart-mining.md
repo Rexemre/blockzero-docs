@@ -135,12 +135,14 @@ Yes. Same BlockZero wallet and address for both modes.
 
 ---
 
-## GUI wallet (`bitcoin-qt`)
+## GUI wallet (`Block Zero.exe`)
 
-Release builds also ship `bitcoin-qt` — graphical node + wallet.
+Release builds also ship a graphical node + wallet, named **`Block Zero.exe`** on Windows
+and **`Block Zero.app`** on macOS. After `install-windows.ps1` it lives in
+`%LOCALAPPDATA%\BlockZero\bin` and uses the mainnet datadir automatically:
 
 ```powershell
-& "$env:LOCALAPPDATA\BlockZero\bin\bitcoin-qt.exe" -datadir="$env:LOCALAPPDATA\BlockZeroMainnet"
+& "$env:LOCALAPPDATA\BlockZero\bin\Block Zero.exe"
 ```
 
 Shows **BLOZ** balance, **Receive** tab (`bz1...`), peers and sync.
@@ -188,10 +190,17 @@ bitcoin-cli -datadir=~/.blockzero-mainnet -rpcwallet=mining getnewaddress
 ```bash
 cd blockzero-ops/scripts/mainnet
 chmod +x mine-pool.sh
-./mine-pool.sh bz1YOURADDRESS     # or just ./mine-pool.sh with a local wallet
+sudo ./mine-pool.sh bz1YOURADDRESS   # sudo lets it reserve huge pages (big speedup)
+# or just ./mine-pool.sh with a local wallet
 ```
 
 Downloads the prebuilt miner automatically. Options: `THREADS=8 ./mine-pool.sh`, `WORKER=rig2 ./mine-pool.sh`.
+
+> **Performance tip (important on many-core CPUs like EPYC / Threadripper):** RandomX is
+> 2-3x faster with **huge pages**. Run the script once with `sudo` so it can reserve them
+> (it persists across reboots). The miner prints `RandomX dataset using HUGE PAGES - full speed`
+> when active; if it says *"normal 4K pages - SLOW"*, huge pages weren't reserved. Manual:
+> `sudo sysctl -w vm.nr_hugepages=1280`.
 
 See [mining-guide.md](mining-guide.md) for full details.
 
@@ -215,7 +224,7 @@ See [mining-guide.md](mining-guide.md) for full details.
 
 **`install-windows.ps1`**
 
-1. Downloads `bitcoind.exe`, `bitcoin-cli.exe` (and `bitcoin-qt.exe`) to `%LOCALAPPDATA%\BlockZero\bin`
+1. Downloads `bitcoind.exe`, `bitcoin-cli.exe` (and the GUI wallet `Block Zero.exe`) to `%LOCALAPPDATA%\BlockZero\bin`
 2. Does **not** create a wallet, `bitcoin.conf`, or start mining
 
 **`mine-mainnet.ps1`** (pool or solo)
