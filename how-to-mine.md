@@ -15,6 +15,8 @@ Block Zero (**BLOZ**) is mined with your **CPU** using RandomX on the live mainn
 
 Mining payouts go to **your** Block Zero address (`bz1q…`). You are your own bank — the pool never holds your coins.
 
+→ Full walkthrough: **[How to Use the Wallet](how-to-use-wallet.md)**
+
 1. Download the **Block Zero wallet** for your OS from [Releases](https://github.com/Rexemre/blockzero-core/releases/latest).
 2. Open it → **Receive** tab → **copy your `bz1q…` address**.
 
@@ -59,13 +61,47 @@ curl -fsSL https://pool.bloz.org/install.sh | sudo ADDRESS=bz1qYOURADDRESS bash
 curl -fsSL https://pool.bloz.org/install.sh | ADDRESS=bz1qYOURADDRESS bash
 ```
 
-### Options
-Add these **before** `bash` (Linux/macOS) or as `$env:` vars (Windows):
+### Options — threads, rig name & more
 
-- **Threads:** `THREADS=8` — limit CPU threads (XMRig auto-picks the best count if omitted).
-- **Rig name:** `WORKER=rig2` — label this machine on the dashboard.
+All optional except `ADDRESS`. **Leave `THREADS` unset** to let XMRig auto-pick the best count (recommended for beginners).
 
-Manual run (any OS): `xmrig -a rx/blockzero -o pool.bloz.org:3334 -u bz1qYOURADDRESS.rig -p x -t 8`
+| Option | Windows (`$env:…`) | Linux / macOS (`VAR=value`) | Default |
+|--------|-------------------|----------------------------|---------|
+| **Address** | `$env:ADDRESS='bz1q…'` | `ADDRESS=bz1q…` | *(required)* |
+| **Threads** | `$env:THREADS='8'` | `THREADS=8` | auto (best for your CPU) |
+| **Rig name** | `$env:WORKER='gaming-pc'` | `WORKER=rig2` | your PC hostname |
+| **Pool** | `$env:POOL='pool.bloz.org:3334'` | `POOL=pool.bloz.org:3334` | `pool.bloz.org:3334` |
+
+**🪟 Windows** — PowerShell as Administrator:
+
+```powershell
+$env:ADDRESS='bz1qYOURADDRESS'; $env:THREADS='8'; $env:WORKER='gaming-pc'; irm https://pool.bloz.org/install.ps1 | iex
+```
+
+**🐧 Linux** — `sudo` reserves huge pages (much higher hashrate):
+
+```bash
+curl -fsSL https://pool.bloz.org/install.sh | sudo ADDRESS=bz1qYOURADDRESS THREADS=8 WORKER=rig2 bash
+```
+
+**🍎 macOS:**
+
+```bash
+curl -fsSL https://pool.bloz.org/install.sh | ADDRESS=bz1qYOURADDRESS THREADS=8 WORKER=mbp bash
+```
+
+**Tips**
+
+- **Threads:** use your **physical core count** when limiting (e.g. 8-core CPU → `THREADS=8`). Omit to use all cores XMRig can efficiently run.
+- **Multiple PCs:** same `ADDRESS`, different `WORKER` names — each rig shows separately on the dashboard.
+- **PC in daily use:** set `THREADS` to half your cores so the machine stays responsive.
+
+**Manual run** (after the one-liner has downloaded XMRig):
+
+| OS | Miner location | Command |
+|----|----------------|---------|
+| Windows | `%LOCALAPPDATA%\BlockZero\xmrig\` | `xmrig.exe -a rx/blockzero -o pool.bloz.org:3334 -u bz1qYOURADDRESS.rig -p x -t 8` |
+| Linux / macOS | `~/.blockzero/xmrig/` | `xmrig -a rx/blockzero -o pool.bloz.org:3334 -u bz1qYOURADDRESS.rig -p x -t 8` |
 
 Your hashrate appears on https://pool.bloz.org after the first **accepted share** (a minute or two while the RandomX dataset builds). Enter your `bz1` address under **Your stats** to track earnings.
 
@@ -79,8 +115,16 @@ Solo finds blocks rarely unless you have a lot of CPU power, and your node must 
 One command downloads the node, syncs to the public chain, then mines:
 
 ```bash
+# default threads (auto)
+curl -fsSL https://raw.githubusercontent.com/Rexemre/blockzero-ops/main/scripts/mainnet/mine-solo.sh | bash
+
+# limit CPU threads
 curl -fsSL https://raw.githubusercontent.com/Rexemre/blockzero-ops/main/scripts/mainnet/mine-solo.sh | THREADS=8 bash
 ```
+
+| Option | Syntax | Default |
+|--------|--------|---------|
+| **Threads** | `THREADS=8` | auto (all cores) |
 
 ### 🪟 Windows
 In **PowerShell** (not WSL):
@@ -89,11 +133,16 @@ In **PowerShell** (not WSL):
 git clone https://github.com/Rexemre/blockzero-ops.git
 cd blockzero-ops\scripts\mainnet
 .\install-windows.ps1
-.\mine-mainnet.ps1 -Status     # wait until Peers >= 1 and fully synced
-.\mine-mainnet.ps1             # start solo mining (add -Threads 8 to limit CPU)
+.\mine-mainnet.ps1 -Status          # wait until Peers >= 1 and fully synced
+.\mine-mainnet.ps1                  # start solo mining (auto threads)
+.\mine-mainnet.ps1 -Threads 8       # limit CPU threads
 ```
 
-> Advanced: change your fund contribution with `-devfundpercent=15` (min 10%) when starting the node.
+| Option | Syntax | Default |
+|--------|--------|---------|
+| **Threads** | `-Threads 8` | auto |
+
+> Advanced: change your fund contribution with the node option `-devfundpercent=15` (min 10%) when starting `bitcoind`.
 
 ---
 
@@ -111,6 +160,14 @@ cd blockzero-ops\scripts\mainnet
 - **Never** download miners from random users or run scripts from DMs.
 - **Never** share private keys or wallet files.
 - Windows antivirus flags all CPU miners as "riskware" — our installer adds the exclusion (run as Administrator). The XMRig build is fully open source: [xmrig-bz/](https://github.com/Rexemre/blockzero-ops/tree/main/xmrig-bz).
+
+---
+
+## Alternative methods
+
+Native miner scripts, `mine-mainnet.ps1`, testnet, and script internals:
+
+→ **[quickstart-mining.md](quickstart-mining.md)** (advanced)
 
 ---
 

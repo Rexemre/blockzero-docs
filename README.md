@@ -1,73 +1,57 @@
 # BLOCK ZERO · Docs
 
-### **Mine with your CPU** — not a warehouse. **Start at Block Zero.**
+Official documentation for Block Zero — **RandomX** CPU mining, fair launch, mainnet guides.
 
-Docs for Block Zero — **RandomX** CPU mining (no ASIC/GPU advantage), fair launch, mainnet guides. No presale. No insiders.
+**👉 [Discord](https://discord.gg/FbJzrwAU2W)** · **🌐 [bloz.org](https://bloz.org)** · **⛏ [pool.bloz.org](https://pool.bloz.org)**
 
-**👉 New here? [Join Discord →](https://discord.gg/FbJzrwAU2W)** · **🌐 [bloz.org](https://bloz.org)** · **⛏ [pool.bloz.org](https://pool.bloz.org)**
-
-**Mainnet live** since 2026-06-06 · height **1726+** · seed `217.160.46.61:8210`
+Mainnet live since 2026-06-06 · seed `217.160.46.61:8210`
 
 ---
 
-## Why Block Zero (in 30 seconds)
+## Get started (3 steps)
 
-| | **Block Zero** | Typical altcoin |
-|---|---|---|
-| **Launch** | Fair — mine from genesis | Presale, team allocation, VC |
-| **Mining** | Your **CPU only** — RandomX blocks ASICs & GPUs | ASIC farms or GPU pools |
-| **Codebase** | Modern **Bitcoin Core v31** | Fork-and-forget spaghetti |
-| **Insiders** | **None** | Founders, advisors, VCs |
+1. **[How to Use the Wallet](how-to-use-wallet.md)** — download, install, get your `bz1` address
+2. **[How to Mine BLOZ](how-to-mine.md)** — pool mining (XMRig) or solo, all OSes
+3. **[FAQ](faq.md)** — common questions & troubleshooting
 
 ---
 
-## Start in 3 steps
+## Guides
 
-1. **Get a `bz1…` address** — open the [Block Zero wallet](https://github.com/Rexemre/blockzero-core/releases/latest) → **Receive** tab
-2. **Mine** — follow **[How to Mine BLOZ](how-to-mine.md)** (pool & solo, all OSes, copy-paste commands)
-3. **Questions?** — **[Discord](https://discord.gg/FbJzrwAU2W)** · [FAQ](faq.md)
-
----
-
-## Start here
-
-| I want to… | Read this |
-|------------|-----------|
-| **Mine on mainnet now** | **[How to Mine BLOZ](how-to-mine.md)** (beginner) · [Quick Start (detailed)](quickstart-mining.md) |
-| **Run a node** | [Node Guide](node-guide.md) |
-| **Understand mining** | [Mining Guide](mining-guide.md) |
-| **See what's built** | [Implementation Status](implementation-status.md) |
-| **Common questions** | [FAQ](faq.md) |
-| **Wrap BLOZ → wBLOZ (BSC)** | [Bridge Guide](bridge-guide.md) |
-
-### One-click mining scripts
-
-Mainnet (BLOZ): [blockzero-ops/scripts/mainnet](https://github.com/Rexemre/blockzero-ops/tree/main/scripts/mainnet)  
-Testnet (TBLOZ, dev): [blockzero-ops/scripts/testnet](https://github.com/Rexemre/blockzero-ops/tree/main/scripts/testnet)
-
-Prebuilt binaries: [blockzero-core Releases](https://github.com/Rexemre/blockzero-core/releases/latest) · Pool miner: [latest pool-miner](https://github.com/Rexemre/blockzero-ops/releases/latest)
-
----
-
-## The idea
-
-Bitcoin proved that sound money can emerge from proof-of-work and open participation. Block Zero asks: *what if we could run that experiment again — with modern code, CPU-friendly mining, and zero insider advantage?*
-
-RandomX keeps mining on ordinary hardware. A reproducible genesis keeps the launch honest. Everything is open source.
-
-**Missed the early days of Bitcoin?** This is a second chance at Genesis — with the same scarcity rules (21M cap, halvings), but mining that stays on your CPU.
+| Topic | Document |
+|-------|----------|
+| **Wallet** (beginner) | [how-to-use-wallet.md](how-to-use-wallet.md) |
+| **Mining** (beginner) | [how-to-mine.md](how-to-mine.md) |
+| **Scripts & alternatives** | [quickstart-mining.md](quickstart-mining.md) |
+| **How RandomX mining works** | [mining-guide.md](mining-guide.md) |
+| **Run a node** | [node-guide.md](node-guide.md) |
+| **Bridge (wBLOZ on BSC)** | [bridge-guide.md](bridge-guide.md) |
+| **FAQ** | [faq.md](faq.md) |
 
 ---
 
 ## Specifications
 
 - [Genesis Specification](genesis-spec.md)
-- [Mainnet Launch (2026-06-06)](mainnet-launch.md)
-- [Testnet Reset](testnet-reset.md)
+- [Mainnet Launch](mainnet-launch.md)
 - [RandomX Integration](randomx-integration.md)
-- [Chain Parameters v0](chainparams-v0-proposal.md)
-- [Fork Change Map](fork-change-map.md)
-- [Launch Checklist](launch-checklist.md)
+- [Dev Fund](dev-fund.md)
+- [Implementation Status](implementation-status.md)
+- [Testnet Reset](testnet-reset.md) · [Testnet Seeds](testnet-seeds.md)
+- [Chain Parameters](chainparams-v0-proposal.md) · [Fork Change Map](fork-change-map.md)
+
+---
+
+## Downloads & scripts
+
+| What | Where |
+|------|-------|
+| Wallet & node binaries | [blockzero-core Releases](https://github.com/Rexemre/blockzero-core/releases/latest) |
+| XMRig & mining scripts | [blockzero-ops/scripts/mainnet](https://github.com/Rexemre/blockzero-ops/tree/main/scripts/mainnet) |
+| One-line install | `https://pool.bloz.org/install.sh` / `install.ps1` |
+| Testnet scripts | [blockzero-ops/scripts/testnet](https://github.com/Rexemre/blockzero-ops/tree/main/scripts/testnet) |
+
+Wallet guides repo: [blockzero-wallet](https://github.com/Rexemre/blockzero-wallet) (links here)
 
 ---
 
@@ -75,24 +59,23 @@ RandomX keeps mining on ordinary hardware. A reproducible genesis keeps the laun
 
 | | |
 |---|---|
-| **Website** | https://bloz.org |
-| **Pool** | https://pool.bloz.org |
-| **Explorer** | https://explorer.bloz.org |
-| **Bridge** | https://bridge.bloz.org |
-| **Discord** | https://discord.gg/FbJzrwAU2W |
-| **X (Twitter)** | https://x.com/Block_Zero_2009 |
-| **Full list** | [official-links.md](official-links.md) |
+| Website | https://bloz.org |
+| Pool | https://pool.bloz.org |
+| Explorer | https://explorer.bloz.org |
+| Bridge | https://bridge.bloz.org |
+| Discord | https://discord.gg/FbJzrwAU2W |
+| Full list | [official-links.md](official-links.md) |
 
 ---
 
 ## Repositories
 
-| Repo | Link |
-|------|------|
-| Core node | [blockzero-core](https://github.com/Rexemre/blockzero-core) |
-| Docs (here) | [blockzero-docs](https://github.com/Rexemre/blockzero-docs) |
-| Ops & scripts | [blockzero-ops](https://github.com/Rexemre/blockzero-ops) |
-| Wallet | [blockzero-wallet](https://github.com/Rexemre/blockzero-wallet) |
-| Bridge (wBLOZ) | [blockzero-bridge](https://github.com/Rexemre/blockzero-bridge) |
+| Repo | Purpose |
+|------|---------|
+| [blockzero-core](https://github.com/Rexemre/blockzero-core) | Node, wallet, chain |
+| **blockzero-docs** (here) | Documentation |
+| [blockzero-ops](https://github.com/Rexemre/blockzero-ops) | Scripts & infrastructure |
+| [blockzero-wallet](https://github.com/Rexemre/blockzero-wallet) | Wallet doc hub |
+| [blockzero-bridge](https://github.com/Rexemre/blockzero-bridge) | wBLOZ bridge |
 
-> **Warning:** Copycat sites (e.g. `.cc` domains) and third-party pools are **not affiliated** with Block Zero — we have no insight into their code and accept **no liability** for malware, wrong-chain mining, fraud, or unfair pool payouts. [Read the full warning →](official-links.md#warning-copycat-sites--unofficial-services)
+> **Warning:** Copycat sites and third-party pools are **not affiliated** with Block Zero. [Read the full warning →](official-links.md#warning-copycat-sites--unofficial-services)

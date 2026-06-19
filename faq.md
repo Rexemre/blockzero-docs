@@ -6,110 +6,114 @@
 
 Block Zero is an independent proof-of-work chain — built on Bitcoin Core v31, mined with RandomX on ordinary CPUs, launched with no presale, no premine, and no insider allocation. Fair from block one.
 
-## Is this Bitcoin / a new Bitcoin / Bitcoin 2.0?
+## Is this Bitcoin?
 
-No. Block Zero is **not** Bitcoin and is not a replacement for it. It is an
-independent, experimental network inspired by the early Bitcoin era.
+No. Block Zero is **not** Bitcoin. It is an independent network inspired by the early Bitcoin era.
 
-## Is BLOZ an investment? Will it be worth money?
+## Is BLOZ an investment?
 
-No promises of any kind. BLOZ has no guaranteed value, no promised liquidity and
-no expected return. Participation is voluntary and intended for technical,
-educational and community purposes.
+No promises of any kind. BLOZ has no guaranteed value, liquidity, or expected return.
 
 ## Why RandomX instead of SHA-256?
 
-SHA-256 mining is dominated by ASICs, so normal computers have no realistic chance.
-RandomX is optimized for general-purpose CPUs and resists ASICs and GPUs, which
-keeps participation open to ordinary hardware.
+SHA-256 is dominated by ASICs. RandomX is optimized for CPUs and resists ASICs/GPUs — ordinary hardware can participate.
 
-## Do I need a GPU like an RTX 4090?
+## Do I need a GPU?
 
-No. RandomX is CPU-bound; a GPU gives little to no advantage. A modern multi-core
-CPU is what matters.
+No. RandomX is CPU-bound. A modern multi-core CPU is what matters.
 
 ## Was there a premine or ICO?
 
-No. There is no premine, no ICO, no founder reward and no hidden allocation. The
-genesis block carries no spendable allocation; coins are mined by the network after
-launch. The genesis blocks are reproducible from the public source.
+No. Genesis carries no spendable allocation. Coins are mined after launch. Genesis is reproducible from public source — see [genesis-spec.md](genesis-spec.md).
 
-## Testnet genesis (2026-06-04)
+## Genesis block hashes
 
-The testnet runs on a RandomX genesis with a Satoshi-style headline. **Mainnet is separate and unchanged.**
+- **Mainnet:** `44c1a8c852b3eda21966e1ddb6b0807e22488dffe8a270bf24bf1fa2d66c13bd` (2026-06-06)
+- **Testnet:** `7462293eec16a92c54a74362af6825688135e2955250024dcc3668ff4f55cfce`
 
-See **[testnet-reset.md](testnet-reset.md)** for the reset procedure.
+## Difficulty & supply
 
-**Genesis message:**
+- RandomX PoW with height-based seed key rotation
+- ~10 minute block spacing
+- Difficulty retargets every ~12 hours (72 blocks)
+- 21M cap, halvings — same scarcity model as Bitcoin
 
-```text
-The Times 04/Jun/2026 Block Zero - a second chance at Genesis
-```
+---
 
-Genesis parameters and reproduction steps: [blockzero-core/artifacts/genesis](https://github.com/Rexemre/blockzero-core/tree/main/artifacts/genesis).
+## Getting started
 
-## What are the genesis block hashes?
+| I want to… | Read |
+|------------|------|
+| Set up the wallet | [how-to-use-wallet.md](how-to-use-wallet.md) |
+| Start mining | [how-to-mine.md](how-to-mine.md) |
+| Use scripts / alternatives | [quickstart-mining.md](quickstart-mining.md) |
+| Run a node | [node-guide.md](node-guide.md) |
+| Understand mining | [mining-guide.md](mining-guide.md) |
 
-- Testnet: `7462293eec16a92c54a74362af6825688135e2955250024dcc3668ff4f55cfce`
-- Mainnet: `44c1a8c852b3eda21966e1ddb6b0807e22488dffe8a270bf24bf1fa2d66c13bd` (launch 2026-06-06 06:06:06 UTC)
+**Pool mining:** get a `bz1` address → [how-to-mine.md](how-to-mine.md). No full node sync needed.
 
-## How is the difficulty / supply set up?
+**Solo mining:** sync first (`Peers ≥ 1`) → [how-to-mine.md § Solo](how-to-mine.md#3-solo-mining--run-your-own-node).
 
-- Proof-of-work: RandomX, with a height-based seed key rotation.
-- Target block spacing: 10 minutes.
-- Difficulty retargets roughly every 12 hours (72 blocks) for faster response to
-  early hashrate changes.
-- Mainnet launched 2026-06-06 06:06:06 UTC; parameters are being observed on the live network.
+**Do I need a seed node?** No. `addnode=217.160.46.61:8210` is in the default config.
 
-## How do I run a node or mine?
+**Can I use a Bitcoin (`bc1`) address?** No — BLOZ uses **`bz1`** addresses only.
 
-See [quickstart-mining.md](quickstart-mining.md) (pool or solo), [node-guide.md](node-guide.md), and [mining-guide.md](mining-guide.md).
-
-**Pool (recommended):** `install-windows.ps1` then `mine-mainnet.ps1 -Pool` — no full sync needed to mine.
-
-**Solo:** same wallet setup, but sync first (`Peers >= 1`) before mining.
-
-## Do I need a node, wallet, or seed to pool mine?
-
-- **Wallet:** yes — created automatically by `mine-mainnet.ps1` (not by `install-windows.ps1`).
-- **Local node:** started briefly for wallet creation; you do not need to stay fully synced to pool mine.
-- **Seed node:** no — users never install seeds; `addnode=217.160.46.61:8210` is already in the default config.
+---
 
 ## Troubleshooting (install & first run)
 
-Always download the **[latest release](https://github.com/Rexemre/blockzero-core/releases/latest)** — older builds (rc28 and earlier) have launch bugs that are fixed in newer ones.
+Always download the **[latest release](https://github.com/Rexemre/blockzero-core/releases/latest)**.
 
-**macOS: "Block Zero is damaged and can't be opened. You should move it to the Bin."**
-This is macOS Gatekeeper, not a real corruption (the app is ad-hoc signed, not notarized).
-Easiest fix — install via the script, which clears it automatically:
+### macOS: "Block Zero is damaged and can't be opened"
+
+Gatekeeper, not corruption. Fix:
+
 ```bash
-cd blockzero-ops/scripts/mainnet && ./install-macos.sh --force
-```
-Or clear it manually, then open with **Right-click → Open**:
-```bash
+curl -fsSL https://raw.githubusercontent.com/Rexemre/blockzero-ops/main/scripts/mainnet/install-macos.sh | bash
+# or manually:
 xattr -dr com.apple.quarantine "$HOME/Applications/Block Zero.app"
 ```
 
-**macOS: `filesystem error: in equivalent: Operation not supported`**
-A first-run bug in older builds. Fixed in the latest release — download it again.
+Then **Right-click → Open**. Details: [how-to-use-wallet.md](how-to-use-wallet.md).
 
-**macOS / Windows: `Prune mode is incompatible with -txindex`**
-You chose "limit block chain storage" (prune) on the welcome screen while the config had
-`txindex`. Fixed in the latest release. To unblock an existing install, remove the `txindex`
-line from `bitcoin.conf` (macOS: `~/Library/Application Support/BlockZeroMainnet/bitcoin.conf`).
+### macOS: `filesystem error: in equivalent`
 
-**Windows: `Qt6Gui.dll` / `Qt6Widgets.dll` not found** (often a System Error you must reboot to clear)
-**Extract the zip first** — right-click the `.zip` → *Extract All…* — then run the wallet from the
-extracted folder (double-click **`Start Block Zero.bat`**, or `bin\Block Zero.exe`). Running it
-straight from inside the zip launches the `.exe` without its DLLs and triggers this error. Always
-keep `Block Zero.exe` next to its DLLs in `bin\`.
+First-run bug in older builds. Download the latest release.
 
-**Mining hashrate is very low (especially on EPYC / Threadripper / big servers)**
-RandomX needs **huge pages**. Run `sudo ./mine-pool.sh ...` once so it can reserve them, and
-check the miner shows `RandomX dataset using HUGE PAGES - full speed`. See the performance tip
-in [quickstart-mining.md](quickstart-mining.md).
+### Prune mode is incompatible with `-txindex`
+
+Remove the `txindex` line from `bitcoin.conf`:
+
+| OS | Path |
+|----|------|
+| Windows | `%LOCALAPPDATA%\BlockZeroMainnet\bitcoin.conf` |
+| macOS (script) | `~/.blockzero-mainnet/bitcoin.conf` |
+| macOS (direct) | `~/Library/Application Support/BlockZeroMainnet/bitcoin.conf` |
+
+Or download the latest release (new installs no longer add `txindex`).
+
+### Windows: `Qt6Gui.dll` / `Qt6Widgets.dll` not found
+
+**Extract the zip first** → run **`Start Block Zero.bat`**. Do not launch from inside the zip.
+
+### Threads / rig name when mining
+
+See [how-to-mine.md § Options](how-to-mine.md#options--threads-rig-name--more).
+
+### Low hashrate (EPYC / big servers)
+
+RandomX needs **huge pages**. Run Linux installer with `sudo`, or `sudo ./mine-pool.sh`. See [mining-guide.md § Performance](mining-guide.md#performance-and-huge-pages).
+
+### Sync stuck / 0 peers
+
+Add to `bitcoin.conf`: `addnode=217.160.46.61:8210` — see [how-to-use-wallet.md § Sync](how-to-use-wallet.md#6-sync--peers).
+
+### Linux server: wallet / `libQt6Widgets.so.6` missing
+
+Use **CLI** on headless servers — no GUI, no Qt. See [how-to-use-wallet.md § Linux](how-to-use-wallet.md#-linux). The GUI binary (`bin/block-zero`) needs Qt6 libs + a display; CLI is the normal server setup.
+
+---
 
 ## Where is the code?
 
-Everything is open source under `Rexemre/blockzero-core` (a fork of Bitcoin Core),
-with the upstream baseline pinned and tracked for security updates.
+Open source: [blockzero-core](https://github.com/Rexemre/blockzero-core) (Bitcoin Core v31 fork). Upstream pinned in `UPSTREAM.md`.

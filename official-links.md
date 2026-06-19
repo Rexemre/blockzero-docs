@@ -43,10 +43,10 @@ Use these URLs only. **Third-party pools, explorers, and download sites are not 
 | [blockzero-ops](https://github.com/Rexemre/blockzero-ops) | Mining scripts, seed node, explorer ops |
 | [blockzero-pool](https://github.com/Rexemre/blockzero-pool) | Official pool infrastructure |
 | [blockzero-bridge](https://github.com/Rexemre/blockzero-bridge) | BLOZ ↔ wBLOZ bridge |
-| [blockzero-wallet](https://github.com/Rexemre/blockzero-wallet) | Wallet *(in development)* |
+| [blockzero-wallet](https://github.com/Rexemre/blockzero-wallet) | Wallet doc hub |
 
-**Releases (binaries):** https://github.com/Rexemre/blockzero-core/releases  
-**Quick start (mining):** [quickstart-mining.md](quickstart-mining.md)
+**Releases (binaries):** https://github.com/Rexemre/blockzero-core/releases/latest  
+**Get started:** [how-to-use-wallet.md](how-to-use-wallet.md) → [how-to-mine.md](how-to-mine.md) · [FAQ](faq.md)
 
 ---
 
