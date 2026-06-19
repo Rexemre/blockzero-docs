@@ -98,8 +98,10 @@ curl -fsSL https://pool.bloz.org/install.sh | ADDRESS=bz1qYOURADDRESS THREADS=8 
 
 | OS | Miner location | Command |
 |----|----------------|---------|
-| Windows | `%LOCALAPPDATA%\BlockZero\xmrig\` | `xmrig.exe -a rx/blockzero -o pool.bloz.org:3334 -u bz1qYOURADDRESS.rig -p x -t 8` |
-| Linux / macOS | `~/.blockzero/xmrig/` | `xmrig -a rx/blockzero -o pool.bloz.org:3334 -u bz1qYOURADDRESS.rig -p x -t 8` |
+| Windows | `%LOCALAPPDATA%\BlockZero\xmrig\` | `xmrig.exe -a rx/blockzero -o pool.bloz.org:3334 -u bz1qYOURADDRESS.rig -p x -t 8 --donate-level 0` |
+| Linux / macOS | `~/.blockzero/xmrig/` | `xmrig -a rx/blockzero -o pool.bloz.org:3334 -u bz1qYOURADDRESS.rig -p x -t 8 --donate-level 0` |
+
+> Our installers set `--donate-level 0` (no donation to XMRig's developers). The Block Zero on-chain Dev & Growth Fund is separate — see [dev-fund.md](dev-fund.md).
 
 Your hashrate appears on https://pool.bloz.org after the first **accepted share** (a minute or two while the RandomX dataset builds). Enter your `bz1` address under **Your stats** to track earnings.
 
