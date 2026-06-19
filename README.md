@@ -23,8 +23,8 @@ Docs for Block Zero — **RandomX** CPU mining (no ASIC/GPU advantage), fair lau
 
 ## Start in 3 steps
 
-1. **Wallet** — [latest release (Windows / macOS / Linux)](https://github.com/Rexemre/blockzero-core/releases/latest) or [Quick Start: Mainnet Mining](quickstart-mining.md)
-2. **Pool mine** — [blockzero-ops/scripts/mainnet](https://github.com/Rexemre/blockzero-ops/tree/main/scripts/mainnet) → `./mine-pool.sh bz1YOURADDRESS`
+1. **Get a `bz1…` address** — open the [Block Zero wallet](https://github.com/Rexemre/blockzero-core/releases/latest) → **Receive** tab
+2. **Mine** — follow **[How to Mine BLOZ](how-to-mine.md)** (pool & solo, all OSes, copy-paste commands)
 3. **Questions?** — **[Discord](https://discord.gg/FbJzrwAU2W)** · [FAQ](faq.md)
 
 ---
@@ -33,7 +33,7 @@ Docs for Block Zero — **RandomX** CPU mining (no ASIC/GPU advantage), fair lau
 
 | I want to… | Read this |
 |------------|-----------|
-| **Mine on mainnet now** | [Quick Start: Mainnet Mining](quickstart-mining.md) |
+| **Mine on mainnet now** | **[How to Mine BLOZ](how-to-mine.md)** (beginner) · [Quick Start (detailed)](quickstart-mining.md) |
 | **Run a node** | [Node Guide](node-guide.md) |
 | **Understand mining** | [Mining Guide](mining-guide.md) |
 | **See what's built** | [Implementation Status](implementation-status.md) |
