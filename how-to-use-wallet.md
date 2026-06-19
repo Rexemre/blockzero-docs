@@ -1,258 +1,289 @@
 # 💼 How to Use the Block Zero Wallet
 
-The **Block Zero wallet** is the official GUI app to hold, send, and receive **BLOZ**. It is built into [blockzero-core](https://github.com/Rexemre/blockzero-core) (`bitcoin-qt`, branded **Block Zero**).
+Step-by-step for absolute beginners: **install** the wallet, **create or open** it, **get your `bz1` address**, **send/receive BLOZ**, and **back up** safely — on **Windows, macOS, and Linux**, with or without a graphical interface (GUI).
 
-**Next step after setup:** [How to Mine BLOZ](how-to-mine.md)
+The wallet is part of [blockzero-core](https://github.com/Rexemre/blockzero-core):
+- **GUI** = `Block Zero` app (`bitcoin-qt`) — clickable window, best for most people.
+- **CLI** = `bitcoind` + `bitcoin-cli` — terminal only, best for servers.
+
+Both share the **same wallet and address**. After setup → **[How to Mine BLOZ](how-to-mine.md)**.
 
 | | |
 |---|---|
 | **Download** | https://github.com/Rexemre/blockzero-core/releases/latest |
 | **Explorer** | https://explorer.bloz.org |
 | **Mainnet seed** | `217.160.46.61:8210` |
-| **Mine after setup** | [How to Mine BLOZ](how-to-mine.md) |
 
-> **Important:** Block Zero addresses start with **`bz1`** — not `bc1` (Bitcoin). You cannot send BLOZ to a Bitcoin address or vice versa.
+> ⚠️ Block Zero addresses start with **`bz1`** — **not** `bc1` (Bitcoin). BLOZ and BTC are different networks; you cannot send between them.
 
 ---
 
-## 1. Download & install
+## 0. Which version do I need?
 
-Always use the **[latest release](https://github.com/Rexemre/blockzero-core/releases/latest)**. Older builds (rc28 and earlier) had first-run bugs that are fixed in newer releases.
+| You have… | Use | Section |
+|-----------|-----|---------|
+| Normal PC (Windows/Mac) with a screen | **GUI wallet** | [1A](#1a-install-the-gui-wallet) |
+| Desktop Linux with a screen | **GUI wallet** | [1A](#1a-install-the-gui-wallet) |
+| A server / VPS (no screen) | **CLI** (no GUI) | [1B](#1b-install-the-cli-no-gui) |
+| Just want to mine, no wallet on this PC | Skip — use any `bz1` address you own → [How to Mine](how-to-mine.md) |
+
+Beginners on a normal computer: use the **GUI**. It's the easiest.
+
+---
+
+## 1A. Install the GUI wallet
+
+Always use the **[latest release](https://github.com/Rexemre/blockzero-core/releases/latest)**.
 
 ### 🪟 Windows
 
 1. Download **`blockzero-*-windows-x64.zip`**
-2. **Right-click → Extract All…** (do not run from inside the zip)
+2. **Right-click → Extract All…** ← important, don't skip
 3. Open the extracted folder → double-click **`Start Block Zero.bat`** (or `bin\Block Zero.exe`)
 
-> Running `Block Zero.exe` straight from the zip causes **`Qt6Gui.dll` / `Qt6Widgets.dll` not found** — the DLLs must sit next to the exe.
-
-**Alternative (script install):**
-
-```powershell
-git clone https://github.com/Rexemre/blockzero-ops.git
-cd blockzero-ops\scripts\mainnet
-.\install-windows.ps1
-& "$env:LOCALAPPDATA\BlockZero\bin\Block Zero.exe"
-```
+> If you run `Block Zero.exe` straight from inside the zip you get **`Qt6Gui.dll not found`**. Extract first — the DLLs must sit next to the exe.
 
 ### 🍎 macOS (Apple Silicon — M1/M2/M3/M4)
 
-**Easiest — one-line installer** (downloads wallet, fixes Gatekeeper, creates config):
+Easiest — one line in **Terminal** (downloads, fixes the "damaged" Gatekeeper warning, sets up config):
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/Rexemre/blockzero-ops/main/scripts/mainnet/install-macos.sh | bash
 open "$HOME/Applications/Block Zero.app"
 ```
 
-**Manual download:**
+Manual: download **`blockzero-*-macos-arm64.tar.gz`** → extract → drag **`Block Zero.app`** to **Applications** → **Right-click → Open** the first time.
 
-1. Download **`blockzero-*-macos-arm64.tar.gz`**
-2. Extract → drag **`Block Zero.app`** to **Applications**
-3. First launch: **Right-click → Open** (unsigned app — normal, not corruption)
+If macOS says *"Block Zero is damaged"*: `xattr -dr com.apple.quarantine "$HOME/Applications/Block Zero.app"` (Gatekeeper, not real corruption).
 
-If macOS says *"Block Zero is damaged and can't be opened"*:
+> **Intel Macs:** build from source (`doc/build-osx.md`).
+
+### 🐧 Linux desktop (with a screen)
+
+1. Download **`blockzero-*-linux-x64.tar.gz`** (or `linux-arm64`)
+2. Extract and install Qt6 runtime libraries:
 
 ```bash
-xattr -dr com.apple.quarantine "$HOME/Applications/Block Zero.app"
+tar -xzf blockzero-*-linux-x64.tar.gz
+cd blockzero-*-linux-x64
+sudo apt install -y libqt6widgets6 libqt6gui6 libqt6network6 libqrencode4 libgl1 libxkbcommon0
+./bin/block-zero        # the GUI wallet (needs a desktop / $DISPLAY)
 ```
 
-Or re-run: `install-macos.sh --force`
+> No screen (server/VPS)? Use the **CLI** instead → [1B](#1b-install-the-cli-no-gui).
 
-> **Intel Macs:** no prebuilt GUI — build from source (`doc/build-osx.md` in blockzero-core).
+➡ Continue at [Section 2: Create or open a wallet](#2-create-or-open-a-wallet).
+
+---
+
+## 1B. Install the CLI (no GUI)
+
+For servers/VPS with no screen. You get `bitcoind` (the node) and `bitcoin-cli` (commands). They use the **default mainnet folder automatically** — no `-datadir` needed.
 
 ### 🐧 Linux
 
-**Headless server (recommended):** use the CLI — no GUI, no Qt, no display needed.
-
 ```bash
-# Download from https://github.com/Rexemre/blockzero-core/releases/latest
-# Pick blockzero-*-linux-x64.tar.gz (or linux-arm64)
+# Pick linux-x64 or linux-arm64 from the releases page
+curl -LO https://github.com/Rexemre/blockzero-core/releases/latest/download/blockzero-LATEST-linux-x64.tar.gz
+# (or download in a browser: github.com/Rexemre/blockzero-core/releases/latest)
 tar -xzf blockzero-*-linux-x64.tar.gz
 cd blockzero-*-linux-x64
-
-mkdir -p ~/.blockzero-mainnet
-cp bitcoin.conf.example ~/.blockzero-mainnet/bitcoin.conf
-echo 'addnode=217.160.46.61:8210' >> ~/.blockzero-mainnet/bitcoin.conf
-
-./bin/bitcoind -datadir=~/.blockzero-mainnet -daemon
-./bin/bitcoin-cli -datadir=~/.blockzero-mainnet createwallet mywallet
-./bin/bitcoin-cli -datadir=~/.blockzero-mainnet -rpcwallet=mywallet getnewaddress
-# → copy the bz1q… address for mining
 ```
 
-Then pool mine with XMRig — no local wallet GUI needed: [how-to-mine.md](how-to-mine.md)
+### 🪟 Windows (server / no GUI)
 
-**GUI wallet (`bin/block-zero`):** included in the Linux release tarball, but needs **Qt6 runtime libraries** and a **display** (not ideal on a headless server).
+1. Download **`blockzero-*-windows-x64-cli.zip`** (the **`-cli`** one — smaller, no Qt)
+2. **Extract All…**
+3. Open **PowerShell** in the extracted folder. Commands below use `.\bin\bitcoind.exe` / `.\bin\bitcoin-cli.exe`.
 
-Ubuntu/Debian runtime deps:
+### 🍎 macOS (Terminal only)
 
-```bash
-sudo apt install libqt6widgets6 libqt6gui6 libqt6core6 libqt6network6 \
-  libqrencode4 libgl1 libxkbcommon0
-```
+The `install-macos.sh` one-liner above also installs `bitcoind` / `bitcoin-cli` into `~/.blockzero/bin/`.
 
-Then run `./bin/block-zero -datadir=~/.blockzero-mainnet` (requires `$DISPLAY`, or use X11 forwarding / a desktop).
-
-> On a server, **CLI + XMRig** is the normal setup. The GUI is for desktop Linux with a monitor.
-
-Full node details: [node-guide.md](node-guide.md)
+➡ Continue at [Section 2](#2-create-or-open-a-wallet) → CLI steps.
 
 ---
 
-## 2. First launch — welcome screen
+## 2. Create or open a wallet
 
-On first start the wallet shows a short setup wizard.
+### With the GUI
 
-| Choice | Who should pick it | Disk space |
-|--------|-------------------|------------|
-| **Use a full copy of the block chain** | You want to run a full node / solo mine | ~400 GB+ (grows over time) |
-| **Limit block chain storage to … GB** (prune) | Most users — wallet + pool mining only | ~5–50 GB (your choice) |
+**First launch** shows a short setup wizard:
 
-**Recommendation for beginners:** choose **Limit block chain storage** (prune). You do not need a full chain copy to receive BLOZ or to pool mine.
+| Choice | Pick if… | Disk |
+|--------|----------|------|
+| **Limit block chain storage** (prune) | You just want a wallet / to pool mine — **most people** | ~5–50 GB |
+| **Use a full copy of the block chain** | You want a full node / to solo mine | grows large |
 
-The wallet then creates a default wallet and starts syncing. You can use the **Receive** tab and copy your address while sync is still in progress — incoming payments are recorded once the relevant blocks are synced.
+**Beginners: choose "Limit block chain storage" (prune).** The wallet then auto-creates a default wallet and starts syncing.
 
----
+- **Create another wallet:** *File → Create Wallet…* → name it → (optional) tick **Encrypt** → Create.
+- **Open an existing wallet:** *File → Open Wallet…* → pick it from the list.
+- Encrypting later: *Settings → Encrypt Wallet*.
 
-## 3. Get your `bz1` address (Receive)
+You can copy your address (next step) even while it's still syncing.
 
-Your address is your account number on the network. You need it for mining payouts and for anyone sending you BLOZ.
+### Without the GUI (CLI)
 
-1. Open **Block Zero**
-2. Go to the **Receive** tab
-3. Click **Create new receiving address** (if none shown)
-4. **Copy** the address — it starts with **`bz1q…`**
-
-Use this address on [pool.bloz.org](https://pool.bloz.org) and in mining commands. See [How to Mine BLOZ](how-to-mine.md).
-
-**CLI alternative** (if `bitcoin-cli` is installed):
+Start the node once (it connects via the built-in seed), then create a wallet:
 
 ```bash
-bitcoin-cli -datadir=~/.blockzero-mainnet getnewaddress
+# Linux / macOS
+./bin/bitcoind -daemon                       # start node in background
+./bin/bitcoin-cli createwallet "mywallet"    # create a wallet named "mywallet"
 ```
-
-Windows:
 
 ```powershell
-& "$env:LOCALAPPDATA\BlockZero\bin\bitcoin-cli.exe" -datadir="$env:LOCALAPPDATA\BlockZeroMainnet" getnewaddress
+# Windows (CLI zip)
+.\bin\bitcoind.exe -daemon
+.\bin\bitcoin-cli.exe createwallet "mywallet"
 ```
+
+Useful commands:
+
+| Goal | Command |
+|------|---------|
+| List wallets on disk | `bitcoin-cli listwalletdir` |
+| Load an existing wallet | `bitcoin-cli loadwallet "mywallet"` |
+| See loaded wallets | `bitcoin-cli listwallets` |
+| Encrypt a wallet | `bitcoin-cli -rpcwallet="mywallet" encryptwallet "your-passphrase"` |
+| Stop the node | `bitcoin-cli stop` |
+
+> No `-datadir` or `-rpcport` needed — the tools use the default mainnet folder and port. Use `./bin/...` (Linux/macOS) or `.\bin\...exe` (Windows) from the extracted folder.
+
+---
+
+## 3. Get your `bz1` address
+
+Your address is your account number — share it to receive BLOZ and use it for mining payouts.
+
+**GUI:** **Receive** tab → **Create new receiving address** → **Copy**. It starts with **`bz1q…`**.
+
+**CLI:**
+
+```bash
+bitcoin-cli -rpcwallet="mywallet" getnewaddress
+# → bz1q...  (copy this)
+```
+
+You can make as many addresses as you like; they all belong to the same wallet.
+
+Use this address on [pool.bloz.org](https://pool.bloz.org) and in mining commands → [How to Mine BLOZ](how-to-mine.md).
 
 ---
 
 ## 4. Send BLOZ
 
-1. **Send** tab → paste the recipient's **`bz1…`** address
-2. Enter the **amount** in BLOZ
-3. Review the **fee** (higher fee = faster confirmation)
-4. Click **Send**
+**GUI:** **Send** tab → paste the recipient's **`bz1…`** address → enter amount → check the fee → **Send**.
 
-Double-check the address — **crypto transactions cannot be reversed**.
+**CLI:**
 
-Track outgoing payments on https://explorer.bloz.org
+```bash
+bitcoin-cli -rpcwallet="mywallet" sendtoaddress "bz1qRECIPIENT..." 1.5
+# (if encrypted, unlock first:)
+bitcoin-cli -rpcwallet="mywallet" walletpassphrase "your-passphrase" 60
+```
+
+> ⚠️ Double-check the address. **Crypto transactions cannot be reversed.** Track it on https://explorer.bloz.org.
 
 ---
 
 ## 5. Understand your balance
 
-| What you see | Meaning |
-|--------------|---------|
-| **Available** | BLOZ you can spend now |
-| **Pending / unconfirmed** | Payment seen on the network, not yet buried in a block |
-| **Immature** (mined coins) | Block reward not yet spendable — **100 blocks** (~17 hours) after the block was found |
+| Shown as | Meaning |
+|----------|---------|
+| **Available** | Spendable now |
+| **Pending / unconfirmed** | Seen by the network, not yet in a block |
+| **Immature** (mined coins) | Block reward, spendable **100 blocks (~17 h)** after it was found |
 
-Mining rewards (pool or solo) show as immature first, then become spendable after 100 confirmations.
+Mining rewards always show as *immature* first, then become spendable.
 
 ---
 
 ## 6. Sync & peers
 
-The status bar shows sync progress and peer count.
+The wallet must reach the network (peers ≥ 1).
 
-| Check | Where |
-|-------|-------|
-| Sync progress | Bottom of wallet window |
-| Peer count | Bottom-right (should be **≥ 1**) |
-| Block height | Compare with https://explorer.bloz.org |
+| Check | GUI | CLI |
+|-------|-----|-----|
+| Peers | bottom-right icon | `bitcoin-cli getconnectioncount` (≥ 1) |
+| Height | status bar vs [explorer](https://explorer.bloz.org) | `bitcoin-cli getblockcount` |
 
-**Stuck at launch day / 0 peers?** Newer releases embed the mainnet seed. If you still have 0 peers, add to `bitcoin.conf`:
+**Stuck at launch day / 0 peers?** Add the seed to `bitcoin.conf` and restart:
 
 ```ini
 addnode=217.160.46.61:8210
 ```
 
-| OS | `bitcoin.conf` path |
-|----|---------------------|
+| OS | `bitcoin.conf` location |
+|----|--------------------------|
 | Windows | `%LOCALAPPDATA%\BlockZeroMainnet\bitcoin.conf` |
 | macOS (script install) | `~/.blockzero-mainnet/bitcoin.conf` |
 | macOS (direct download) | `~/Library/Application Support/BlockZeroMainnet/bitcoin.conf` |
 | Linux | `~/.blockzero-mainnet/bitcoin.conf` |
 
-Restart the wallet after editing. In **Help → Debug window → Console**:
-
-```
-getconnectioncount   → should be ≥ 1
-getblockcount        → should match explorer height
-```
-
 ---
 
-## 7. Backup & security
+## 7. Backup & restore
 
-**You are your own bank.** If you lose your wallet file or passphrase, your BLOZ is gone.
+**You are your own bank.** Lose your wallet file or passphrase → your BLOZ is gone forever.
 
-### Encrypt your wallet
+### Encrypt (do this first)
 
-**Settings → Encrypt Wallet** → choose a strong passphrase. Required before backup on encrypted wallets.
+- **GUI:** *Settings → Encrypt Wallet* → strong passphrase.
+- **CLI:** `bitcoin-cli -rpcwallet="mywallet" encryptwallet "your-passphrase"`
 
-### Backup
+### Back up
 
-**File → Backup Wallet…** → save to a USB drive or encrypted cloud folder **outside** your PC.
+- **GUI:** *File → Backup Wallet…* → save the `.dat` to a USB stick or encrypted cloud folder **off this PC**.
+- **CLI:** `bitcoin-cli -rpcwallet="mywallet" backupwallet "/path/backup-mywallet.dat"`
 
-Also back up the whole data directory periodically:
+Also copy the whole wallet folder now and then:
 
-| OS | Wallet data folder |
-|----|-------------------|
-| Windows | `%LOCALAPPDATA%\BlockZeroMainnet\` |
-| macOS (script) | `~/.blockzero-mainnet/` |
-| macOS (direct) | `~/Library/Application Support/BlockZeroMainnet/` |
-| Linux | `~/.blockzero-mainnet/` |
+| OS | Wallet folder |
+|----|---------------|
+| Windows | `%LOCALAPPDATA%\BlockZeroMainnet\wallets\` |
+| macOS (script) | `~/.blockzero-mainnet/wallets/` |
+| macOS (direct) | `~/Library/Application Support/BlockZeroMainnet/wallets/` |
+| Linux | `~/.blockzero-mainnet/wallets/` |
 
-The `wallets/` subfolder holds your wallet files.
+### Restore a backup
+
+- **GUI:** *File → Open Wallet…*, or copy your backup into the `wallets/` folder and open it.
+- **CLI:** put the backup file in a folder and run `bitcoin-cli restorewallet "mywallet" "/path/backup-mywallet.dat"`.
 
 ### Rules
 
-- **Never** share your passphrase, `wallet.dat`, or private keys
-- **Never** download wallets or "recovery tools" from DMs or random sites
-- Only use official links: [official-links.md](official-links.md)
-- Verify downloads from **https://github.com/Rexemre/blockzero-core/releases**
+- **Never** share your passphrase, `wallet.dat`, or private keys.
+- **Never** download wallets or "recovery tools" from DMs or random sites — only [official links](official-links.md).
+- Verify downloads come from **https://github.com/Rexemre/blockzero-core/releases**.
 
 ---
 
 ## 8. Where files live (reference)
 
-| Item | Windows | macOS / Linux |
-|------|---------|---------------|
-| GUI app | `%LOCALAPPDATA%\BlockZero\bin\Block Zero.exe` | `~/Applications/Block Zero.app` |
-| Config | `%LOCALAPPDATA%\BlockZeroMainnet\bitcoin.conf` | `~/.blockzero-mainnet/bitcoin.conf` |
-| Wallet files | `%LOCALAPPDATA%\BlockZeroMainnet\wallets\` | `~/.blockzero-mainnet/wallets/` |
-| CLI tools | `%LOCALAPPDATA%\BlockZero\bin\` | `~/.blockzero/bin/` |
+| Item | Windows | macOS | Linux |
+|------|---------|-------|-------|
+| GUI app | `%LOCALAPPDATA%\BlockZero\bin\Block Zero.exe` | `~/Applications/Block Zero.app` | `./bin/block-zero` |
+| Data dir | `%LOCALAPPDATA%\BlockZeroMainnet\` | `~/Library/Application Support/BlockZeroMainnet/` | `~/.blockzero-mainnet/` |
+| Wallets | `…\BlockZeroMainnet\wallets\` | `…/BlockZeroMainnet/wallets/` | `~/.blockzero-mainnet/wallets/` |
+| Config | `…\BlockZeroMainnet\bitcoin.conf` | `…/BlockZeroMainnet/bitcoin.conf` | `~/.blockzero-mainnet/bitcoin.conf` |
 
-Scripts from [blockzero-ops](https://github.com/Rexemre/blockzero-ops) may also create `%LOCALAPPDATA%\BlockZeroMainnet\mining-address.txt` (Windows) or `~/.blockzero-mainnet/mining-address.txt` with your payout address.
+> The script installer on macOS uses `~/.blockzero-mainnet/` instead of the `Library` path. CLI tools omit `-datadir`, so they use the default folder automatically.
 
 ---
 
 ## 9. Troubleshooting
 
-Common first-run issues are covered in **[FAQ → Troubleshooting](faq.md#troubleshooting-install--first-run)**:
+Full list in **[FAQ → Troubleshooting](faq.md#troubleshooting-install--first-run)**:
 
-- macOS *"Block Zero is damaged"*
-- Windows `Qt6Gui.dll` / `Qt6Widgets.dll` not found
-- `Prune mode is incompatible with -txindex`
-- macOS `filesystem error: in equivalent`
-- Sync stuck / 0 peers
+- macOS *"Block Zero is damaged"* → Gatekeeper, run `install-macos.sh` or `xattr` command.
+- Windows `Qt6Gui.dll` not found → **extract the zip first**, run `Start Block Zero.bat`.
+- `Prune mode is incompatible with -txindex` → remove `txindex` from `bitcoin.conf`, or use the latest release.
+- Linux server `libQt6Widgets.so.6` missing → use the **CLI** ([1B](#1b-install-the-cli-no-gui)), not the GUI.
+- Sync stuck / 0 peers → add `addnode=217.160.46.61:8210` ([Section 6](#6-sync--peers)).
 
-Still stuck? **[Join Discord](https://discord.gg/FbJzrwAU2W)**
+Still stuck? **[Join Discord](https://discord.gg/FbJzrwAU2W)**.
 
 ---
 
@@ -260,6 +291,6 @@ Still stuck? **[Join Discord](https://discord.gg/FbJzrwAU2W)**
 
 Once you have your **`bz1`** address:
 
-→ **[How to Mine BLOZ](how-to-mine.md)** — pool mining (recommended) or solo, all operating systems.
+→ **[How to Mine BLOZ](how-to-mine.md)** — pool (recommended) or solo, every OS, step by step.
 
-Pool dashboard: https://pool.bloz.org
+Dashboard: https://pool.bloz.org

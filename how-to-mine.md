@@ -15,12 +15,10 @@ Block Zero (**BLOZ**) is mined with your **CPU** using RandomX on the live mainn
 
 Mining payouts go to **your** Block Zero address (`bz1q…`). You are your own bank — the pool never holds your coins.
 
-→ Full walkthrough: **[How to Use the Wallet](how-to-use-wallet.md)**
+1. Set up a wallet → **[How to Use the Wallet](how-to-use-wallet.md)** (GUI or CLI, any OS).
+2. Copy a **`bz1q…`** address: GUI **Receive** tab, or CLI `bitcoin-cli getnewaddress`.
 
-1. Download the **Block Zero wallet** for your OS from [Releases](https://github.com/Rexemre/blockzero-core/releases/latest).
-2. Open it → **Receive** tab → **copy your `bz1q…` address**.
-
-> CLI alternative: `bitcoin-cli getnewaddress`. Keep your wallet file and recovery info safe; never share private keys.
+> You don't need to keep the wallet running for **pool** mining — you just need the address. Keep your wallet backup safe; never share private keys.
 
 ---
 
@@ -142,7 +140,21 @@ cd blockzero-ops\scripts\mainnet
 |--------|--------|---------|
 | **Threads** | `-Threads 8` | auto |
 
-> Advanced: change your fund contribution with the node option `-devfundpercent=15` (min 10%) when starting `bitcoind`.
+### Solo from the GUI wallet (any OS)
+
+If you already run the **GUI** wallet as a full node (not prune) and it's synced with peers ≥ 1:
+
+1. **Window → Console** (or Help → Debug window → Console)
+2. Run:
+
+```
+getnewaddress
+generatetoaddress 1 bz1qYOURADDRESS 100000000 8
+```
+
+`100000000` = max hashing tries per call, `8` = threads (omit for auto). Repeat or loop the `generatetoaddress` line.
+
+> Advanced: change your fund contribution with the node option `-devfundpercent=15` (min 10%) when starting `bitcoind`. See [dev-fund.md](dev-fund.md).
 
 ---
 
