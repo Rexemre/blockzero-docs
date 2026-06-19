@@ -8,6 +8,47 @@ Mine **BLOZ** on the live mainnet in a few commands.
 
 ---
 
+## Step 1 — get your wallet address (do this first)
+
+Mining payouts go to **your** Block Zero address (`bz1q…`). You are your own bank — the pool never holds your coins.
+
+1. Download the **Block Zero wallet** for your OS: <https://github.com/Rexemre/blockzero-core/releases/latest>
+2. Open it → **Receive** tab → **copy your `bz1q…` address**.
+
+> CLI alternative: `bitcoin-cli getnewaddress`. The Linux/macOS `mine-pool.sh` script can also create one for you automatically.
+
+---
+
+## Step 2 — fastest start: XMRig (recommended, all platforms)
+
+[XMRig](https://github.com/xmrig/xmrig) is the standard, battle-tested RandomX CPU miner (huge pages / NUMA / thread tuning built in). One line downloads our `rx/blockzero` build and starts pool mining. Replace `bz1qYOURADDRESS` with your address from Step 1.
+
+**Linux** — run with `sudo` so it can reserve huge pages (much higher hashrate):
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/Rexemre/blockzero-ops/main/scripts/mainnet/install-xmrig.sh | sudo ADDRESS=bz1qYOURADDRESS bash
+```
+
+**macOS (Apple Silicon):**
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/Rexemre/blockzero-ops/main/scripts/mainnet/install-xmrig.sh | ADDRESS=bz1qYOURADDRESS bash
+```
+
+**Windows — PowerShell as Administrator:**
+
+```powershell
+$env:ADDRESS='bz1qYOURADDRESS'; irm https://raw.githubusercontent.com/Rexemre/blockzero-ops/main/scripts/mainnet/install-xmrig.ps1 | iex
+```
+
+> **Windows needs Administrator** so the installer can add a Defender exclusion — every CPU miner is flagged as "riskware" by antivirus. This is expected and safe (the binary is built in the open from [blockzero-ops](https://github.com/Rexemre/blockzero-ops/blob/main/xmrig-bz/patch.py)).
+
+Manual run: `xmrig -a rx/blockzero -o pool.bloz.org:3334 -u bz1qYOURADDRESS.rig -p x`
+
+Your hashrate shows on <https://pool.bloz.org> after the first **accepted share** (a minute or two while the RandomX dataset builds). Payouts are automatic: **PPLNS, 2% fee, min 0.5 BLOZ**.
+
+---
+
 ## Two steps — install vs wallet
 
 | Step | Script | What it does |
