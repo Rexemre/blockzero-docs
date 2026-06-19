@@ -147,6 +147,10 @@ and **`Block Zero.app`** on macOS. After `install-windows.ps1` it lives in
 
 Shows **BLOZ** balance, **Receive** tab (`bz1...`), peers and sync.
 
+> **Downloading the zip directly (without the scripts)?** **Extract it first**, then run
+> `Start Block Zero.bat` (or `bin\Block Zero.exe`). Do **not** launch the .exe from inside the
+> zip — Windows runs it without its DLLs and you get `Qt6Widgets.dll not found`.
+
 To mine from the GUI: **Window → Console** → `getnewaddress` → `generatetoaddress 1 <bz1-address>`.  
 For hands-off mining, use `mine-mainnet.ps1` or `-Pool`.
 

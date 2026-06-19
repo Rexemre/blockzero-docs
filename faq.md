@@ -98,9 +98,11 @@ You chose "limit block chain storage" (prune) on the welcome screen while the co
 `txindex`. Fixed in the latest release. To unblock an existing install, remove the `txindex`
 line from `bitcoin.conf` (macOS: `~/Library/Application Support/BlockZeroMainnet/bitcoin.conf`).
 
-**Windows: `Qt6Gui.dll not found`**
-Run `Block Zero.exe` from **inside** its `bin\` folder (don't move the .exe away from its DLLs),
-or re-download the latest `windows-x64.zip` (the latest build bundles the complete Qt runtime).
+**Windows: `Qt6Gui.dll` / `Qt6Widgets.dll` not found** (often a System Error you must reboot to clear)
+**Extract the zip first** — right-click the `.zip` → *Extract All…* — then run the wallet from the
+extracted folder (double-click **`Start Block Zero.bat`**, or `bin\Block Zero.exe`). Running it
+straight from inside the zip launches the `.exe` without its DLLs and triggers this error. Always
+keep `Block Zero.exe` next to its DLLs in `bin\`.
 
 **Mining hashrate is very low (especially on EPYC / Threadripper / big servers)**
 RandomX needs **huge pages**. Run `sudo ./mine-pool.sh ...` once so it can reserve them, and
