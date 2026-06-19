@@ -279,7 +279,7 @@ Full list in **[FAQ → Troubleshooting](faq.md#troubleshooting-install--first-r
 
 - macOS *"Block Zero is damaged"* → Gatekeeper, run `install-macos.sh` or `xattr` command.
 - Windows `Qt6Gui.dll` not found → **extract the zip first**, run `Start Block Zero.bat`.
-- `Prune mode is incompatible with -txindex` → remove `txindex` from `bitcoin.conf`, or use the latest release.
+- `Prune mode is incompatible with -txindex` → a stale `bitcoin.conf` from an older install. **rc34+ auto-fixes it**; on older builds delete the `txindex=1` line (or the whole `bitcoin.conf`). See [FAQ](faq.md#prune-mode-is-incompatible-with--txindex).
 - Linux server `libQt6Widgets.so.6` missing → use the **CLI** ([1B](#1b-install-the-cli-no-gui)), not the GUI.
 - Sync stuck / 0 peers → add `addnode=217.160.46.61:8210` ([Section 6](#6-sync--peers)).
 

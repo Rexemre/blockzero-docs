@@ -82,15 +82,28 @@ First-run bug in older builds. Download the latest release.
 
 ### Prune mode is incompatible with `-txindex`
 
-Remove the `txindex` line from `bitcoin.conf`:
+This is a **stale `bitcoin.conf` from an older install** that still contains
+`txindex=1`. Updating the wallet doesn't rewrite a config that's already on disk,
+so the error can persist even on the latest download.
 
-| OS | Path |
-|----|------|
+**Wallet v1.0.0-rc34+ fixes this automatically** — on launch it comments out the
+old `txindex` line for you. Just download the latest release and reopen.
+
+**On an older build (or to fix it now), remove the `txindex` line yourself:**
+
+1. Open `bitcoin.conf` (path below) in a text editor.
+2. Delete the line `txindex=1` (or simply delete the whole file — the wallet
+   recreates a clean one on next launch).
+3. Save and reopen Block Zero.
+
+| OS | `bitcoin.conf` path |
+|----|---------------------|
 | Windows | `%LOCALAPPDATA%\BlockZeroMainnet\bitcoin.conf` |
-| macOS (script) | `~/.blockzero-mainnet/bitcoin.conf` |
-| macOS (direct) | `~/Library/Application Support/BlockZeroMainnet/bitcoin.conf` |
+| macOS (script install) | `~/.blockzero-mainnet/bitcoin.conf` |
+| macOS (direct download) | `~/Library/Application Support/BlockZeroMainnet/bitcoin.conf` |
+| Linux | `~/.blockzero-mainnet/bitcoin.conf` |
 
-Or download the latest release (new installs no longer add `txindex`).
+> Your coins and wallet are safe — `bitcoin.conf` is just a settings file, separate from your wallet.
 
 ### Windows: `Qt6Gui.dll` / `Qt6Widgets.dll` not found
 
