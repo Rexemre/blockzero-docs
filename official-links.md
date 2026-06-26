@@ -45,7 +45,8 @@ Use these URLs only. **Third-party pools, explorers, and download sites are not 
 | [blockzero-bridge](https://github.com/Rexemre/blockzero-bridge) | BLOZ ↔ wBLOZ bridge |
 | [blockzero-wallet](https://github.com/Rexemre/blockzero-wallet) | Wallet doc hub |
 
-**Releases (binaries):** https://github.com/Rexemre/blockzero-core/releases/latest  
+**Windows wallet (1-click installer):** https://github.com/Rexemre/blockzero-core/releases/latest/download/blockzero-windows-x64-setup.exe  
+**All releases (binaries):** https://github.com/Rexemre/blockzero-core/releases/latest  
 **Get started:** [how-to-use-wallet.md](how-to-use-wallet.md) → [how-to-mine.md](how-to-mine.md) · [FAQ](faq.md)
 
 ---

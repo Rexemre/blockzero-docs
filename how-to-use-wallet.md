@@ -37,6 +37,16 @@ Always use the **[latest release](https://github.com/Rexemre/blockzero-core/rele
 
 ### 🪟 Windows
 
+**Easiest — one-click installer (recommended):**
+
+1. Download **[`blockzero-windows-x64-setup.exe`](https://github.com/Rexemre/blockzero-core/releases/latest/download/blockzero-windows-x64-setup.exe)** — one file.
+2. **Double-click it → Install.** No admin needed; a **Block Zero** icon is added to your Desktop and Start menu.
+3. Launch **Block Zero** from the Desktop / Start menu.
+
+> Windows may show a blue **"Windows protected your PC"** (SmartScreen) prompt because the app isn't code-signed yet — click **More info → Run anyway**. Antivirus may also flag the optional built-in miner; that's expected for every CPU miner.
+
+**Alternative — portable zip:**
+
 1. Download **`blockzero-*-windows-x64.zip`**
 2. **Right-click → Extract All…** ← important, don't skip
 3. Open the extracted folder → double-click **`Start Block Zero.bat`** (or `bin\Block Zero.exe`)
