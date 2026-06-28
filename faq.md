@@ -58,6 +58,12 @@ No. Genesis carries no spendable allocation. Coins are mined after launch. Genes
 
 **Can I use a Bitcoin (`bc1`) address?** No — BLOZ uses **`bz1`** addresses only.
 
+**Windows: installer `.exe` or `.zip`?** Both contain the **exact same wallet** (same binary, same Qt + VC++ runtime, same features and security) — only the delivery differs:
+- **`...-setup.exe` (recommended)** — one file, double-click → Install. No admin needed; adds a Desktop + Start Menu shortcut and an uninstaller.
+- **`...-windows-x64.zip` (portable)** — no install. **Extract All first**, then run `Start Block Zero.bat`. Don't run the `.exe` from inside the zip (you'll get `Qt6Gui.dll not found`).
+
+Each download has a matching `.sha256` to verify it. Both currently trigger a SmartScreen "unknown publisher" prompt (not code-signed yet) → **More info → Run anyway**.
+
 ---
 
 ## Troubleshooting (install & first run)
