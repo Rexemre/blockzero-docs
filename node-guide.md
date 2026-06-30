@@ -3,9 +3,6 @@
 How to build and run a Block Zero node from source. Block Zero is an independent,
 Bitcoin-inspired, RandomX (CPU) proof-of-work network. It is not Bitcoin.
 
-> Block Zero is an experimental open-source project. BLOZ has no guaranteed value,
-> no promised liquidity and no expected return.
-
 ## Requirements
 
 - Linux (Ubuntu 22.04+ recommended). Builds also work on macOS; Windows is best via WSL2.

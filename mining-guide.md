@@ -107,6 +107,6 @@ TBLOZ for development — see [quickstart-mining.md § Testnet](quickstart-minin
 
 ---
 
-## Honesty note
+## Note
 
-BLOZ has no promised value or return. Mining is voluntary — for participation in an open, CPU-fair network experiment.
+Mining is voluntary — participation in an open, CPU-fair proof-of-work network.

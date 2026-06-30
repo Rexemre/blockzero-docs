@@ -77,5 +77,3 @@ Wallet guides repo: [blockzero-wallet](https://github.com/Rexemre/blockzero-wall
 | [blockzero-ops](https://github.com/Rexemre/blockzero-ops) | Scripts & infrastructure |
 | [blockzero-wallet](https://github.com/Rexemre/blockzero-wallet) | Wallet doc hub |
 | [blockzero-bridge](https://github.com/Rexemre/blockzero-bridge) | wBLOZ bridge |
-
-> **Warning:** Copycat sites and third-party pools are **not affiliated** with Block Zero. [Read the full warning →](official-links.md#warning-copycat-sites--unofficial-services)
