@@ -14,6 +14,8 @@ Mainnet live since 2026-06-06 · seed `217.160.46.61:8210`
 2. **[How to Mine BLOZ](how-to-mine.md)** — pool mining (XMRig) or solo, all OSes
 3. **[FAQ](faq.md)** — common questions & troubleshooting
 
+**New in October 2026:** wallet rc38, bridge address checks, pool orphan handling and new dashboard numbers, free community projects with the Verified badge → **[CHANGELOG](CHANGELOG.md)**
+
 ---
 
 ## Guides
@@ -26,6 +28,8 @@ Mainnet live since 2026-06-06 · seed `217.160.46.61:8210`
 | **How RandomX mining works** | [mining-guide.md](mining-guide.md) |
 | **Run a node** | [node-guide.md](node-guide.md) |
 | **Bridge (wBLOZ on BSC)** | [bridge-guide.md](bridge-guide.md) |
+| **Community projects & Verified badge** | [community-projects.md](community-projects.md) |
+| **What's new** | [CHANGELOG.md](CHANGELOG.md) |
 | **FAQ** | [faq.md](faq.md) |
 
 ---
