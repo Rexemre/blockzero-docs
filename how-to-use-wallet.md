@@ -94,7 +94,8 @@ For servers/VPS with no screen. You get `bitcoind` (the node) and `bitcoin-cli` 
 
 ```bash
 # Pick linux-x64 or linux-arm64 from the releases page
-curl -LO https://github.com/Rexemre/blockzero-core/releases/latest/download/blockzero-LATEST-linux-x64.tar.gz
+VER=$(curl -fsSL https://api.github.com/repos/Rexemre/blockzero-core/releases/latest | sed -n 's/.*"tag_name": *"\([^"]*\)".*/\1/p')
+curl -LO "https://github.com/Rexemre/blockzero-core/releases/download/$VER/blockzero-$VER-linux-x64.tar.gz"
 # (or download in a browser: github.com/Rexemre/blockzero-core/releases/latest)
 tar -xzf blockzero-*-linux-x64.tar.gz
 cd blockzero-*-linux-x64

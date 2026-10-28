@@ -48,7 +48,7 @@ cd blockzero-ops\scripts\mainnet
 | Stratum | `wss://pool.bloz.org/stratum` |
 | Worker | `bz1YOURADDRESS.pc` |
 | Password | `x` |
-| Payout | PPLNS, 2% fee, min 0.5 BLOZ |
+| Payout | PPLNS, 0% fee, min 0.5 BLOZ |
 
 Node sync is **not** required for pool mining with XMRig. With `-Pool`, the script starts `bitcoind` briefly to create the wallet.
 

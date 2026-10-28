@@ -7,7 +7,7 @@ Members of the Block Zero community can list their own project on **https://bloz
 - **Only verified members can open a project.** Verifying is free and takes three steps in your profile (https://bloz.org/community/account/):
   1. Connect your wallet (MetaMask login, one free signature, no transaction).
   2. Link your Discord account (button or code).
-  3. Prove one BLOZ address by signing a short text. Only a **Legacy address** can sign (bz1… SegWit and Taproot cannot). In the wallet console: `getnewaddress "" legacy`, then File > Sign message or `signmessage <address> "<text>"`. Coins never move.
+  3. Prove one BLOZ address by signing a short text. Only a **Legacy address** (starts with `B`) can sign (bz1… SegWit and Taproot cannot). In the wallet open Window > Console: `getnewaddress "" legacy`, then File > Sign message or `signmessage <address> "<text>"`. Coins never move.
 - **Group joining options:** Open / Verified only / Request & approval / Verified + approval.
 - **Likes:** everyone with a connected wallet can like projects.
 
