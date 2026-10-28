@@ -15,6 +15,7 @@ Use these URLs only.
 | **Block explorer (mainnet)** | https://explorer.bloz.org | BLOZ chain |
 | **Block explorer (testnet)** | https://texplorer.bloz.org | TBLOZ dev/test |
 | **Bridge (BLOZ ↔ wBLOZ)** | https://bridge.bloz.org | BSC wrap / unwrap |
+| **Community projects** | https://bloz.org/community | Free project listings for verified members ([guide](community-projects.md)) |
 
 ## Network
 
