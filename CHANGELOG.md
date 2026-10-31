@@ -6,6 +6,13 @@ Notable changes to Block Zero (BLOZ) software and services. Newest first.
 
 ## What's new — October 2026
 
+### Community groups: on-chain treasuries and votes (test chain, 31 October)
+
+- **Group governance contracts** are live on the public Block Zero **test chain** (chain id 97097, RPC `https://bloz.org/testchain-rpc`, test coins only): every group can switch on a treasury that pays out **only after a passed on-chain vote** and a timelock; anyone may trigger the payout, nobody on the site can move the money. Counting modes: one person one vote, one BLOZ one vote, logarithmic, or double majority.
+- **Payouts are wBLOZ only.** The treasury has no path for BNB or any other token (a plain BNB transfer reverts, a proposal naming another token reverts, no rescue function).
+- **Founder settings:** the group wallet's address, wBLOZ balance, payment proposals and payouts (with transaction links) can be shown to everyone or to members only. Individual votes always stay inside the group.
+- Sources, addresses and the full test matrix with every transaction hash: [governance/](governance/) · [test report](governance/testnet-report-2026-10-31.md).
+
 ### Wallet & node ([blockzero-core releases](https://github.com/Rexemre/blockzero-core/releases))
 
 No consensus or network changes in any of these releases. Each one is a safe drop-in upgrade.
