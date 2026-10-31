@@ -4,7 +4,7 @@
 
 **Modern BTC code. A second chance at Genesis.**
 
-Block Zero is an independent proof-of-work chain — built on Bitcoin Core v31, mined with RandomX on ordinary CPUs, launched with no presale, no premine, and no insider allocation. Fair from block one.
+Block Zero is an independent proof-of-work chain — built on Bitcoin Core v31, mined with RandomX on ordinary CPUs, launched with no presale, no premine, and no team allocation at launch. Fair from block one; a fixed share of each block funds the public, auditable [Development Fund](https://bloz.org/community/fund/) that pays contributors.
 
 ## Is this Bitcoin?
 
@@ -24,7 +24,7 @@ No. RandomX is CPU-bound. A modern multi-core CPU is what matters.
 
 ## Was there a premine or ICO?
 
-No. Genesis carries no spendable allocation. Coins are mined after launch. Genesis is reproducible from public source — see [genesis-spec.md](genesis-spec.md).
+No. Genesis carries no spendable allocation. Coins are mined after launch. Since block 1500 a fixed share of every block (20% by default, 10% consensus minimum, deducted from the subsidy, no extra coins) goes to the openly visible Development Fund, which pays contributors; 103,268 BLOZ paid out so far, every payment listed at https://bloz.org/community/fund/. Genesis is reproducible from public source — see [genesis-spec.md](genesis-spec.md).
 
 ## Genesis block hashes
 
