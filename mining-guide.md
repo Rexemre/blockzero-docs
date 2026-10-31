@@ -103,7 +103,7 @@ TBLOZ for development — see [quickstart-mining.md § Testnet](quickstart-minin
 
 - Reward share is proportional to your CPU hashrate vs the network.
 - As more miners join, each participant's share shrinks — like early CPU-era Bitcoin.
-- No premine, no ICO, no founder allocation. Coins are mined after genesis.
+- No premine, no ICO, no founder allocation at launch. Coins are mined after genesis. A fixed share of each block (20% by default, 10% minimum) goes to the public [Development Fund](https://bloz.org/community/fund/), which pays contributors and is fully auditable.
 
 ---
 

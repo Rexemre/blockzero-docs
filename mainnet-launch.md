@@ -100,6 +100,6 @@ See also: [mainnet-seed-node.md](https://github.com/Rexemre/blockzero-ops/blob/m
 - [x] IONOS cloud firewall allows TCP 8210 (verified externally)
 - [x] Explorer pointed at mainnet (`explorer.bloz.org`; testnet at `texplorer.bloz.org`)
 - [x] Docs/website show "not Bitcoin", no investment/ICO language
-- [x] Disclaimer: no premine, no presale, no founder allocation
+- [x] Disclaimer: no premine, no presale, no founder allocation at launch (a fixed share of each block funds the public Development Fund from block 1500)
 
 If any item is red, delay and publish the blocker transparently.
