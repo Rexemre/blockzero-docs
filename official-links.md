@@ -12,10 +12,23 @@ Use these URLs only.
 |---------|-----|-------|
 | **Website** | https://bloz.org | Project homepage |
 | **Mining pool** | https://pool.bloz.org | Official pool (PPLNS, RandomX CPU mining) |
+| **Wallet download** | https://bloz.org/wallet/ | Windows, Linux, macOS |
 | **Block explorer (mainnet)** | https://explorer.bloz.org | BLOZ chain |
 | **Block explorer (testnet)** | https://texplorer.bloz.org | TBLOZ dev/test |
 | **Bridge (BLOZ ↔ wBLOZ)** | https://bridge.bloz.org | BSC wrap / unwrap |
 | **Community projects** | https://bloz.org/community | Free project listings for verified members ([guide](community-projects.md)) |
+
+## Buy and track wBLOZ
+
+| Service | URL | Notes |
+|---------|-----|-------|
+| **Buy BLOZ guide** | https://bloz.org/buy/ | Official guide: PancakeSwap, MetaMask swap, contract, safety |
+| **wBLOZ contract (BSC, BEP-20)** | `0x395B11E87ac0630aF9DC32520f411dB17C13F24C` | Always verify before trading |
+| **PancakeSwap** | https://pancakeswap.finance/swap?chain=bsc&outputCurrency=0x395B11E87ac0630aF9DC32520f411dB17C13F24C | Main market |
+| **GeckoTerminal** | https://www.geckoterminal.com/bsc/pools/0x5cd19d394b15f5fc23679cbd84354300be02df86 | Chart and trades (tracked) |
+| **CoinMarketCap DEX** | https://dex.coinmarketcap.com/token/bsc/0x395b11e87ac0630af9dc32520f411db17c13f24c/ | Token data page (tracked, not a regular CoinMarketCap listing) |
+
+No partnership with or endorsement by these services. Small liquidity, high risk, not investment advice. The team publishes no official price.
 
 ## Network
 
@@ -32,6 +45,7 @@ Use these URLs only.
 |---------|-----|
 | **Discord** | https://discord.gg/FbJzrwAU2W |
 | **X (Twitter)** | https://x.com/Block_Zero_2009 |
+| **Bluesky** | https://bsky.app/profile/blockzero.bsky.social |
 
 ## GitHub
 
