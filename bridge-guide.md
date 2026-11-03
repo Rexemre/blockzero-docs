@@ -37,17 +37,42 @@ This is a **custodial bridge** with **no service fee** (0% on wrap and unwrap):
 
 Rule: `bridge wallet BLOZ balance ≥ wBLOZ.totalSupply()`.
 
-### Admin keys
+### Admin keys and roles (checked on-chain, 3 November 2026)
 
 | Role | Address | Can do |
 |------|---------|--------|
-| Deployer / admin | `0x05099631D705210ab9B62fd696111A27446e1117` | Pause contracts, grant/revoke roles |
-| Claim signer | same as operator | Sign wrap claims off-chain only |
-| Minter on-chain | `BlozWrapClaim` contract | Mint wBLOZ after valid claim |
+| `DEFAULT_ADMIN_ROLE` on wBLOZ (deployer) | `0x05099631D705210ab9B62fd696111A27446e1117` | Pause contracts, grant/revoke roles (including `MINTER_ROLE`) |
+| Claim signer | same address | Signs wrap claims off-chain only |
+| `MINTER_ROLE` on wBLOZ | `BlozWrapClaim` `0x03cE8aA17Fa59E62Fd7E5af327f8b4AE47091727` | Mints wBLOZ after a valid claim; the only holder of the role |
 
-The operator EOA does **not** hold `MINTER_ROLE` directly — only the claim contract can mint.
+The deployer does **not** hold `MINTER_ROLE` itself. But it is the admin of the wBLOZ contract, so it **can grant itself** the
+minter role at any time. It is one key, no multisig, no timelock. It did this exactly twice, for the two refunds listed below
+(grant role, mint, renounce role, all visible on BscScan). Because of this, the honest guarantee is not "nobody can mint" but:
+the team commits to mint only against BLOZ held in the reserve, and anyone can check that the reserve covers the supply.
 
-**No third-party audit yet.** Contracts are open source and verified on BscScan — review source before trusting large amounts.
+**No third-party audit yet.** Contracts are open source and verified on BscScan, review the source before trusting large amounts.
+
+### How minting and burning work
+
+- **Wrap = mint.** Real BLOZ arrive at the bridge reserve wallet on the Block Zero chain. After 6 confirmations the server signs a
+  one-time claim, you submit it, and `BlozWrapClaim` mints exactly that amount of wBLOZ to your address.
+- **Unwrap = burn.** You burn wBLOZ on `BlozBridge`. The server then pays the same amount of BLOZ (minus the 0.00001 BLOZ network
+  fee) from the reserve to the `bz1...` address you entered.
+- Therefore wBLOZ cannot be minted freely: supply follows the reserve 1:1. Check it yourself with
+  `https://bridge.bloz.org/api/status` (`bridgeBloz` against the wBLOZ supply, field `backed`) or `totalSupply()` on BscScan.
+
+### Refunds of burned wBLOZ (2026)
+
+An unwrap burns wBLOZ first and pays BLOZ afterwards. If the `bz1...` address typed into the unwrap is invalid (a typo), the BLOZ
+cannot be paid. The burned amount is then re-minted to the sender, so the supply is backed 1:1 again. This happened twice, both
+for 20 wBLOZ, both after a typo in the receive address:
+
+| Date (UTC) | Re-mint transaction |
+|------------|---------------------|
+| 23 September 2026 (unwrap of 11 September) | [`0x3026e154...57cd`](https://bscscan.com/tx/0x3026e154f41b5b8184bc40084791e1981c4744be3e3bbb68e960febb327457cd) |
+| 22 October 2026 (unwrap of 4 October) | [`0xc2b7e497...4f1c`](https://bscscan.com/tx/0xc2b7e4972112b18475ad126fee7346d501d8b8f04eeaea2d2cf8c22d1c844f1c) |
+
+Since 22 October the relayer checks the address before the unwrap is processed, and an invalid address is queued for refund.
 
 ---
 

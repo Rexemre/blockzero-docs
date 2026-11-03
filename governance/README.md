@@ -5,7 +5,23 @@ treasury and on-chain votes. A payout from a group treasury happens **only** whe
 has run out and nothing is paused; then **anyone** may trigger it. Nobody on the site, not the founder, not the server,
 not the project lead, can move money out of a treasury.
 
-**Status (31 October 2026): test chain only, test coins only.** Mainnet will follow only after an external review.
+**Status (3 November 2026): live on BNB Smart Chain mainnet (chain 56), wBLOZ only; also on the test chain below.** Governor v1
+was deployed on 1 November 2026, governor v2 (votes count the wBLOZ in the member's own wallet, no deposit) on 2 November 2026.
+The deployment has **no external audit**. Admin of the timelock and guardian are one wallet (the founder's
+`0x05099631D705210ab9B62fd696111A27446e1117`), there is no multisig yet. The group wallets on the BLOZ chain (e.g. the Community
+Fund) are not controlled by these contracts.
+
+### Mainnet addresses (BSC 56)
+
+| | Address |
+|---|---|
+| Governor v2 (`BlozSnapshotGovernor`, in use) | `0x55e2C0c1A00dC3082446881263018bf31931601B` |
+| Governor v1 (empty, kept) | `0x987C46c76CA8250D7155f5558183Ee8A893Beae4` |
+| Timelock (2 days) | `0x16D3488D51ef9BE73b9Cd81e465452a64dE57184` |
+| Voter ID | `0xacc5765b0Af84247e6F3A00D8BdA55721675A586` |
+| Treasury implementation v2 | `0xA736a81BeEb54bB28df15355d907192B02466609` |
+| Token | wBLOZ `0x395B11E87ac0630aF9DC32520f411dB17C13F24C` (cap 25,000 per proposal) |
+
 
 ## What the contracts enforce
 

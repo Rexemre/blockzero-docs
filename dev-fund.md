@@ -45,3 +45,9 @@ deduction.
 Nothing to do — the pool includes the fund output in the blocks it builds.
 Pool shares and payouts are unaffected; the deduction comes out of the block
 subsidy before payout distribution, like for solo miners.
+
+## Growth Fund and Community Fund
+
+Parts of the Development Fund's income are moved on to a Growth Fund and a Community Fund, each with its own wallet. Payouts to
+contributors and these transfers are listed with balances on the public page https://bloz.org/community/fund (live data, check there
+instead of relying on numbers quoted elsewhere).
